@@ -41,20 +41,20 @@
             Pesquisa
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Autônomo</a>
-            <a class="dropdown-item" href="#">Agregado</a>
-            <a class="dropdown-item" href="#">Frota</a>
-            <a class="dropdown-item" href="#">Individual</a>
-            <a class="dropdown-item" href="#">Veículo</a>
-            <a class="dropdown-item" href="#">Empresa</a>
-            <a class="dropdown-item" href="#">Boletim de Ocorrência</a>
-            <a class="dropdown-item" href="#">CNH</a>
-            <a class="dropdown-item" href="#">Pesquisas por Excel</a>
-            <a class="dropdown-item" href="#">Consultas Disponíveis</a>
+            <a class="dropdown-item" href="/pesquisa/autonomo">Autônomo</a>
+            <a class="dropdown-item" href="/pesquisa/agregado">Agregado</a>
+            <a class="dropdown-item" href="/pesquisa/frota">Frota</a>
+            <a class="dropdown-item" href="/pesquisa/individual">Individual</a>
+            <a class="dropdown-item" href="/pesquisa/veiculo">Veículo</a>
+            <a class="dropdown-item" href="/pesquisa/empresa">Empresa</a>
+            <a class="dropdown-item" href="/pesquisa/boletim">Boletim de Ocorrência</a>
+            <a class="dropdown-item" href="/pesquisa/cnh">CNH</a>
+            <a class="dropdown-item" href="/pesquisa/excel">Pesquisas por Excel</a>
+            <a class="dropdown-item" href="/pesquisa/consulta">Consultas Disponíveis</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/clients/listagem">Renovação</a>
+          <a class="nav-link" href="/renovacao/registro">Renovação</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -62,7 +62,7 @@
             Relatório
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Registros Recentes</a>
+            <a class="dropdown-item" href="/relatorio/recentes">Registros Recentes</a>
             <a class="dropdown-item" href="#">Buscar Registros</a>
             <a class="dropdown-item" href="#">Relatório Excel</a>
           </div>
@@ -104,12 +104,11 @@
       </ul>
     </div>
   </nav>
-  <div class="navbar-sub">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6"> Empresa: NNA TRANSPORTES EIRELI </div>
-        <div class="col-md-6"> Usuário: NNA TRANSPORTES EIRELI </div>
-      </div>
+  </div>
+  <div id="subnavbar" class="col-md-8 offset-md-2 navbar-sub">
+    <div class="row">
+      <div class="col-md-6"> Usuário: EMPRESA </div>
+      <div class="col-md-6"> Usuário: USUÁRIO </div>
     </div>
   </div>
 </header>
@@ -134,7 +133,7 @@
 
 </body>
 <script>
-  $.fn.select2.defaults.set("theme", "bootstrap4");
+  $.fn.select2.defaults.set("theme", "bootstrap5");
   $(document).ready(function() {
     $('#client_id').select2();
   });

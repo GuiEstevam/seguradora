@@ -1,9 +1,14 @@
 @extends('layouts.main')
-@section('title', 'Avisos')
+@section('title', 'Pesquisa - Autônomo')
 @section('content')
-  <div id="event-create-container" class="col-md-7 offset-md-2 border">
+  <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <form action="/projetos" method="POST" enctype="multipart/form-data">
       @csrf
+      <div class="row">
+        <div class="col">
+          Pesquisa / Autônomo
+        </div>
+      </div>
       <div class="row mt-3 mb-3">
         <div class="col-md-5">
           <label class="toggle">
@@ -26,7 +31,8 @@
           <div class="input-group">
             <input type="text" class="form-control">
             <div class="input-group-append">
-              <button class="btn btn-primary" type="button">Verificar</button>
+              <button class="btn btn-primary" type="button"><ion-icon class="sync"
+                  name="sync-outline"></ion-icon>Verificar</button>
             </div>
           </div>
         </div>

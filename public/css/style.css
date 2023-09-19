@@ -50,6 +50,11 @@ header {
     padding: 10px;
     width: 275px;
 }
+.navbar-sub{
+    background-color: #ccc;
+    border-bottom: 1px solid #ccc;
+    font-weight: 500;
+}
 
 /* Search Container */
 #search-container {
@@ -124,6 +129,9 @@ header {
 /* Event create page */
 #event-create-container {
     padding: 30px;
+    -webkit-box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
+-moz-box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
+box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 }
 
 #event-create-container label {
@@ -248,65 +256,14 @@ header {
     text-align: center !important;
 }
 
-/* Create profile page */
-.experienceControl ion-icon {
+.sync{
     font-size: 20px;
+    margin-bottom: -3px;
+    margin-right:3px;
 }
 
-/* Show profile page */
-
-#profile-info-container h1 {
-    font-size: 34px;
-    font-weight: 900;
-    margin-top: 30px;
-}
-#profile-info-container {
-    font-size: 34px;
-    font-weight: 900;
-}
-
-#profile-info-container p {
-    margin: 0;
-    font-size: 20px;
-    display: flex;
-    font-weight: 500;
-}
-
-#profile-info-container h3,
-#description-container h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#profile-info-container ion-icon {
-    font-size: 26px;
-    color: #87ba3f;
-    margin-right: 5px;
-}
-
-#profile-info-container #event-submit {
-    margin: 20px 0;
-}
-
-#profile-description-container {
-    font-size: 20px;
-    margin-top: 30px;
-}
-
-#profile-tags-list {
-    list-style: none;
-    padding-left: 0;
-}
-
-#profile-tags-list li {
-    display: flex;
-    font-size: 20px;
-    font-weight: 400;
-}
-
-#edit-profile-button {
-    padding-left: 0px !important;
+#renew{
+    text-align: center;
 }
 
 /* footer */
@@ -384,4 +341,16 @@ body {
   margin-left: 5px;
   position: relative;
   top: 2px;
+}
+
+#subnavbar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius:10px;
+    border: #212121;
+    -webkit-box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
+-moz-box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
+box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 }

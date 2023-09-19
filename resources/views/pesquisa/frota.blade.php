@@ -1,12 +1,12 @@
 @extends('layouts.main')
-@section('title', 'Pesquisa - Agregado')
+@section('title', 'Pesquisa - Frota')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <form action="/projetos" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col">
-          Pesquisa / Agregado
+          Pesquisa / Frota
         </div>
       </div>
       <div class="row mt-3 mb-3">

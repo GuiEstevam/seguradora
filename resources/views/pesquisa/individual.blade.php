@@ -1,12 +1,12 @@
 @extends('layouts.main')
-@section('title', 'Pesquisa - Agregado')
+@section('title', 'Pesquisa - Individual')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <form action="/projetos" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col">
-          Pesquisa / Agregado
+          Pesquisa / Individual
         </div>
       </div>
       <div class="row mt-3 mb-3">
@@ -21,7 +21,7 @@
           <label class="toggle">
             <input class="toggle-checkbox" type="checkbox">
             <div class="toggle-switch"></div>
-            <span class="toggle-label">Enviar pesquisa de vitimologia</span>
+            <span class="toggle-label">Enviar pesquisa de Análise de Risco</span>
           </label>
         </div>
       </div>
@@ -99,39 +99,6 @@
         <div class="col-md-4">
           <label>Data de emissão</label>
           <input type="date" name="compliance_date" class="form-control" value="{{ date('Y-m-d') }}" required />
-        </div>
-      </div>
-      <hr>
-      <h5>Carteira nacional de habilitação (CNH)</h5>
-      <div class="row">
-        <div class="col-md-4 mt-1">
-          <label>CNH</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-md-2">
-          <label>UF</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-md-4 mt-1">
-          <label>Data da 1ª habilitação</label>
-          <input type="date" name="compliance_date" class="form-control" value="{{ date('Y-m-d') }}" required />
-        </div>
-        <div class="col-md-4 mt-2">
-          <label>Data de validade</label>
-          <input type="date" name="compliance_date" class="form-control" value="{{ date('Y-m-d') }}" required />
-        </div>
-        <div class="col-md-4 mt-2">
-          <label>Código de segurança</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-md-1 mt-2">
-          <label>Tipo</label>
-          <select class="form-control">
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
-          </select>
         </div>
       </div>
       <hr>

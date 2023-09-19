@@ -19,6 +19,35 @@ Route::get('/', function () {
 Route::get('/pesquisa/autonomo', function () {
     return view('pesquisa.autonomo');
 });
+Route::get('/pesquisa/agregado', function () {
+    return view('pesquisa.agregado');
+});
+Route::get('/pesquisa/frota', function () {
+    return view('pesquisa.frota');
+});
+Route::get('/pesquisa/individual', function () {
+    return view('pesquisa.individual');
+});
+Route::get('/pesquisa/veiculo', function () {
+    return view('pesquisa.veiculo');
+});
+Route::get('/pesquisa/empresa', function () {
+    return view('pesquisa.empresa');
+});
+Route::get('/pesquisa/cnh', function () {
+    return view('pesquisa.cnh');
+});
+Route::get('/pesquisa/consulta', function () {
+    return view('pesquisa.consulta');
+});
+Route::get('/renovacao/registro', function () {
+    return view('renovação.registro');
+});
+Route::get('/relatorio/recentes', function () {
+    return view('relatorio.recentes');
+});
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
