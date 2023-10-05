@@ -9,13 +9,15 @@ use Tests\TestCase;
 
 class PermissionUserTest extends TestCase
 {
+    /** @test */
+
     public function it_should_be_able_to_give_a_permission_to_an_user()
     {
         /** @var User $user */
 
         $user = User::factory()->createOne();
 
-        $user->giverPermissionTo('edit-articles');
+        $user->givePermissionTo('edit-articles');
 
         $this->assertTrue($user->hasPermissionTo('edit-articles'));
         $this->assertDatabaseHas('permissions', [

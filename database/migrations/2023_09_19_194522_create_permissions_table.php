@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
+            $table->string('permission');
             $table->timestamps();
+        });
+
+        Schema::create('permission_user', function (Blueprint $table) {
+            $table->foreignId('permission_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 
