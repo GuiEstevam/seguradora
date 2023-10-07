@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->permissions()->where('permission', $permission)->exists();
     }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Enterprise::class);
+    }
 }
