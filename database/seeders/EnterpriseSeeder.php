@@ -14,7 +14,7 @@ class EnterpriseSeeder extends Seeder
     public function run(): void
     {
         Enterprise::create([
-            'name' => 'Bruno',
+            'name' => 'SEGURADORA TESTE',
             'cnpj' => '000000000',
             'email' => 'user@teste.com',
         ]);

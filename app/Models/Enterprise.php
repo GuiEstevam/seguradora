@@ -11,11 +11,11 @@ class Enterprise extends Model
 
     protected $dates = ['date'];
 
-    protected $guardaded = [];
+    protected $guarded = [];
 
     public $timestamps = true;
 
-    public function usuarios()
+    public function users()
     {
         return $this->hasMany(User::class);
     }

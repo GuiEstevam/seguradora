@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('new');
 });
 
 Route::get('/dashboard', function () {
@@ -28,4 +29,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth', 'verified'])->prefix('enterprises')->group(function () {
+    Route::get('/', [EnterpriseController::class, 'index'])->name('enterprises.index');
+    Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
+    Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
+    // Route::get('/{enterprise}', [EnterpriseController::class, 'show'])->name('enterprises.show');
+    // Route::get('/enterprises/{enterprise}/edit', [EnterpriseController::class, 'edit'])->name('enterprises.edit');
+    // Route::patch('/enterprises/{enterprise}', [EnterpriseController::class, 'update'])->name('enterprises.update');
+    // Route::delete('/enterprises/{enterprise}', [EnterpriseController::class, 'destroy'])->name('enterprises.destroy');
+});
+// Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterprises.index');
+// Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterprises.index');
+require __DIR__ . '/auth.php';

@@ -18,6 +18,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 
@@ -84,6 +85,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">Cadastro facial</a>
+            <a class="dropdown-item" href="{{ route('enterprises.index') }}">Cadastramento de empresa</a>
+            <a class="dropdown-item" href="#">Cadastro facial</a>
           </div>
         </li>
         <li class="nav-item">
@@ -107,8 +110,8 @@
   </div>
   <div id="subnavbar" class="col-md-8 offset-md-2 navbar-sub">
     <div class="row">
-      <div class="col-md-6"> Usuário: EMPRESA </div>
-      <div class="col-md-6"> Usuário: USUÁRIO </div>
+      <div class="col-md-6"> Usuário: {{ Auth::user()->enterprise->name }} </div>
+      <div class="col-md-6"> Usuário: {{ Auth::user()->name }}</div>
     </div>
   </div>
 </header>
@@ -116,11 +119,29 @@
 <body>
   <div class="container-fluid">
     <div class="row mb-3">
-      @if (session('msg'))
+      @if ($errors->any())
+        <div style="position:absolute; top:0px; width:100%; background:red">
+          <pre>
+    @foreach ($errors->all() as $erro)
+{{ $erro }} <br>
+@endforeach
+</pre>
+        </div>
+      @endif
+      {{-- @if (session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+      @endif
+      @if (session('error'))
+        <div class="alert alert-danger">
+          {{ session('error') }}
+        </div>
+        @endif --}}
+      {{-- @if (session('msg'))
         <p class="msg">
           {{ session('msg') }}
-        </p>
-      @endif
+        </p> --}}
     </div>
     @yield('content')
   </div>
