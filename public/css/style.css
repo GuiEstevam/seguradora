@@ -354,3 +354,18 @@ body {
 -moz-box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 }
+
+.form-group label{
+    font-size: 18px;
+}
+
+.form-group input{
+    font-size: 18px;
+}
+
+/* Adicione a cor de fundo vermelha e uma borda vermelha ao campo */
+.is-invalid {
+    background-color: #ff0015 !important;
+    border-color: #ff0019 !important;
+}
+

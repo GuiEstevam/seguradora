@@ -12,6 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Fortify\Fortify;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -20,7 +22,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    use HasRoles;
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +32,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'enterprise_id',
+        'phone',
+        'role_id'
     ];
 
     /**
@@ -62,25 +67,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function permissions(): BelongsToMany
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-
-    public function givePermissionTo(string $permission): void
-    {
-        $p = Permission::query()->firstOrCreate(['permission' => $permission]);
-        $this->permissions()->attach($p);
-    }
-
-
-    public function hasPermissionTo(string $permission): bool
-    {
-        return $this->permissions()->where('permission', $permission)->exists();
-    }
-
     public function enterprise()
     {
         return $this->belongsTo(Enterprise::class);
+    }
+    public function enterprises()
+    {
+        return $this->hasMany(Enterprise::class);
     }
 }

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/css/navbar.css" media="screen" />
   {{-- Bootstrap --}}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -28,7 +29,7 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center">
     <a class="navbar-brand" href="/">
-      <img class="logo" src="/img/logo.png" alt="LOGO" />
+      <img class="logo" src="/img/logo.jpg" alt="LOGO" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,16 +43,10 @@
             Pesquisa
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/pesquisa/autonomo">Autônomo</a>
-            <a class="dropdown-item" href="/pesquisa/agregado">Agregado</a>
-            <a class="dropdown-item" href="/pesquisa/frota">Frota</a>
-            <a class="dropdown-item" href="/pesquisa/individual">Individual</a>
-            <a class="dropdown-item" href="/pesquisa/veiculo">Veículo</a>
-            <a class="dropdown-item" href="/pesquisa/empresa">Empresa</a>
-            <a class="dropdown-item" href="/pesquisa/boletim">Boletim de Ocorrência</a>
-            <a class="dropdown-item" href="/pesquisa/cnh">CNH</a>
-            <a class="dropdown-item" href="/pesquisa/excel">Pesquisas por Excel</a>
-            <a class="dropdown-item" href="/pesquisa/consulta">Consultas Disponíveis</a>
+            <a class="dropdown-item" href="/pesquisa/autonomo">D-CNH</a>
+            <a class="dropdown-item" href="/pesquisa/agregado">D-Face</a>
+            <a class="dropdown-item" href="/pesquisa/excel">D-Processo</a>
+            <a class="dropdown-item" href="/pesquisa/consulta">D-Veículo</a>
           </div>
         </li>
         <li class="nav-item">
@@ -85,8 +80,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">Cadastro facial</a>
-            <a class="dropdown-item" href="{{ route('enterprises.index') }}">Cadastramento de empresa</a>
-            <a class="dropdown-item" href="#">Cadastro facial</a>
+            <a class="dropdown-item" href="{{ route('enterprises.index') }}">Gerenciamento de empresas</a>
           </div>
         </li>
         <li class="nav-item">
@@ -110,25 +104,49 @@
   </div>
   <div id="subnavbar" class="col-md-8 offset-md-2 navbar-sub">
     <div class="row">
-      <div class="col-md-6"> Usuário: {{ Auth::user()->enterprise->name }} </div>
+      <div class="col-md-6"> Empresa: {{ Auth::user()->enterprise->name }} </div>
       <div class="col-md-6"> Usuário: {{ Auth::user()->name }}</div>
     </div>
   </div>
 </header>
 
 <body>
+  @if ($errors->any())
+    <script>
+      $(document).ready(function() {
+        $('#myModal').modal('show');
+      });
+    </script>
+  @endif
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Erros de validação</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @if ($errors->any())
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          @endif
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container-fluid">
     <div class="row mb-3">
-      @if ($errors->any())
-        <div style="position:absolute; top:0px; width:100%; background:red">
-          <pre>
-    @foreach ($errors->all() as $erro)
-{{ $erro }} <br>
-@endforeach
-</pre>
-        </div>
-      @endif
-      {{-- @if (session('success'))
+      @if (session('success'))
         <div class="alert alert-success">
           {{ session('success') }}
         </div>
@@ -137,11 +155,12 @@
         <div class="alert alert-danger">
           {{ session('error') }}
         </div>
-        @endif --}}
-      {{-- @if (session('msg'))
+      @endif
+      @if (session('msg'))
         <p class="msg">
           {{ session('msg') }}
-        </p> --}}
+        </p>
+      @endif
     </div>
     @yield('content')
   </div>

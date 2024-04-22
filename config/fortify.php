@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
 
@@ -142,6 +143,11 @@ return [
             'confirmPassword' => true,
             // 'window' => 0,
         ]),
+    ],
+
+    'controllers' => [
+        'login' => AuthController::class,
+        // Adicione outros controladores conforme necessário
     ],
 
 ];

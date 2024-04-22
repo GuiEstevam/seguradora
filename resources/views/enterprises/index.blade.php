@@ -32,14 +32,14 @@
                   <td class="text-center">{{ $enterprise->id }}</td>
                   <td class="text-center">{{ $enterprise->name }}</td>
                   <td class="text-center">{{ $enterprise->cnpj }}</td>
-                  <td class="text-center">{{ $enterprise->email }}</td>
-                  <td class="text-center">{{ $enterprise->responsable }}</td>
+                  <td class="text-center">{{ $enterprise->responsibleUser->email }}</td>
+                  <td class="text-center">{{ $enterprise->responsibleUser->name }}</td>
                   </a>
                   <td class="text-center">
-                    <a href="/compliance/show/{{ $enterprise->id }}" class="btn btn-primary mt-2">
+                    <a href="/enterprises/show/{{ $enterprise->id }}" class="btn btn-primary mt-2">
                       <ion-icon name="eye"></ion-icon>
                     </a>
-                    <a href="/compliance/edit/{{ $enterprise->id }}" class="btn btn-primary mt-2">
+                    <a href="/enterprises/edit/{{ $enterprise->id }}" class="btn btn-primary mt-2">
                       <ion-icon name="create"></ion-icon>
                     </a>
                   </td>

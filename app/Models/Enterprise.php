@@ -19,4 +19,9 @@ class Enterprise extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function responsibleUser()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

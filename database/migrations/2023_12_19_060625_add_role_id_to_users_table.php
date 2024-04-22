@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('enterprise_id')->nullable()->constrained('enterprises');
-            $table->string('phone')->nullable();
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['enterprise_id']);
-            $table->dropColumn(['enterprise_id', 'phone']);
+            $table->dropForeign(['role_id']); // Remove a chave estrangeira
+            $table->dropColumn('role_id');    // Remove a coluna
         });
     }
 };

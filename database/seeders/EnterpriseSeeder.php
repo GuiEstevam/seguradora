@@ -14,9 +14,16 @@ class EnterpriseSeeder extends Seeder
     public function run(): void
     {
         Enterprise::create([
-            'name' => 'SEGURADORA TESTE',
-            'cnpj' => '000000000',
-            'email' => 'user@teste.com',
+            'name' => 'Nome da Empresa',
+            'cnpj' => '12345678901234', // Substitua pelo CNPJ real
+            'state_registration' => '123456789',
+            'address' => 'Rua Exemplo',
+            'number' => '123',
+            'uf' => 'SP',
+            'complement' => 'Sala 301',
+            'cep' => '12345-678',
+            'district' => 'Bairro Exemplo',
+            'city' => 'Cidade Exemplo',
         ]);
     }
 }

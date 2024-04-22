@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('enterprises', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->integer('cnpj')->nullable();
-            $table->string('email')->nullable();
-            $table->string('responsable')->nullable();
+            $table->string('cnpj')->nullable();
             $table->timestamps();
         });
     }
