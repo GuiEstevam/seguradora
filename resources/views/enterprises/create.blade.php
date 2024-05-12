@@ -2,21 +2,22 @@
 @section('title', 'Cadastramento de Empresas')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
+    <div class="row mb-3">
+      {{-- <div class="col d-flex justify-content-start">
+        Cadastramento / Empresas
+      </div> --}}
+      <div class="col d-flex justify-content-end">
+        <a href="{{ route('enterprises.index') }}" class="btn btn-secondary"><ion-icon
+            name="arrow-back-outline"></ion-icon>Voltar</a>
+      </div>
+    </div>
+    <h4>Dados cadastrais</h4>
     <form action="{{ route('enterprises.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
-      <div class="row mb-3">
-        <div class="col">
-          Cadastramento / Empresas
-        </div>
-        <div class="col">
-          <a href="{{ route('enterprises.index') }}" class="btn btn-primary float-right"><ion-icon
-              name="arrow-back-outline"></ion-icon>Voltar</a>
-        </div>
-      </div>
-      <h5>Cadastramento de Empresa</h5>
+      {{-- <h4>Cadastramento de Empresa</h4> --}}
       <div class="row">
-        <div class="form-group col-md-5">
-          <label for="cnpj">CNPJ</label>
+        <div class="form-group col-md-4">
+          <label class="form-label" for="cnpj">CNPJ</label>
           <div class="input-group">
             <input type="text" id="cnpj" name="cnpj" class="form-control" value="{{ old('cnpj') }}">
             <div class="input-group-append">
@@ -25,106 +26,114 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row mt-2">
-        <div class="form-group col-md-4">
-          <label for="name">Nome da empresa </label>
+        <div class="form-group col-md-5">
+          <label class="form-label" for="name">Nome da empresa </label>
           <div class="input-group">
             <input type="text" name="name" class="form-control form-control-lg" value="{{ old('name') }}">
           </div>
         </div>
-        <div class="form-group col-md-4">
-          <label for="state_registration">Inscrição Estadual</label>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="state_registration">Inscrição Estadual</label>
           <div class="input-group">
             <input type="text" name="state_registration" class="form-control form-control-lg"
-              value="{{ old('state_registration') }}">
+              value="{{ old('state_registration') }}" maxlength="7">
           </div>
         </div>
       </div>
-      <div class="row mt-2">
-        <div class="form-group col-md-6">
-          <label for="address">Logradouro</label>
+      <hr>
+      <h4>Endereço</h4>
+      <div class="row">
+        <div class="form-group col-md-2">
+          <label class="form-label" for="cep">CEP</label>
           <div class="input-group">
-            <input type="text" name="address" class="form-control form-control-lg" value="{{ old('address') }}">
+            <input type="text" name="cep" id="cep" class="form-control form-control-lg"
+              value="{{ old('cep') }}" maxlength="9" onblur="pesquisacep(this.value);">
           </div>
         </div>
-        <div class="form-group col-md-1">
-          <label for="number">Número</label>
+        <div class="form-group col-md-6">
+          <label class="form-label" for="address">Logradouro</label>
           <div class="input-group">
-            <input type="text" name="number" class="form-control form-control-lg" value="{{ old('number') }}">
+            <input type="text" name="address" id="address" class="form-control form-control-lg"
+              value="{{ old('address') }}">
           </div>
         </div>
         <div class="form-group col-md-2">
-          <label for="uf">UF</label>
+          <label class="form-label" for="number">Número</label>
+          <div class="input-group">
+            <input type="text" name="number" id="number" class="form-control form-control-lg"
+              value="{{ old('number') }}" maxlength="5">
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="form-label" for="uf">UF</label>
           <div class="input-group">
             @isset($ufs)
               <!-- Se a variável $ufs estiver definida, faça algo com ela -->
-              <select name="uf" class="form-control">
+              <select name="uf" id="uf" class="form-control form-control-lg">
                 <option value="">Selecione</option>
                 @foreach ($ufs as $uf)
-                  <option value="{{ $uf }}" {{ old('uf') == $uf ? 'selected' : '' }}>{{ $uf }}</option>
+                  <option value="{{ $uf }}" {{ old('uf') == $uf ? 'selected' : '' }}>{{ $uf }}
+                  </option>
                 @endforeach
               </select>
             @endisset
           </div>
         </div>
-        <div class="form-group col-md-2">
-          <label for="complement" class="text-xl">Complemento</label>
-          <div class="input-group">
-            <input type="text" name="complement" class="form-control form-control-lg" value="{{ old('complement') }}">
-          </div>
-        </div>
       </div>
       <div class="row mt-2">
-        <div class="form-group col-md-3">
-          <label for="cep">CEP</label>
+        <div class="form-group col-md-6">
+          <label class="form-label" for="complement" class="text-xl">Complemento</label>
           <div class="input-group">
-            <input type="text" name="cep" class="form-control form-control-lg" value="{{ old('cep') }}">
+            <input type="text" name="complement" id="complement" class="form-control form-control-lg"
+              value="{{ old('complement') }}">
           </div>
         </div>
         <div class="form-group col-md-3">
-          <label for="district">Bairro</label>
+          <label class="form-label" for="district">Bairro</label>
           <div class="input-group">
-            <input type="text" name="district" class="form-control form-control-lg" value="{{ old('district') }}">
+            <input type="text" name="district" id="district" class="form-control form-control-lg"
+              value="{{ old('district') }}">
           </div>
         </div>
         <div class="form-group col-md-3">
-          <label for="city">Município</label>
+          <label class="form-label" for="city">Município</label>
           <div class="input-group">
-            <input type="text" name="city" class="form-control form-control-lg" value="{{ old('city') }}">
+            <input type="text" name="city" id="city" class="form-control form-control-lg"
+              value="{{ old('city') }}">
           </div>
         </div>
       </div>
       <hr>
-      <h5>Cadastramento de Responsável</h5>
+      <h4>Responsável</h4>
       <div class="row mt-2">
-        <div class="form-group col-md-4">
-          <label for="responsible_name">Nome</label>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="responsible_name">Nome</label>
           <input type="text" name="responsible_name" class="form-control form-control-lg"
             value="{{ old('responsible_name') }}">
         </div>
-        <div class="form-group col-md-4">
-          <label for="responsible_email">Email</label>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="responsible_email">Email</label>
           <div class="input-group">
             <input type="text" name="responsible_email" class="form-control form-control-lg"
               value="{{ old('responsible_email') }}">
           </div>
         </div>
-      </div>
-      <div class="row mt-2">
-        <div class="form-group col-md-4">
-          <label for="responsible_number">Telefone</label>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="responsible_number">Telefone</label>
           <div class="input-group">
             <input type="text" name="responsible_number" class="form-control form-control-lg"
               value="{{ old('responsible_number') }}">
           </div>
         </div>
-        <div class="form-group col-md-4">
-          <label for="password">Senha</label>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="password">Senha</label>
           <div class="input-group">
             <input type="password" name="password" class="form-control form-control-lg">
           </div>
         </div>
+      </div>
+      <div class="row mt-2">
+
       </div>
       <div class="form-group mt-4">
         <button type="submit" class="btn btn-primary">Enviar</button>

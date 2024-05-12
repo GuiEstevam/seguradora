@@ -1,4 +1,10 @@
 /* General */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 * {
     font-family: "Inter", sans-serif;
 }
@@ -14,22 +20,19 @@ header {
     border-bottom: 1px solid #ccc;
 }
 
-.row {
-    margin: 0;
-}
 
 .container-fluid {
     padding: 0;
 }
 
 .btn-primary {
-    background-color: #87ba3f;
-    border: 2px solid #87ba3f;
+    background-color: #87ba3f !important;
+    border: 2px solid #87ba3f !important;
 }
 
 .btn-primary:hover {
-    background-color: #71c837;
-    border-color: #71c837;
+    background-color: #71c837 !important;
+    border-color: #71c837 !important;
 }
 
 .msg {
@@ -40,41 +43,6 @@ header {
     margin-bottom: 0;
     text-align: center;
     padding: 10px;
-}
-
-#info-container .already-joined-msg {
-    margin: 15px 0;
-    color: #004085;
-    background-color: #cce5ff;
-    border: 1px solid #b8daff;
-    padding: 10px;
-    width: 275px;
-}
-.navbar-sub{
-    background-color: #ccc;
-    border-bottom: 1px solid #ccc;
-    font-weight: 500;
-}
-
-/* Search Container */
-#search-container {
-    background-image: url("../img/banner.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 400px;
-    padding: 50px;
-    text-align: center;
-}
-
-#search-container h1 {
-    color: #a5d77f;
-    margin-bottom: 30px;
-    font-weight: 900;
-}
-
-#search-container form {
-    width: 50%;
-    margin: 0 auto;
 }
 
 /* Projects list */
@@ -134,10 +102,6 @@ header {
 box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 }
 
-#event-create-container label {
-    font-weight: bold;
-}
-
 #event-create-container input,
 #event-create-container select,
 #event-create-container textarea {
@@ -145,9 +109,8 @@ box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 }
 
 #event-create-container h4 {
-    font-size: 34px;
-    font-weight: 800;
-    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 /* Project page */
@@ -192,47 +155,6 @@ box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
     margin-top: 30px;
 }
 
-#selectpicker {
-    border: 1px !important;
-}
-
-/* Dashboard */
-.administrator-buttom {
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-.dashboard-title-container {
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-.dashboard-title-container h1 {
-    font-weight: 900;
-}
-.dashboard-title-container h2 {
-    font-weight: 900;
-}
-
-.dashboard-events-container th {
-    width: 25%;
-}
-
-.bootstrap-select .btn {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-    font-weight: 200;
-    padding: 12px 12px 22px 12px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-.bootstrap-select .dropdown-menu {
-    margin: 2px 0 0;
-}
-
-.dashboard-events-container form {
-    display: inline-block;
-}
-
 /* Edit page */
 
 .img-preview {
@@ -247,17 +169,8 @@ box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
     border-radius: 50%;
 }
 
-#profile-info-container .already-joined-msg {
-    margin: 15px 0;
-    color: #004085;
-    background-color: #cce5ff;
-    border: 1px solid #b8daff;
-    padding: 10px;
-    text-align: center !important;
-}
-
 .sync{
-    font-size: 20px;
+    font-size: 1.2rem;
     margin-bottom: -3px;
     margin-right:3px;
 }
@@ -281,16 +194,6 @@ footer p {
     margin-bottom: 0;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
-}
-
 .toggle {
   cursor: pointer;
   display: inline-block;
@@ -299,7 +202,6 @@ body {
 .toggle-switch {
   display: inline-block;
   background: #ccc;
-  border-radius: 16px;
   width: 48px;
   height: 22px;
   position: relative;
@@ -356,12 +258,13 @@ box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
 }
 
 .form-group label{
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 8 00;
 }
 
-.form-group input{
-    font-size: 18px;
-}
+/* .form-group input{
+    border: 0.1em solid #000000;
+} */
 
 /* Adicione a cor de fundo vermelha e uma borda vermelha ao campo */
 .is-invalid {
@@ -369,3 +272,24 @@ box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.39);
     border-color: #ff0019 !important;
 }
 
+/* Adicione isso ao seu arquivo CSS */
+.selectable-row {
+    /* Cor quando a linha não está selecionada */
+    background-color: white;
+}
+
+.selectable-row.selected {
+    /* Cor quando a linha está selecionada */
+    background-color: #0078D7;
+    color:white !important;
+}
+
+.selectable-row td,
+.selectable-row th {
+    /* Isso garante que a cor de fundo da célula seja transparente,
+       permitindo que a cor de fundo da linha apareça */
+    background-color: transparent !important;
+}
+.btn-group{
+    margin-right: 1em;
+}

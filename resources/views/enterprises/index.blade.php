@@ -2,52 +2,73 @@
 @section('title', 'Cadastramento de Empresas')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
-    <div class="col-md mt-3 mb-3 text-right">
-      <div class="btn-group" role="group">
-        <a href="{{ route('enterprises.create') }}">
-          <button class="btn btn-primary">
-            Criar
+    <div class="row mb-3">
+      <div class="col d-flex justify-content-end">
+        <div class="btn-group mr-1" role="group">
+          <a href="{{ route('enterprises.create') }}">
+            <button class="btn btn-primary">
+              Criar
+            </button>
+          </a>
+        </div>
+        <div class="btn-group mr-3" role="group">
+          <button id="edit-button" class="btn btn-primary">
+            Editar
           </button>
-        </a>
+        </div>
       </div>
     </div>
-    <div class="tab-pane {{ $user->role_id == 1 || $user->role_id == 2 ? 'active' : '' }}" id="personal" role="tabpanel"
-      aria-labelledby="personal-tab">
-      @if (count($enterprises) > 0)
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="text-center">ID</th>
-                <th class="text-center">Empresa</th>
-                <th class="text-center">CNPJ</th>
-                <th class="text-center">Email</th>
-                <th class="text-center">Responsável</th>
-                <th class="text-center">Ações</th>
+    @if (count($enterprises) > 0)
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Empresa</th>
+              <th class="text-center">CNPJ</th>
+              <th class="text-center">Responsável</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($enterprises as $enterprise)
+              <tr class="selectable-row" data-id="{{ $enterprise->id }}"
+                data-edit-url="{{ route('enterprises.show', $enterprise->id) }}">
+                <td class="text-center">{{ $enterprise->id }}</td>
+                <td class="text-center">{{ $enterprise->name }}</td>
+                <td class="text-center">{{ $enterprise->cnpj }}</td>
+                <td class="text-center">{{ $enterprise->responsibleUser->name }}</td>
               </tr>
-            </thead>
-            <tbody>
-              @foreach ($enterprises as $enterprise)
-                <tr>
-                  <td class="text-center">{{ $enterprise->id }}</td>
-                  <td class="text-center">{{ $enterprise->name }}</td>
-                  <td class="text-center">{{ $enterprise->cnpj }}</td>
-                  <td class="text-center">{{ $enterprise->responsibleUser->email }}</td>
-                  <td class="text-center">{{ $enterprise->responsibleUser->name }}</td>
-                  </a>
-                  <td class="text-center">
-                    <a href="/enterprises/show/{{ $enterprise->id }}" class="btn btn-primary mt-2">
-                      <ion-icon name="eye"></ion-icon>
-                    </a>
-                    <a href="/enterprises/edit/{{ $enterprise->id }}" class="btn btn-primary mt-2">
-                      <ion-icon name="create"></ion-icon>
-                    </a>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-    </div>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     @endif
-  @endsection
+  </div>
+
+  <script>
+    var selectedRow = null;
+
+    Array.from(document.getElementsByClassName('selectable-row')).forEach(function(row) {
+      row.addEventListener('click', function() {
+        // Desmarcar a linha anteriormente selecionada, se houver
+        if (selectedRow) {
+          selectedRow.classList.remove('selected');
+        }
+
+        // Marcar a linha clicada como selecionada
+        row.classList.add('selected');
+        selectedRow = row;
+      });
+    });
+
+    document.getElementById('edit-button').addEventListener('click', function() {
+      if (selectedRow) {
+        var editUrl = selectedRow.getAttribute('data-edit-url');
+
+        // Agora você tem a URL de edição da linha selecionada em editUrl
+        // Você pode redirecionar para essa URL para editar a empresa
+        window.location.href = editUrl;
+      }
+    });
+  </script>
+@endsection

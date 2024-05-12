@@ -37,6 +37,8 @@ Route::middleware(['auth', 'verified'])->prefix('enterprises')->group(function (
     Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
     Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
     Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show');
+    Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
+    Route::put('/deactivate/{id}', [EnterpriseController::class, 'deactivate'])->name('enterprises.deactivate');
     // Route::get('/{enterprise}', [EnterpriseController::class, 'show'])->name('enterprises.show');
     // Route::get('/enterprises/{enterprise}/edit', [EnterpriseController::class, 'edit'])->name('enterprises.edit');
     // Route::patch('/enterprises/{enterprise}', [EnterpriseController::class, 'update'])->name('enterprises.update');

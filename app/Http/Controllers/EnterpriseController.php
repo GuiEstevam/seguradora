@@ -72,6 +72,8 @@ class EnterpriseController extends Controller
         $enterpriseData['user_id'] = $user->id;
 
         $enterprise = Enterprise::create($enterpriseData);
+        $user->enterprise_id = $enterprise->id;
+        $user->save();
 
         $adminRole = Role::where('name', 'admin')->first();
 
@@ -88,16 +90,71 @@ class EnterpriseController extends Controller
     }
     public function show($id)
     {
-        $Enterprise = Enterprise::findOrFail($id);
-
         $user = auth()->user();
 
+        $Enterprise = Enterprise::findOrFail($id);
+
+        // if ($Enterprise->responsibleUser->id != $user->id) {
+        //     return redirect()->route('enterprises.index')->with('msg', 'Cadastro desativado.');
+        // }
         return view(
             'enterprises.show',
             [
                 'enterprise' => $Enterprise,
-                'user' => $user
             ]
         );
+    }
+
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'state_registration' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'number' => 'required|string|max:10',
+            'uf' => 'required|string|max:2',
+            'complement' => 'nullable|string|max:255',
+            'cep' => 'required|string|max:15',
+            'district' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'responsible_name' => 'required|string|max:255',
+            'responsible_email' => 'required|email|max:255',
+            'responsible_number' => 'required|string|max:20',
+        ], [
+            'required' => 'O campo :attribute é obrigatório.',
+            'max' => 'O campo :attribute deve ter no máximo :max caracteres.',
+            'email' => 'O campo :attribute deve ser um e-mail válido.',
+        ]);
+        $data = request()->all(); // Pega todos os dados do request
+
+        if ($request->status == 'active') {
+            $data['deactivated_at'] = null;
+        } else {
+            $data['deactivated_at'] = now();
+        }
+
+        $enterpriseData = Arr::except($data, ['responsible_name', 'responsible_email', 'responsible_number', 'password']);
+
+        $enterprise = Enterprise::findOrFail($id);
+
+        $enterprise->update($enterpriseData);
+
+        $user = $enterprise->responsibleUser;
+        $user->name = $request->responsible_name;
+        $user->email = $request->responsible_email;
+        $user->phone = $request->responsible_number;
+        $user->update();
+
+        return back()->with('msg', 'Cadastro editado com sucesso!');
+        // return redirect()->route('enterprises.index')->with('msg', 'Cadastro editado com sucesso!');
+    }
+
+    public function deactivate($id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+        $enterprise->status = 'inactive';
+        $enterprise->deactivated_at = now();
+        $enterprise->save();
+        return redirect()->route('enterprises.index')->with('msg', 'Cadastro desativado com sucesso!');
     }
 }
