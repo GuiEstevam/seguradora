@@ -17,17 +17,14 @@ class CheckEnterprise
      */
     public function handle($request, Closure $next)
     {
-        $enterprise_id = $request->input('enterprise_id');
+        $id = $request->route('id');
+
         $user = Auth::user();
 
-        $enterprise = Enterprise::where('id', $enterprise_id)->first();
+        $enterprise = Enterprise::findOrfail($id);
 
-        if (!$enterprise) {
-            return redirect()->route('login')->with('error', 'Código de empresa inválido.');
-        }
-
-        if (Auth::check() && Auth::user()->enterprise_id !== $enterprise->id) {
-            return redirect()->route('login')->with('error', 'Acesso não autorizado.');
+        if (!$enterprise || $user->enterprise_id !== $enterprise->id) {
+            return redirect('enterprises')->with('msg', 'Você não tem permissão para acessar esta empresa.');
         }
 
         return $next($request);
