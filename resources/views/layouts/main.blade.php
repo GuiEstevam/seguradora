@@ -77,8 +77,8 @@
             Gerenciamento
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Cadastro facial</a>
-            <a class="dropdown-item" href="{{ route('enterprises.index') }}">Gerenciamento de empresas</a>
+            <a class="dropdown-item" href="#">Usuários</a>
+            <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
           </div>
         </li>
         <li class="nav-item">
@@ -109,7 +109,7 @@
 </header>
 
 <body>
-  @if ($errors->any())
+  {{-- @if ($errors->any())
     <script>
       $(document).ready(function() {
         $('#myModal').modal('show');
@@ -141,9 +141,37 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row mb-3">
+  </div> --}}
+  <main>
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Mensagem</h5>
+          </div>
+          <div class="modal-body">
+            @if (session('msg'))
+              <p class="msg">{{ session('msg') }}</p>
+            @endif
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @yield('content')
+
+    {{-- <div class="row">
+      @if (session('msg'))
+        <p class="msg col-md-8 offset-md-2 mt-2 mb-3">{{ session('msg') }}</p>
+      @endif
+
+    </div> --}}
+  </main>
+  {{-- <div class="row mb-3">
       @if (session('success'))
         <div class="alert alert-success">
           {{ session('success') }}
@@ -159,9 +187,7 @@
           {{ session('msg') }}
         </p>
       @endif
-    </div>
-    @yield('content')
-  </div>
+    </div> --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
@@ -170,7 +196,7 @@
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
-<script>
+{{-- <script>
   $.fn.select2.defaults.set("theme", "bootstrap5");
   $(document).ready(function() {
     $('#client_id').select2();
@@ -185,6 +211,14 @@
   });
   $(document).ready(function() {
     $('#searchData').select2();
+  });
+</script> --}}
+
+<script>
+  $(document).ready(function() {
+    @if (session('msg'))
+      $('#messageModal').modal('show');
+    @endif
   });
 </script>
 
