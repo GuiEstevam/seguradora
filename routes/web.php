@@ -35,18 +35,20 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterprises.index');
 
-Route::middleware(['auth', 'verified', 'CheckEnterprise'])->prefix('enterprises')->group(function () {
+Route::middleware(['auth'])->prefix('enterprises')->group(function () {
     Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
     Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
     Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show');
     Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
-    Route::put('/deactivate/{id}', [EnterpriseController::class, 'deactivate'])->name('enterprises.deactivate');
-    // Route::get('/{enterprise}', [EnterpriseController::class, 'show'])->name('enterprises.show');
-    // Route::get('/enterprises/{enterprise}/edit', [EnterpriseController::class, 'edit'])->name('enterprises.edit');
-    // Route::patch('/enterprises/{enterprise}', [EnterpriseController::class, 'update'])->name('enterprises.update');
-    // Route::delete('/enterprises/{enterprise}', [EnterpriseController::class, 'destroy'])->name('enterprises.destroy');
 });
 
+Route::middleware(['auth', 'verified'])->prefix('users')->group(function () {
+    Route::get('/', [AuthController::class, 'index'])->name('users.index');
+    Route::get('/create', [AuthController::class, 'create'])->name('users.create');
+    Route::post('/', [AuthController::class, 'store'])->name('users.store');
+    Route::get('/show/{id}', [AuthController::class, 'show'])->name('users.show');
+    Route::put('/show/{id}', [AuthController::class, 'update'])->name('users.update');
+});
 
 
 Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {

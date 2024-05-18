@@ -77,7 +77,7 @@
             Gerenciamento
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Usuários</a>
+            <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
             <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
           </div>
         </li>
