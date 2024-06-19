@@ -88,21 +88,34 @@ class EnterpriseController extends Controller
         return redirect()->route('enterprises.index')
             ->with('success', 'Empresa cadastrada com sucesso.');
     }
+
     public function show($id)
     {
         $user = auth()->user();
 
-        $Enterprise = Enterprise::findOrFail($id);
+        $enterprise = Enterprise::findOrFail($id);
+        $prices = $enterprise->queryValues;
 
         // if ($Enterprise->responsibleUser->id != $user->id) {
         //     return redirect()->route('enterprises.index')->with('msg', 'Cadastro desativado.');
         // }
         return view(
             'enterprises.show',
-            [
-                'enterprise' => $Enterprise,
-            ]
+            compact('enterprise', 'prices')
         );
+    }
+
+    public function getQueryValues($id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+        $queryValues = $enterprise->queryValues;
+
+        $prices = [];
+        foreach ($queryValues as $queryValue) {
+            $prices[$queryValue->query_type] = $queryValue->value;
+        }
+
+        return $prices;
     }
 
     public function update($id, Request $request)

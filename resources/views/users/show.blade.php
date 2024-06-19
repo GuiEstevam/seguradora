@@ -10,8 +10,10 @@
           </button>
         </div>
         <div class="btn-group" role="group">
-          <a href="{{ route('users.index') }}" class="btn btn-secondary"><ion-icon
-              name="arrow-back-outline"></ion-icon>Voltar</a>
+          <a href="{{ route('users.index') }}" class="btn btn-secondary d-flex align-items-center">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <span class="ms-1">Voltar</span>
+          </a>
         </div>
       </div>
     </div>
@@ -58,12 +60,12 @@
         <div class="form-group col-md-2 mt-2">
           <label class="form-label mt-2" for="responsible_email">Status</label>
           <select class="form-control form-control-lg" name="status" id="status">
-            <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Ativado</option>
+            <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Ativo</option>
             <option value="inactive" {{ $user->status == 'inactive' ? 'selected' : '' }}>Desativado</option>
           </select>
         </div>
         @if ($user->status == 'inactive')
-          <div class="form-group col-md-2 mt-2">
+          <div class="form-group col-md-3 mt-2">
             <label class="form-label mt-2" for="deactivate_at">Desativado em</label>
             <input type="text" name="deactivated_at" class="form-control form-control-lg"
               value="{{ $user->deactivated_at->format('d/m/Y') }}" disabled>

@@ -1,12 +1,12 @@
 @extends('layouts.main')
-@section('title', 'Pesquisa - Autônomo')
+@section('title', 'Pesquisa - Agregado')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <form action="/projetos" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col">
-          Pesquisa / Autônomo
+          Pesquisa / Agregado
         </div>
       </div>
       <div class="row mt-3 mb-3">
@@ -21,7 +21,7 @@
           <label class="toggle">
             <input class="toggle-checkbox" type="checkbox">
             <div class="toggle-switch"></div>
-            <span class="toggle-label">Enviar pesquisa de etimologia</span>
+            <span class="toggle-label">Enviar pesquisa de vitimologia</span>
           </label>
         </div>
       </div>

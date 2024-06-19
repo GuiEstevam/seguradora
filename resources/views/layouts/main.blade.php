@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="/css/navbar.css" media="screen" />
@@ -41,10 +42,13 @@
             Pesquisa
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/pesquisa/autonomo">D-CNH</a>
-            <a class="dropdown-item" href="/pesquisa/agregado">D-Face</a>
-            <a class="dropdown-item" href="/pesquisa/excel">D-Processo</a>
-            <a class="dropdown-item" href="/pesquisa/consulta">D-Veículo</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Autônomo</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Agregado</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Frota</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Individual</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Veículo</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Empresa</a>
+            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Processo</a>
           </div>
         </li>
         <li class="nav-item">
@@ -152,7 +156,7 @@
           </div>
           <div class="modal-body">
             @if (session('msg'))
-              <p class="msg">{{ session('msg') }}</p>
+              {{ session('msg') }}
             @endif
           </div>
           <div class="modal-footer">

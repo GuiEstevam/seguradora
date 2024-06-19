@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DriverLicenseController;
 use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\QueryController;
+use App\Http\Controllers\QueryValueCont;
+use App\Http\Controllers\QueryValueController;
+use App\Models\QueryValue;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,10 +54,22 @@ Route::middleware(['auth', 'verified'])->prefix('users')->group(function () {
     Route::put('/show/{id}', [AuthController::class, 'update'])->name('users.update');
 });
 
-
-Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {
-    Route::view('/autonomo', 'pesquisa.autonomo');
+Route::middleware(['auth', 'verified'])->prefix('query_value')->group(function () {
+    Route::get('/show/{id}', [QueryValueController::class, 'show'])->name('query_value.show');
+    Route::get('/create', [QueryValueController::class, 'create'])->name('query_value.create');
+    // Route::get('/', [QueryValueController::class, 'index'])->name('register.index');
+    Route::post('/{id}', [QueryValueController::class, 'store'])->name('query_value.store');
+    // Route::put('/show/{id}', [QueryValueController::class, 'update'])->name('query_value.update');
 });
+
+Route::middleware(['auth', 'verified'])->prefix('driverLicense')->group(function () {
+    Route::get('/', [DriverLicenseController::class, 'index'])->name('driverLicense.index');
+    Route::get('/show/{id}', [DriverLicenseController::class, 'show'])->name('driverLicense.show');
+    Route::get('/create', [DriverLicenseController::class, 'create'])->name('driverLicense.create');
+    Route::post('/', [DriverLicenseController::class, 'store'])->name('driverLicense.store');
+    Route::put('/show/{id}', [DriverLicenseController::class, 'update'])->name('driverLicense.update');
+});
+
 Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {
     Route::view('/agregado', 'pesquisa.agregado');
 });

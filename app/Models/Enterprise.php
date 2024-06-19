@@ -29,4 +29,13 @@ class Enterprise extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function queryValues()
+    {
+        return $this->hasOne(QueryValue::class);
+    }
+    public function queries()
+    {
+        return $this->hasMany(Query::class);
+    }
 }
