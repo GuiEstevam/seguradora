@@ -37,7 +37,7 @@ class DriverLicenseController extends Controller
         $queryValue = QueryValue::where('enterprise_id', $user->enterprise_id)->first();
         $driverLicenseValue = $queryValue->driverLicense;
         $query = new Query;
-        $query->type = 'driverLicenses';
+        $query->type = 'driverLicense';
         $query->status = "pending";
         $query->enterprise_id = $user->enterprise_id;
         $query->user_id = $user->id;

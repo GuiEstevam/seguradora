@@ -42,11 +42,11 @@
             Pesquisa
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Autônomo</a>
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Agregado</a>
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Frota</a>
+            <a class="dropdown-item" href="{{ route('autonomous.index') }}">Autônomo</a>
+            <a class="dropdown-item" href="{{ route('aggregate.index') }}">Agregado</a>
+            <a class="dropdown-item" href="{{ route('fleet.index') }}">Frota</a>
             <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Individual</a>
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Veículo</a>
+            <a class="dropdown-item" href="{{ route('vehicle.index') }}">Veículo</a>
             <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Empresa</a>
             <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Processo</a>
           </div>
@@ -85,9 +85,9 @@
             <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
           </div>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link" href="/departaments/listagem">Treinamento</a>
-        </li>
+        </li> --}}
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">

@@ -1,13 +1,19 @@
 <?php
 
+use App\Http\Controllers\AggregateController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AutonomousController;
 use App\Http\Controllers\DriverLicenseController;
 use App\Http\Controllers\EnterpriseController;
+use App\Http\Controllers\FleetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\QueryValueCont;
 use App\Http\Controllers\QueryValueController;
+use App\Http\Controllers\VehicleController;
+use App\Models\Fleet;
 use App\Models\QueryValue;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +74,38 @@ Route::middleware(['auth', 'verified'])->prefix('driverLicense')->group(function
     Route::get('/create', [DriverLicenseController::class, 'create'])->name('driverLicense.create');
     Route::post('/', [DriverLicenseController::class, 'store'])->name('driverLicense.store');
     Route::put('/show/{id}', [DriverLicenseController::class, 'update'])->name('driverLicense.update');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('vehicle')->group(function () {
+    Route::get('/', [VehicleController::class, 'index'])->name('vehicle.index');
+    Route::get('/show/{id}', [VehicleController::class, 'show'])->name('vehicle.show');
+    Route::get('/create', [VehicleController::class, 'create'])->name('vehicle.create');
+    Route::post('/', [VehicleController::class, 'store'])->name('vehicle.store');
+    Route::put('/show/{id}', [VehicleController::class, 'update'])->name('vehicle.update');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('aggregate')->group(function () {
+    Route::get('/', [AggregateController::class, 'index'])->name('aggregate.index');
+    Route::get('/show/{id}', [AggregateController::class, 'show'])->name('aggregate.show');
+    Route::get('/create', [AggregateController::class, 'create'])->name('aggregate.create');
+    Route::post('/', [AggregateController::class, 'store'])->name('aggregate.store');
+    Route::put('/show/{id}', [AggregateController::class, 'update'])->name('aggregate.update');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('autonomous')->group(function () {
+    Route::get('/', [AutonomousController::class, 'index'])->name('autonomous.index');
+    Route::get('/show/{id}', [AutonomousController::class, 'show'])->name('autonomous.show');
+    Route::get('/create', [AutonomousController::class, 'create'])->name('autonomous.create');
+    Route::post('/', [AutonomousController::class, 'store'])->name('autonomous.store');
+    Route::put('/show/{id}', [AutonomousController::class, 'update'])->name('autonomous.update');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('fleet')->group(function () {
+    Route::get('/', [FleetController::class, 'index'])->name('fleet.index');
+    Route::get('/show/{id}', [FleetController::class, 'show'])->name('fleet.show');
+    Route::get('/create', [FleetController::class, 'create'])->name('fleet.create');
+    Route::post('/', [FleetController::class, 'store'])->name('fleet.store');
+    Route::put('/show/{id}', [FleetController::class, 'update'])->name('fleet.update');
 });
 
 Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {

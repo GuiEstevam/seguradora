@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Empresas')
+@section('title', 'Cadastramento de Empresas')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
         <div class="btn-group mr-1" role="group">
-          <a href="{{ route('enterprises.create') }}">
+          <a href="{{ route('driverLicense.create') }}">
             <button class="btn btn-primary">
               Criar
             </button>
@@ -18,25 +18,25 @@
         </div>
       </div>
     </div>
-    @if (count($enterprises) > 0)
+    @if ($queries)
       <div class="table-responsive">
         <table class="table">
           <thead>
             <tr>
               <th class="text-center">ID</th>
-              <th class="text-center">Empresa</th>
-              <th class="text-center">CNPJ</th>
+              <th class="text-center">CPF</th>
+              <th class="text-center">Valor</th>
               <th class="text-center">Responsável</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($enterprises as $enterprise)
-              <tr class="selectable-row" data-id="{{ $enterprise->id }}"
-                data-edit-url="{{ route('enterprises.show', $enterprise->id) }}">
-                <td class="text-center">{{ $enterprise->id }}</td>
-                <td class="text-center">{{ $enterprise->name }}</td>
-                <td class="text-center">{{ $enterprise->cnpj }}</td>
-                <td class="text-center">{{ $enterprise->responsibleUser->name }}</td>
+            @foreach ($queries as $querie)
+              <tr class="selectable-row" data-id="{{ $querie->id }}"
+                data-edit-url="{{ route('enterprises.show', $querie->id) }}">
+                <td class="text-center">{{ $querie->id }}</td>
+                <td class="text-center">{{ $querie->Vehicle->cpf }}</td>
+                <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td>
+                <td class="text-center">{{ $querie->user->name }}</td>
               </tr>
             @endforeach
           </tbody>
@@ -46,6 +46,13 @@
   </div>
 
   <script>
+    function formatCpf($cpf) {
+      return substr($cpf, 0, 3).
+      '.'.substr($cpf, 3, 3).
+      '.'.substr($cpf, 6, 3).
+      '-'.substr($cpf, 9, 2);
+    }
+
     var selectedRow = null;
 
     Array.from(document.getElementsByClassName('selectable-row')).forEach(function(row) {

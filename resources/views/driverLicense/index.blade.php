@@ -34,7 +34,7 @@
               <tr class="selectable-row" data-id="{{ $querie->id }}"
                 data-edit-url="{{ route('enterprises.show', $querie->id) }}">
                 <td class="text-center">{{ $querie->id }}</td>
-                <td class="text-center"></td>
+                <td class="text-center">{{ formatCpf($querie->driverLicense->cpf) }}</td>
                 <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td>
                 <td class="text-center">{{ $querie->user->name }}</td>
               </tr>
@@ -46,6 +46,13 @@
   </div>
 
   <script>
+    function formatCpf($cpf) {
+      return substr($cpf, 0, 3).
+      '.'.substr($cpf, 3, 3).
+      '.'.substr($cpf, 6, 3).
+      '-'.substr($cpf, 9, 2);
+    }
+
     var selectedRow = null;
 
     Array.from(document.getElementsByClassName('selectable-row')).forEach(function(row) {

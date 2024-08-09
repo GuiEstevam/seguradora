@@ -12,3 +12,21 @@ if (!function_exists('format_phone')) {
         return $phone;
     }
 }
+
+function formatCpf($cpf)
+{
+    return substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9, 2);
+}
+
+if (!function_exists('translateStatus')) {
+    function Status($status)
+    {
+        $statusTranslations = [
+            'pending' => 'Pendente',
+            'accepted' => 'Aceito',
+            'refused' => 'Recusado',
+        ];
+
+        return $statusTranslations[$status] ?? $status;
+    }
+}
