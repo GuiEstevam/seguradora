@@ -6,18 +6,18 @@
   <div class="col-md-10 offset-md-1">
     <div class="row">
       <div id="image-container" class="col-md-4">
-        <img src="/img/profile_photo/{{ $Profile->profile_photo_path }}" class="img-fluid" alt="{{ $user->name }}">
+        {{-- <img src="/img/profile_photo/{{ $autonomous->name }}" class="img-fluid" alt="{{ $user->name }}"> --}}
       </div>
       <div id="profile-info-container" class="col-md-8">
-        @if ($Profile->user_id == $Logged->id)
-          <div class="row">
+        {{-- @if ($user->user_id == $Logged->id)
+          {{-- <div class="row">
             <div class="edit-profile-button text-right">
               <a class="btn btn-primary" href="/profile/edit/{{ $Profile->id }}">
                 Editar perfil
               </a>
             </div>
           </div>
-        @endif
+        @endif --}}
         <h1>{{ $user->name }}</h1>
         <p class="event-city">
           <ion-icon name="location-outline"></ion-icon> Campus: {{ $Profile->campus }}

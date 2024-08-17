@@ -51,15 +51,15 @@ class AggregateController extends Controller
     {
         $user = auth()->user();
 
-        $aggregate = Aggregate::findOrFail($id);
-        $prices = $aggregate->queryValues;
+        $query = Query::whereHas('aggregate')->where('id', $id)->first();
+        $aggregate = $query->aggregate;
 
         // if ($Aggregate->responsibleUser->id != $user->id) {
         //     return redirect()->route('aggregate.index')->with('msg', 'Cadastro desativado.');
         // }
         return view(
             'aggregate.show',
-            compact('aggregate', 'prices', 'user')
+            compact('aggregate', 'user')
         );
     }
 }

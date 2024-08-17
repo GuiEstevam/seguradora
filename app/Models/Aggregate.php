@@ -15,6 +15,7 @@ class Aggregate extends Model
         'codPrecification',
         'cpf',
         'name',
+        'birthDate',
         'motherName',
         'rgNumber',
         'rgUf',

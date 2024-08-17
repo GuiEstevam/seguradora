@@ -1,132 +1,134 @@
 @extends('layouts.main')
-
-@section('title', $user->name)
-
+@section('title', 'Detalhes do Autônomo')
 @section('content')
-  <div class="col-md-10 offset-md-1">
-    <div class="row">
-      <div id="image-container" class="col-md-4">
-        <img src="/img/profile_photo/{{ $Profile->profile_photo_path }}" class="img-fluid" alt="{{ $user->name }}">
+  <div id="event-create-container" class="col-md-8 offset-md-2">
+    <div class="row mb-3">
+      <div class="col d-flex justify-content-end">
+        <div class="btn-group" role="group">
+          <a href="{{ route('aggregate.index') }}" class="btn btn-secondary d-flex align-items-center">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <span class="ms-1">Voltar</span>
+          </a>
+        </div>
       </div>
-      <div id="profile-info-container" class="col-md-8">
-        @if ($Profile->user_id == $Logged->id)
-          <div class="row">
-            <div class="edit-profile-button text-right">
-              <a class="btn btn-primary" href="/profile/edit/{{ $Profile->id }}">
-                Editar perfil
-              </a>
+    </div>
+    <h4>Dados cadastrais</h4>
+    <div class="row mt-2">
+      <div class="form-group col-md-3">
+        <label class="form-label" for="cpf">CPF:</label>
+        {{ formatCpf($aggregate->cpf) }}
+      </div>
+      <div class="form-group col-md-3">
+        <label class="form-label" for="name">Nome:</label>
+        {{ $aggregate->name }}
+      </div>
+      <div class="form-group col-md-3">
+        <label class="form-label" for="motherName">Nome da Mãe:</label>
+        {{ $aggregate->motherName }}
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="form-group col-md-3">
+        <label class="form-label" for="birthDate">Data de Nascimento:</label>
+        {{ \Carbon\Carbon::parse($aggregate->birthDate)->format('d/m/Y') }}
+      </div>
+      <div class="form-group col-md-3">
+        <label class="form-label" for="rgNumber">RG Número:</label>
+        {{ formatRg($aggregate->rgNumber) }}
+      </div>
+      <div class="form-group col-md-3">
+        <label class="form-label" for="rgUf">RG UF:</label>
+        {{ $aggregate->rgUf }}
+      </div>
+      <div class="form-group col-md-3">
+        <label class="form-label" for="cnhRegisterNumber">CNH Número de Registro:</label>
+        {{ $aggregate->cnhRegisterNumber }}
+      </div>
+      <div class="row mt-2">
+        <div class="form-group col-md-3">
+          <label class="form-label" for="cnhSecurityNumber">CNH Número de Segurança:</label>
+          {{ $aggregate->cnhSecurityNumber }}
+        </div>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="cnhUf">CNH UF:</label>
+          {{ $aggregate->cnhUf }}
+        </div>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="personFlagAntt">Flag ANTT:</label>
+          {{ $aggregate->personFlagAntt }}
+        </div>
+      </div>
+      @for ($i = 1; $i <= 4; $i++)
+        @php
+          $vehiclePlate = "vehiclePlate0$i";
+          $vehicleRenavam = "vehicleRenavam0$i";
+          $vehicleUf = "vehicleUf0$i";
+          $vehicleOwnerDocument = "vehicleOwnerDocument0$i";
+          $vehicleRntrcNumber = "vehicleRntrcNumber0$i";
+          $vehicleFlagAntt = "vehicleFlagAntt0$i";
+          $dProcessOnVehicle = "dProcessOnVehicle0$i";
+        @endphp
+
+        @if (
+            $aggregate->$vehiclePlate ||
+                $aggregate->$vehicleRenavam ||
+                $aggregate->$vehicleUf ||
+                $aggregate->$vehicleOwnerDocument ||
+                $aggregate->$vehicleRntrcNumber ||
+                $aggregate->$vehicleFlagAntt ||
+                $aggregate->$dProcessOnVehicle)
+          <h4>Veículo {{ $i }}</h4>
+          <div class="row mt-2">
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehiclePlate }}">Placa</label>
+              <input type="text" name="{{ $vehiclePlate }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$vehiclePlate }}" disabled>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehicleRenavam }}">Renavam</label>
+              <input type="text" name="{{ $vehicleRenavam }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$vehicleRenavam }}" disabled>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehicleUf }}">UF</label>
+              <input type="text" name="{{ $vehicleUf }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$vehicleUf }}" disabled>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehicleOwnerDocument }}">Documento do Proprietário</label>
+              <input type="text" name="{{ $vehicleOwnerDocument }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$vehicleOwnerDocument }}" disabled>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehicleRntrcNumber }}">RNTRC Número</label>
+              <input type="text" name="{{ $vehicleRntrcNumber }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$vehicleRntrcNumber }}" disabled>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehicleFlagAntt }}">Flag ANTT</label>
+              <input type="text" name="{{ $vehicleFlagAntt }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$vehicleFlagAntt }}" disabled>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $dProcessOnVehicle }}">Processo no Veículo</label>
+              <input type="text" name="{{ $dProcessOnVehicle }}" class="form-control form-control-lg"
+                value="{{ $aggregate->$dProcessOnVehicle }}" disabled>
             </div>
           </div>
         @endif
-        <h1>{{ $user->name }}</h1>
-        <p class="event-city">
-          <ion-icon name="location-outline"></ion-icon> Campus: {{ $Profile->campus }}
-        </p>
-        @if ($user->role_id == 2)
-          <p class="events-participants">
-            <ion-icon name="people-outline"></ion-icon> Cursando: {{ $Profile->graduation }}
-          </p>
-          <p class="event-owner">
-            <ion-icon name="star-outline"></ion-icon> Semestre: {{ $Profile->semester }}°
-          </p>
-        @elseif($user->role_id == 3)
-          <p class="events-participants">
-            <ion-icon name="people-outline"></ion-icon> Disciplina: {{ $Profile->graduation }}
-          </p>
-        @endif
-
-        <h3>Tenho interesse em:</h3>
-        <ul id="profile-tags-list">
-          @foreach ($Profile->tags as $item)
-            <li>
-              <ion-icon name="play-outline"></ion-icon>{{ $item }}
-            </li>
-          @endforeach
-        </ul>
-        <div class="buttons-container">
-          <p>
-            <a class="btn btn-primary col-8" href="#" data-toggle="modal" data-target="#modalExperience">
-              Experiências anteriores
-            </a>
-          </p>
-          <p>
-            @if ($Logged->id == $user->id)
-            @elseif(!$hasUserJoined && !$hasUserApproved)
-              <a class="btn btn-primary col-8 mt-2" href="#" data-toggle="modal" data-target="#modalRequest">
-                Solicitar participação
-              </a>
-            @elseif($hasUserJoined && $hasUserApproved)
-              <p class="already-joined-msg col-8"> Esse usuário já faz parte do seu projeto</p>
-            @else
-              <p class="already-joined-msg col-8"> Você já solicitou a participação deste usuário</p>
-            @endif
-          </p>
+      @endfor
+      <div class="row mt-2 text-center">
+        <hr>
+        <div class="col-md-6">
+          <label for="created_at">Criado em</label>
+          {{ \Carbon\Carbon::parse($aggregate->created_at)->format('d/m/Y H:i') }}
         </div>
-      </div>
-      <div class="col-md-12" id="description-container">
-        <h3>Sobre mim:</h3>
-        <p class="profile-info-description">{{ $Profile->description }}</p>
+        <div class="col-md-6">
+          <label for="updated_at">Criado em</label>
+          {{ \Carbon\Carbon::parse($aggregate->updated_at)->format('d/m/Y H:i') }}
+        </div>
       </div>
     </div>
-  </div>
-  {{-- Modal para visualização das experiências anteriores --}}
-  <div class="modal fade" id="modalExperience" tabindex="-1" role="dialog" aria-labelledby="modalExperience"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ExperienceModalLabel">Experiências anteriores</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          @foreach ($Experiences as $Experience)
-            <p>{{ $Experience->experienceName }}</p>
-            <p>Instituição: {{ $Experience->institutionName }}</p>
-            <p>Data de inicio: {{ date('d/m/Y', strtotime($Experience->firstDate)) }}</p>
-            <p>Data fim: {{ date('d/m/Y', strtotime($Experience->lastDate)) }}</p>
-            <hr>
-          @endforeach
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequest"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="RequestModalLabel">Solicitando para:</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form form action="/profile/request" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" class="form-control" id="requestedUser" name="requestedUser" value={{ $user->id }}>
-            <div class="form-group col-12">
-              <label for="title">Selecione um projeto:</label>
-              <select class="form-control" id="projectRequestId" name="projectRequest">
-                <option value="" disabled></option>
-                @foreach ($LoggedProjects as $LoggedProject)
-                  <option value="{{ $LoggedProject->id }}">{{ $LoggedProject->name }}</option>
-                @endforeach
-              </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="submit" class="btn btn-primary">Solicitar</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-@endsection
+  @endsection

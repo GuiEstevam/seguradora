@@ -11,11 +11,6 @@
             </button>
           </a>
         </div>
-        <div class="btn-group mr-3" role="group">
-          <button id="edit-button" class="btn btn-primary">
-            Editar
-          </button>
-        </div>
       </div>
     </div>
     @if ($queries)
@@ -79,30 +74,5 @@
       '.'.substr($cpf, 6, 3).
       '-'.substr($cpf, 9, 2);
     }
-
-    var selectedRow = null;
-
-    Array.from(document.getElementsByClassName('selectable-row')).forEach(function(row) {
-      row.addEventListener('click', function() {
-        // Desmarcar a linha anteriormente selecionada, se houver
-        if (selectedRow) {
-          selectedRow.classList.remove('selected');
-        }
-
-        // Marcar a linha clicada como selecionada
-        row.classList.add('selected');
-        selectedRow = row;
-      });
-    });
-
-    document.getElementById('edit-button').addEventListener('click', function() {
-      if (selectedRow) {
-        var editUrl = selectedRow.getAttribute('data-edit-url');
-
-        // Agora você tem a URL de edição da linha selecionada em editUrl
-        // Você pode redirecionar para essa URL para editar a empresa
-        window.location.href = editUrl;
-      }
-    });
   </script>
 @endsection

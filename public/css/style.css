@@ -27,19 +27,19 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #71c837 !important;
-  border-color: #71c837 !important;
+  background-color: #001228 !important;
+  border-color: #001228 !important;
 }
 
 .btn-info {
   color: #fff !important;
-  background-color: #007bff !important;
-  border: 2px solid #007bff !important;
+  background-color: #9b2846 !important;
+  border: 2px solid #8e082c !important;
 }
 
 .btn-info:hover {
-  background-color: #0056b3 !important;
-  border-color: #0056b3 !important;
+  background-color: #8e082c !important;
+  border-color: #8e082c !important;
 }
 
 /* Mensagem */
@@ -275,18 +275,25 @@ footer p {
 
 /* Linha selecionável */
 .selectable-row {
-  background-color: white;
-}
+    background-color: white;
+  }
 
-.selectable-row.selected {
-  background-color: #0078d7;
-  color: white !important;
-}
+  .selectable-row.selected {
+    background-color: #0078d7;
+    color: white !important;
+  }
 
-.selectable-row td,
-.selectable-row th {
-  background-color: transparent !important;
-}
+  .selectable-row.selected td,
+  .selectable-row.selected th,
+  .selectable-row.selected a,
+  .selectable-row.selected span {
+    color: white !important;
+  }
+
+  .selectable-row td,
+  .selectable-row th {
+    background-color: transparent !important;
+  }
 
 /* Grupo de botões */
 .btn-group {

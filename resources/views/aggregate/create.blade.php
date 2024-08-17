@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label class="form-label" for="birthDate"> Data </label>
+          <label class="form-label" for="birthDate"> Data de nascimento </label>
           <input type="date" name="birthDate" class="form-control form-control-lg" value="{{ date('Y-m-d') }}"
             required />
         </div>
