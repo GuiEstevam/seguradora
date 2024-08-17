@@ -25,6 +25,7 @@
             <tr>
               <th class="text-center">ID</th>
               <th class="text-center">CPF</th>
+              <th class="text-center">Nome</th>
               <th class="text-center">Valor</th>
               <th class="text-center">Responsável</th>
             </tr>
@@ -35,6 +36,7 @@
                 data-edit-url="{{ route('enterprises.show', $querie->id) }}">
                 <td class="text-center">{{ $querie->id }}</td>
                 <td class="text-center">{{ $querie->Vehicle->cpf }}</td>
+                <td class="text-center">{{ $querie->Vehicle->name }}</td>
                 <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td>
                 <td class="text-center">{{ $querie->user->name }}</td>
               </tr>

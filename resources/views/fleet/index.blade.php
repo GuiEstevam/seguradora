@@ -30,7 +30,7 @@
               <th class="text-center">Data solicitação</th>
               <th class="text-center">Consultante</th>
               <th class="text-center">Status</th>
-              <th class="text-center">Valor</th>
+              <th class="text-center"></th>
             </tr>
           </thead>
           <tbody>
@@ -43,8 +43,27 @@
                 <td class="text-center">{{ $querie->fleet->rgUf }}</td>
                 <td class="text-center">{{ $querie->fleet->created_at->format('d/m/Y H:i') }}</td>
                 <td class="text-center">{{ $querie->user->name }}</td>
-                <td class="text-center">{{ Status($querie->status) }}</td>
-                <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td>
+                <td class="text-center">
+                  @if ($querie->status == 'pending')
+                    <div class="status-box pending">
+                      <ion-icon name="hand-right-outline"></ion-icon> Pendente
+                    </div>
+                  @elseif ($querie->status == 'approved')
+                    <div class="status-box approved">
+                      <ion-icon name="checkmark-circle-outline"></ion-icon> Aprovado
+                    </div>
+                  @elseif ($querie->status == 'denied')
+                    <div class="status-box denied">
+                      <ion-icon name="alert-circle-outline"></ion-icon> Detalhes
+                    </div>
+                  @endif
+                </td>
+                {{-- <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td> --}}
+                <td class="text-center">
+                  <a href="{{ route('autonomous.show', $querie->id) }}">
+                    <ion-icon name="search-outline" class="status-icon"></ion-icon>
+                  </a>
+                </td>
               </tr>
             @endforeach
           </tbody>

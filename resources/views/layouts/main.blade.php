@@ -27,89 +27,89 @@
 </head>
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center">
-    <a class="navbar-brand" href="/">
-      <img class="logo" src="/img/logo.jpg" alt="LOGO" />
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Pesquisa
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{ route('autonomous.index') }}">Autônomo</a>
-            <a class="dropdown-item" href="{{ route('aggregate.index') }}">Agregado</a>
-            <a class="dropdown-item" href="{{ route('fleet.index') }}">Frota</a>
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Individual</a>
-            <a class="dropdown-item" href="{{ route('vehicle.index') }}">Veículo</a>
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Empresa</a>
-            <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Processo</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/renovacao/registro">Renovação</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Relatório
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/relatorio/recentes">Registros Recentes</a>
-            <a class="dropdown-item" href="#">Buscar Registros</a>
-            <a class="dropdown-item" href="#">Relatório Excel</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Cadastro
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Histórico de viagens</a>
-            <a class="dropdown-item" href="#">Inclusão blacklist</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Gerenciamento
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
-            <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
-          </div>
-        </li>
-        {{-- <li class="nav-item">
-          <a class="nav-link" href="/departaments/listagem">Treinamento</a>
-        </li> --}}
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <form action="/logout" method="POST">
-            @csrf
-            <a class="nav-link" href="/logout"
-              onclick="event.preventDefault();
-                  this.closest('form').submit();">
-              SAIR
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img class="logo" src="/img/logo.jpg" alt="LOGO" />
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Pesquisa
             </a>
-          </form>
-        </li>
-      </ul>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{{ route('autonomous.index') }}">Autônomo</a>
+              <a class="dropdown-item" href="{{ route('aggregate.index') }}">Agregado</a>
+              <a class="dropdown-item" href="{{ route('fleet.index') }}">Frota</a>
+              <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Individual</a>
+              <a class="dropdown-item" href="{{ route('vehicle.index') }}">Veículo</a>
+              <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Empresa</a>
+              <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Processo</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/renovacao/registro">Renovação</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Relatório
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/relatorio/recentes">Registros Recentes</a>
+              <a class="dropdown-item" href="#">Buscar Registros</a>
+              <a class="dropdown-item" href="#">Relatório Excel</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Cadastro
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Histórico de viagens</a>
+              <a class="dropdown-item" href="#">Inclusão blacklist</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Gerenciamento
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
+              <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{ Auth::user()->name }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="/perfil">{{ Auth::user()->enterprise->name }}</a>
+              <a class="dropdown-item" href="/perfil">Perfil</a>
+              <form action="/logout" method="POST">
+                @csrf
+                <a class="dropdown-item" href="/logout"
+                  onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                  Sair
+                </a>
+              </form>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
-  </div>
-  <div id="subnavbar" class="col-md-8 offset-md-2 navbar-sub">
-    <div class="row">
-      <div class="col-md-6"> Empresa: {{ Auth::user()->enterprise->name }} </div>
-      <div class="col-md-6"> Usuário: {{ Auth::user()->name }}</div>
-    </div>
-  </div>
 </header>
 
 <body>

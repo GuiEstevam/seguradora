@@ -56,12 +56,14 @@ class AutonomousController extends Controller
         return redirect()->route('autonomous.index')->with('success', 'Consulta criada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Autonomous $autonomous)
+    public function show($id)
     {
-        //
+        $user = auth()->user();
+        $autonomous = Autonomous::findOrFail($id);
+        return view(
+            'autonomous.show',
+            compact('autonomous', 'user')
+        );
     }
 
     /**

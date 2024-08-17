@@ -46,4 +46,20 @@ class AggregateController extends Controller
 
         return redirect()->route('aggregate.index')->with('success', 'Consulta criada com sucesso!');
     }
+
+    public function show($id)
+    {
+        $user = auth()->user();
+
+        $aggregate = Aggregate::findOrFail($id);
+        $prices = $aggregate->queryValues;
+
+        // if ($Aggregate->responsibleUser->id != $user->id) {
+        //     return redirect()->route('aggregate.index')->with('msg', 'Cadastro desativado.');
+        // }
+        return view(
+            'aggregate.show',
+            compact('aggregate', 'prices', 'user')
+        );
+    }
 }

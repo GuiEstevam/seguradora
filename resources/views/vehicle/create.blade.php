@@ -4,7 +4,6 @@
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <form action="{{ route('driverLicense.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
-      {{-- <h4>Cadastramento de Empresa</h4> --}}
       <div class="row mt-2">
         <div class="form-group col-md-3">
           <label class="form-label" for="cpf">CPF</label>
