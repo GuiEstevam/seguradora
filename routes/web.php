@@ -48,7 +48,7 @@ Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterp
 Route::middleware(['auth'])->prefix('enterprises')->group(function () {
     Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
     Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
-    Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show');
+    Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show')->middleware('CheckEnterprise');
     Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
 });
 

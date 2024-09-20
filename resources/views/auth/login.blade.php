@@ -1,7 +1,11 @@
 <x-guest-layout>
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
-
+  <x-slot name="logo">
+    <a href="/">
+      <img src="{{ asset('img/nova-logo.png') }}" alt="Logo" class="w-20 h-20 fill-current text-gray-500">
+    </a>
+  </x-slot>
   <form method="POST" action="{{ route('login2') }}">
     @csrf
     {{-- Empresa --}}

@@ -53,10 +53,6 @@
           <label class="form-label" for="cnhUf">CNH UF:</label>
           {{ $aggregate->cnhUf }}
         </div>
-        <div class="form-group col-md-3">
-          <label class="form-label" for="personFlagAntt">Flag ANTT:</label>
-          {{ $aggregate->personFlagAntt }}
-        </div>
       </div>
       @for ($i = 1; $i <= 4; $i++)
         @php
