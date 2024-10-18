@@ -3,6 +3,7 @@
 use App\Http\Controllers\AggregateController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AutonomousController;
+use App\Http\Controllers\DminerController;
 use App\Http\Controllers\DriverLicenseController;
 use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\FleetController;
@@ -52,7 +53,7 @@ Route::middleware(['auth'])->prefix('enterprises')->group(function () {
     Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('users')->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin|master'])->prefix('users')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('users.index');
     Route::get('/create', [AuthController::class, 'create'])->name('users.create');
     Route::post('/', [AuthController::class, 'store'])->name('users.store');
@@ -108,6 +109,8 @@ Route::middleware(['auth', 'verified'])->prefix('fleet')->group(function () {
     Route::put('/show/{id}', [FleetController::class, 'update'])->name('fleet.update');
 });
 
+Route::post('/webservice/addRegister', [DminerController::class, 'addRegister']);
+
 Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {
     Route::view('/agregado', 'pesquisa.agregado');
 });
@@ -126,6 +129,8 @@ Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('pesquisa')->group(function () {
     Route::view('/cnh', 'pesquisa.cnh');
 });
+
+
 // Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterprises.index');
 // Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterprises.index');
 require __DIR__ . '/auth.php';

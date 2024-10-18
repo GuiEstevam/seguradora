@@ -6,6 +6,9 @@ use App\Models\Enterprise;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AuthController extends Controller
 {
@@ -69,29 +72,43 @@ class AuthController extends Controller
     {
         $enterprises = Enterprise::all();
         $user = User::findOrFail($id);
+        $roles = Role::all();
+        $permissions = Permission::all();
 
-        // if ($Enterprise->responsibleUser->id != $user->id) {
-        //     return redirect()->route('enterprises.index')->with('msg', 'Cadastro desativado.');
-        // }
         return view(
             'users.show',
-            [
-                'user' => $user,
-                'enterprises' => $enterprises,
-            ]
+            compact('user', 'enterprises', 'roles', 'permissions'),
         );
     }
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'enterprise_id' => ['required', 'string'],
-            'name' => ['required', 'string'],
-            'email' => ['required', 'string'],
-            'phone' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'enterprise_id' => ['nullable', 'exists:enterprises,id'],
+            'status' => ['required', 'in:active,inactive'],
         ]);
 
         $user = User::findOrFail($id);
+
+        // Sincronizar papéis e permissões
+        if ($request->has('roles') && count($request->roles) > 0) {
+            $user->syncRoles($request->roles);
+            $user->syncPermissions([]);
+        } else {
+            $user->syncRoles([]);
+        }
+
+        if ($request->has('permissions') && count($request->permissions) > 0) {
+            $user->syncPermissions($request->permissions);
+        } else {
+            $user->syncPermissions([]);
+        }
+
         $data = $request->all();
+
+        // Atualizar status e data de desativação
         if ($request->status == 'active') {
             $data['deactivated_at'] = null;
         } else {
@@ -99,15 +116,7 @@ class AuthController extends Controller
         }
 
         $user->update($data);
-        $user->save();
 
-        // $user->enterprise_id = $request->enterprise_id;
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->phone = $request->phone;
-        // $user->status = $request->status;
-        // $user->save();
-
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('msg', 'Usuário atualizado com sucesso.');
     }
 }

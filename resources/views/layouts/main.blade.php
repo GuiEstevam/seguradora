@@ -49,7 +49,9 @@
               <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Individual</a>
               <a class="dropdown-item" href="{{ route('vehicle.index') }}">Veículo</a>
               <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Empresa</a>
-              <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Processo</a>
+              @role('master')
+                <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Processo</a>
+              @endrole
             </div>
           </li>
           <li class="nav-item">
@@ -76,16 +78,20 @@
               <a class="dropdown-item" href="#">Inclusão blacklist</a>
             </div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Gerenciamento
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
-              <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
-            </div>
-          </li>
+          @if (auth()->user()->hasAnyRole(['master', 'admin']))
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Gerenciamento
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
+                @role('master')
+                  <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
+                @endrole
+              </div>
+            </li>
+          @endif
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
@@ -113,7 +119,7 @@
 </header>
 
 <body>
-  {{-- @if ($errors->any())
+  @if ($errors->any())
     <script>
       $(document).ready(function() {
         $('#myModal').modal('show');
@@ -145,7 +151,7 @@
         </div>
       </div>
     </div>
-  </div> --}}
+  </div>
   <main>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -167,31 +173,7 @@
     </div>
 
     @yield('content')
-
-    {{-- <div class="row">
-      @if (session('msg'))
-        <p class="msg col-md-8 offset-md-2 mt-2 mb-3">{{ session('msg') }}</p>
-      @endif
-
-    </div> --}}
   </main>
-  {{-- <div class="row mb-3">
-      @if (session('success'))
-        <div class="alert alert-success">
-          {{ session('success') }}
-        </div>
-      @endif
-      @if (session('error'))
-        <div class="alert alert-danger">
-          {{ session('error') }}
-        </div>
-      @endif
-      @if (session('msg'))
-        <p class="msg">
-          {{ session('msg') }}
-        </p>
-      @endif
-    </div> --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
