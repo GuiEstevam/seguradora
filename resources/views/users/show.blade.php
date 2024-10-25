@@ -130,11 +130,13 @@
   </div>
   <script>
     $(document).ready(function() {
+      $('#save-button').click(function() {
+        $('form').submit();
+      });
       // Função para remover a pontuação do telefone
       function removePontuacaoTelefone(telefone) {
         return telefone.replace(/[^\d]+/g, '');
       }
-
       // Aplica a máscara no campo de telefone
       $('#phone').mask(function(val) {
         return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';

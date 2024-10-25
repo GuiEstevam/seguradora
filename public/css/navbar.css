@@ -69,3 +69,40 @@ header {
 .ml-auto {
     margin-left: auto !important;
 }
+@media (prefers-color-scheme: dark) {
+    header {
+      background-color: #1f2937;
+      border-radius: 0.5em;
+    }
+
+    .navbar {
+      background-color: #1f2937;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    .nav-link {
+      color: #e0e0e0 !important;
+    }
+
+    .nav-link:hover {
+      color: #f6f7f8 !important;
+    }
+
+    .dropdown-menu {
+      background-color: #1f2937 !important;
+      -webkit-box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+      box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item {
+      color: #e0e0e0 !important;
+    }
+
+    .dropdown-item:hover {
+      background-color: #2f3d52 !important;
+    }
+  }

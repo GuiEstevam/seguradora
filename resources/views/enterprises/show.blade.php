@@ -13,12 +13,10 @@
       @method('PUT')
       <div class="row mb-3">
         <div class="col d-flex justify-content-start">
-          <div class="btn-group" role="group">
-            <a href="{{ route('enterprises.index') }}" class="btn btn-secondary d-flex align-items-center">
-              <ion-icon name="arrow-back-outline"></ion-icon>
-              <span class="ms-1">Voltar</span>
-            </a>
-          </div>
+          <button id="openPriceModal" data-id="{{ $enterprise->id }}" class="btn btn-primary d-flex align-items-center">
+            <ion-icon name="wallet"></ion-icon>
+            <span class="ms-1">Preços</span>
+          </button>
         </div>
         <div class="col d-flex justify-content-end">
           <div class="btn-group mr-1" role="group">
@@ -27,10 +25,10 @@
             </button>
           </div>
           <div class="btn-group" role="group">
-            <button id="openPriceModal" data-id="{{ $enterprise->id }}" class="btn btn-primary d-flex align-items-center">
-              <ion-icon name="wallet"></ion-icon>
-              <span class="ms-1">Preços</span>
-            </button>
+            <a href="{{ route('enterprises.index') }}" class="btn btn-secondary d-flex align-items-center">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+              <span class="ms-1">Voltar</span>
+            </a>
           </div>
 
         </div>

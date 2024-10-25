@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckEnterprise;
 use App\Models\Enterprise;
 use App\Models\User;
 use App\Services\CnpjFormatterService;
@@ -18,17 +19,18 @@ class EnterpriseController extends Controller
         $user = auth()->user();
         $cnpjFormatter = app(CnpjFormatterService::class);
 
-        if (!$user->hasRole('master')) {
+        if ($user->hasRole('master')) {
             $enterprises = Enterprise::all();
         } else {
-            $enterprises = $user->enterprises;
+            $enterprise_id = $user->enterprise_id;
+            $enterprises = Enterprise::where('id', $enterprise_id)->get();
         }
 
         foreach ($enterprises as $enterprise) {
             $enterprise->cnpj = $cnpjFormatter->formatarCnpj($enterprise->cnpj);
         };
 
-        return view('enterprises.index', compact('user', 'enterprises', 'role'));
+        return view('enterprises.index', compact('user', 'enterprises'));
     }
 
     public function create()

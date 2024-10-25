@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::group(['middleware' => ['auth', 'verified', 'role:master']], function () {
+Route::group(['middleware' => ['auth', 'verified', 'role:master|admin']], function () {
     Route::prefix('enterprises')->group(function () {
         Route::get('/', [EnterpriseController::class, 'index'])->name('enterprises.index');
         Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');

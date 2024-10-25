@@ -23,7 +23,7 @@ class CheckEnterprise
 
         $enterprise = Enterprise::findOrfail($id);
 
-        if (!$enterprise || $user->enterprise_id !== $enterprise->id) {
+        if (!$enterprise || $user->enterprise_id !== $enterprise->id && !$user->hasRole('master')) {
             return redirect()->route('enterprises.index')->with('msg', 'Você não tem permissão para acessar esta empresa.');
         }
 

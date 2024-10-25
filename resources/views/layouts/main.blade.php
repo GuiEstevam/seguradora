@@ -26,7 +26,7 @@
   <title>@yield('title')</title>
 </head>
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center">
+  <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-center">
     <div class="container">
       <a class="navbar-brand" href="/">
         <img class="logo" src="/img/logo.jpg" alt="LOGO" />
