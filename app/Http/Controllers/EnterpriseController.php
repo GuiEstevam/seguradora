@@ -16,14 +16,13 @@ class EnterpriseController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $enterprises = Enterprise::all();
         $cnpjFormatter = app(CnpjFormatterService::class);
 
-        $role = Role::where('name', 'admin')->first();
-        if (!$role) {
-            // Trate a situação em que a role não foi encontrada
+        if (!$user->hasRole('master')) {
+            $enterprises = Enterprise::all();
+        } else {
+            $enterprises = $user->enterprises;
         }
-
 
         foreach ($enterprises as $enterprise) {
             $enterprise->cnpj = $cnpjFormatter->formatarCnpj($enterprise->cnpj);

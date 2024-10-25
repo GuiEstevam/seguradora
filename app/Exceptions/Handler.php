@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -23,6 +24,10 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        $this->renderable(function (UnauthorizedException $e, $request) {
+            return redirect()->route('new')->with('msg', 'O usuário não tem as permissões necessárias.');
+        });
+
         $this->reportable(function (Throwable $e) {
             //
         });

@@ -37,7 +37,14 @@ class AuthController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $user = Auth::user();
+
+        if ($user->hasRole('master')) {
+            $users = User::all();
+        } else {
+            $enterprise = Enterprise::findOrFail($user->enterprise_id);
+            $users = $enterprise->users;
+        }
 
         return view('users.index', compact('users'));
     }

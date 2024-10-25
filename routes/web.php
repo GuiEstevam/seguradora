@@ -44,23 +44,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/enterprises', [EnterpriseController::class, 'index'])->name('enterprises.index');
 
-Route::middleware(['auth'])->prefix('enterprises')->group(function () {
-    Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
-    Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
-    Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show')->middleware('CheckEnterprise');
-    Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
+Route::group(['middleware' => ['auth', 'verified', 'role:master']], function () {
+    Route::prefix('enterprises')->group(function () {
+        Route::get('/', [EnterpriseController::class, 'index'])->name('enterprises.index');
+        Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
+        Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
+        Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show')->middleware('CheckEnterprise');
+        Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
+    });
 });
 
-Route::middleware(['auth', 'verified', 'role:admin|master'])->prefix('users')->group(function () {
-    Route::get('/', [AuthController::class, 'index'])->name('users.index');
-    Route::get('/create', [AuthController::class, 'create'])->name('users.create');
-    Route::post('/', [AuthController::class, 'store'])->name('users.store');
-    Route::get('/show/{id}', [AuthController::class, 'show'])->name('users.show');
-    Route::put('/show/{id}', [AuthController::class, 'update'])->name('users.update');
+Route::group(['middleware' => ['auth', 'verified', 'role:master|admin']], function () {
+    Route::prefix('users')->group(function () {
+        Route::get('/', [AuthController::class, 'index'])->name('users.index');
+        Route::get('/create', [AuthController::class, 'create'])->name('users.create');
+        Route::post('/', [AuthController::class, 'store'])->name('users.store');
+        Route::get('/show/{id}', [AuthController::class, 'show'])->name('users.show');
+        Route::put('/show/{id}', [AuthController::class, 'update'])->name('users.update');
+    });
 });
-
 Route::middleware(['auth', 'verified'])->prefix('query_value')->group(function () {
     Route::get('/show/{id}', [QueryValueController::class, 'show'])->name('query_value.show');
     Route::get('/create', [QueryValueController::class, 'create'])->name('query_value.create');

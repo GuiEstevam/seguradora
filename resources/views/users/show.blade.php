@@ -51,21 +51,23 @@
               value="{{ $user->phone }}">
           </div>
         </div>
-        <div class="form-group col-md-3">
-          <label class="form-label" for="enterprise_id">Empresa</label>
-          <div class="input-group">
-            @isset($enterprises)
-              <select name="enterprise_id" id="enterprise_id" class="form-control form-control-lg">
-                <option value="">Selecione</option>
-                @foreach ($enterprises as $enterprise)
-                  <option value="{{ $enterprise->id }}" {{ $user->enterprise_id == $enterprise->id ? 'selected' : '' }}>
-                    {{ $enterprise->name }}
-                  </option>
-                @endforeach
-              </select>
-            @endisset
+        @role('master')
+          <div class="form-group col-md-3">
+            <label class="form-label" for="enterprise_id">Empresa</label>
+            <div class="input-group">
+              @isset($enterprises)
+                <select name="enterprise_id" id="enterprise_id" class="form-control form-control-lg">
+                  <option value="">Selecione</option>
+                  @foreach ($enterprises as $enterprise)
+                    <option value="{{ $enterprise->id }}" {{ $user->enterprise_id == $enterprise->id ? 'selected' : '' }}>
+                      {{ $enterprise->name }}
+                    </option>
+                  @endforeach
+                </select>
+              @endisset
+            </div>
           </div>
-        </div>
+        @endrole
       </div>
       <div class="row mt-3">
         <div class="form-group col-md-2 mt-2">
@@ -83,45 +85,47 @@
           </div>
         @endif
       </div>
-      <hr>
-      <h5>Permissões</h5>
-      <div class="form-group col-md-3">
-        <label>Selecione o Tipo de Permissão</label>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn" id="roles-toggle">
-            <input type="radio" name="options" id="option1" autocomplete="off">
-            Papéis
-          </label>
-          <label class="btn" id="permissions-toggle">
-            <input type="radio" name="options" id="option2" autocomplete="off">
-            Permissões Específicas
-          </label>
-        </div>
-        <div id="roles-section" class="form-group" style="display: none;">
-          <label for="roles">Papéis (Grupos)</label>
-          <select name="roles[]" id="roles" class="form-control">
-            <option value="">Selecione um grupo</option>
-            @foreach ($roles as $role)
-              <option value="{{ $role->name }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
-                {{ __('roles_permissions.roles.' . $role->name) }}
-              </option>
+      @role('master')
+        <hr>
+        <h5>Permissões</h5>
+        <div class="form-group col-md-3">
+          <label>Selecione o Tipo de Permissão</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn" id="roles-toggle">
+              <input type="radio" name="options" id="option1" autocomplete="off">
+              Papéis
+            </label>
+            <label class="btn" id="permissions-toggle">
+              <input type="radio" name="options" id="option2" autocomplete="off">
+              Permissões Específicas
+            </label>
+          </div>
+          <div id="roles-section" class="form-group" style="display: none;">
+            <label for="roles">Papéis (Grupos)</label>
+            <select name="roles[]" id="roles" class="form-control">
+              <option value="">Selecione um grupo</option>
+              @foreach ($roles as $role)
+                <option value="{{ $role->name }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
+                  {{ __('roles_permissions.roles.' . $role->name) }}
+                </option>
+              @endforeach
+            </select>
+          </div>
+          <div id="permissions-section" class="form-group" style="display: none;">
+            <label for="permissions">Permissões Específicas</label>
+            @foreach ($permissions as $permission)
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->name }}"
+                  id="permission-{{ $permission->id }}"
+                  {{ $user->permissions->contains($permission->id) ? 'checked' : '' }}>
+                <label class="form-check-label" for="permission-{{ $permission->id }}">
+                  {{ __('roles_permissions.permissions.' . $permission->name) }}
+                </label>
+              </div>
             @endforeach
-          </select>
+          </div>
         </div>
-        <div id="permissions-section" class="form-group" style="display: none;">
-          <label for="permissions">Permissões Específicas</label>
-          @foreach ($permissions as $permission)
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->name }}"
-                id="permission-{{ $permission->id }}"
-                {{ $user->permissions->contains($permission->id) ? 'checked' : '' }}>
-              <label class="form-check-label" for="permission-{{ $permission->id }}">
-                {{ __('roles_permissions.permissions.' . $permission->name) }}
-              </label>
-            </div>
-          @endforeach
-        </div>
-      </div>
+      @endrole
     </form>
   </div>
   <script>
