@@ -23,11 +23,45 @@ if (!function_exists('translateStatus')) {
     {
         $statusTranslations = [
             'pending' => 'Pendente',
-            'accepted' => 'Aceito',
-            'refused' => 'Recusado',
+            'approved' => 'Aprovado',
+            'denied' => 'Detalhes',
         ];
 
         return $statusTranslations[$status] ?? $status;
+    }
+}
+
+if (!function_exists('statusBox')) {
+    function statusBox($status)
+    {
+        $statusMap = [
+            'pending' => [
+                'class' => 'status-box pending',
+                'icon' => 'hand-right-outline',
+                'text' => 'Pendente',
+            ],
+            'approved' => [
+                'class' => 'status-box approved',
+                'icon' => 'checkmark-circle-outline',
+                'text' => 'Aprovado',
+            ],
+            'denied' => [
+                'class' => 'status-box denied',
+                'icon' => 'alert-circle-outline',
+                'text' => 'Detalhes',
+            ],
+        ];
+
+        if (array_key_exists($status, $statusMap)) {
+            return sprintf(
+                '<div class="%s"><ion-icon name="%s"></ion-icon> %s</div>',
+                $statusMap[$status]['class'],
+                $statusMap[$status]['icon'],
+                $statusMap[$status]['text']
+            );
+        }
+
+        return '';
     }
 }
 

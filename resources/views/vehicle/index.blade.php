@@ -28,6 +28,7 @@
               <th class="text-center">Nome</th>
               <th class="text-center">Valor</th>
               <th class="text-center">Responsável</th>
+              <th class="text-center">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +40,7 @@
                 <td class="text-center">{{ $querie->Vehicle->name }}</td>
                 <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td>
                 <td class="text-center">{{ $querie->user->name }}</td>
+                <td class="text-center">{!! statusBox($querie->status) !!}</td>
               </tr>
             @endforeach
           </tbody>

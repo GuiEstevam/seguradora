@@ -9,6 +9,7 @@ use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\FleetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QueryController;
+use App\Http\Controllers\QueryExportController;
 use App\Http\Controllers\QueryValueCont;
 use App\Http\Controllers\QueryValueController;
 use App\Http\Controllers\VehicleController;
@@ -95,6 +96,8 @@ Route::middleware(['auth', 'verified'])->prefix('aggregate')->group(function () 
     Route::post('/', [AggregateController::class, 'store'])->name('aggregate.store');
     Route::put('/show/{id}', [AggregateController::class, 'update'])->name('aggregate.update');
 });
+Route::get('export-queries', [QueryExportController::class, 'export'])->name('export.queries');
+
 
 Route::middleware(['auth', 'verified'])->prefix('autonomous')->group(function () {
     Route::get('/', [AutonomousController::class, 'index'])->name('autonomous.index');

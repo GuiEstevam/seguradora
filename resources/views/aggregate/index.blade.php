@@ -3,6 +3,10 @@
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <div class="row mb-3">
+      <div class="col d-flex justify-content-start">
+        <a href="{{ route('export.queries') }}" class="btn btn-success mb-3"> <ion-icon name="library">
+          </ion-icon> Excel</a>
+      </div>
       <div class="col d-flex justify-content-end">
         <div class="btn-group mr-1" role="group">
           <a href="{{ route('aggregate.create') }}">
@@ -33,26 +37,12 @@
               <tr class="selectable-row" data-id="{{ $querie->id }}"
                 data-edit-url="{{ route('enterprises.show', $querie->id) }}">
                 <td class="text-center">{{ $querie->id }}</td>
-                <td class="text-center">{{ formatCpf($querie->aggregate->cpf) }}</td>
-                <td class="text-center">{{ $querie->aggregate->name }}</td>
-                <td class="text-center">{{ $querie->aggregate->rgUf }}</td>
+                <td class="text-center">{{ $querie->aggregate ? formatCpf($querie->aggregate->cpf) : 'N/A' }}</td>
+                <td class="text-center">{{ $querie->aggregate ? $querie->aggregate->name : 'N/A' }}</td>
+                <td class="text-center">{{ $querie->aggregate ? $querie->aggregate->rgUf : 'N/A' }}</td>
                 <td class="text-center">{{ $querie->aggregate->created_at->format('d/m/Y H:i') }}</td>
                 <td class="text-center">{{ $querie->user->name }}</td>
-                <td class="text-center">
-                  @if ($querie->status == 'pending')
-                    <div class="status-box pending">
-                      <ion-icon name="hand-right-outline"></ion-icon> Pendente
-                    </div>
-                  @elseif ($querie->status == 'approved')
-                    <div class="status-box approved">
-                      <ion-icon name="checkmark-circle-outline"></ion-icon> Aprovado
-                    </div>
-                  @elseif ($querie->status == 'denied')
-                    <div class="status-box denied">
-                      <ion-icon name="alert-circle-outline"></ion-icon> Detalhes
-                    </div>
-                  @endif
-                </td>
+                <td class="text-center">{!! statusBox($querie->status) !!}</td>
                 {{-- <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td> --}}
                 <td class="text-center">
                   <a href="{{ route('aggregate.show', $querie->id) }}">
