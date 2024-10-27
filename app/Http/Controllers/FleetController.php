@@ -59,9 +59,15 @@ class FleetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fleet $fleet)
+    public function show($id)
     {
-        //
+        $query = Query::whereHas('fleet')->where('id', $id)->first();
+        $fleet = $query->fleet;
+        return view('layouts.show_generic', [
+            'entity' => $fleet,
+            'title' => 'Detalhes da Frota',
+            'backRoute' => 'fleet.index'
+        ]);
     }
 
     /**

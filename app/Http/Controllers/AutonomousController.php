@@ -59,11 +59,13 @@ class AutonomousController extends Controller
     public function show($id)
     {
         $user = auth()->user();
-        $autonomous = Autonomous::findOrFail($id);
-        return view(
-            'autonomous.show',
-            compact('autonomous', 'user')
-        );
+        $query = Query::whereHas('autonomous')->where('id', $id)->first();
+        $autonomous = $query->autonomous;
+        return view('layouts.show_generic', [
+            'entity' => $autonomous,
+            'title' => 'Detalhes do Autônomo',
+            'backRoute' => 'autonomous.index'
+        ]);
     }
 
     /**

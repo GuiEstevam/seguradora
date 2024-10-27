@@ -50,16 +50,12 @@ class AggregateController extends Controller
     public function show($id)
     {
         $user = auth()->user();
-
         $query = Query::whereHas('aggregate')->where('id', $id)->first();
         $aggregate = $query->aggregate;
-
-        // if ($Aggregate->responsibleUser->id != $user->id) {
-        //     return redirect()->route('aggregate.index')->with('msg', 'Cadastro desativado.');
-        // }
-        return view(
-            'aggregate.show',
-            compact('aggregate', 'user')
-        );
+        return view('layouts.show_generic', [
+            'entity' => $aggregate,
+            'title' => 'Detalhes do Agregado',
+            'backRoute' => 'aggregate.index'
+        ]);
     }
 }
