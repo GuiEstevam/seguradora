@@ -3,6 +3,10 @@
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <div class="row mb-3">
+      <div class="col d-flex justify-content-start">
+        <a href="{{ route('export.queries') }}" class="btn btn-success mb-3"> <ion-icon name="library">
+          </ion-icon> Excel</a>
+      </div>
       <div class="col d-flex justify-content-end">
         <div class="btn-group mr-1" role="group">
           <a href="{{ route('fleet.create') }}">
@@ -10,11 +14,6 @@
               Criar
             </button>
           </a>
-        </div>
-        <div class="btn-group mr-3" role="group">
-          <button id="edit-button" class="btn btn-primary">
-            Editar
-          </button>
         </div>
       </div>
     </div>
@@ -46,7 +45,7 @@
                 <td class="text-center">{!! statusBox($querie->status) !!}</td>
                 {{-- <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td> --}}
                 <td class="text-center">
-                  <a href="{{ route('autonomous.show', $querie->id) }}">
+                  <a href="{{ route('fleet.show', $querie->id) }}">
                     <ion-icon name="search-outline" class="status-icon"></ion-icon>
                   </a>
                 </td>

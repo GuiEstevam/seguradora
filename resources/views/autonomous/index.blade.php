@@ -3,6 +3,10 @@
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <div class="row mb-3">
+      <div class="col d-flex justify-content-start">
+        <a href="{{ route('export.queries') }}" class="btn btn-success mb-3"> <ion-icon name="library">
+          </ion-icon> Excel</a>
+      </div>
       <div class="col d-flex justify-content-end">
         <div class="btn-group mr-1" role="group">
           <a href="{{ route('autonomous.create') }}">
