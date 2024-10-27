@@ -19,18 +19,17 @@
           </button>
         </div>
         <div class="col d-flex justify-content-end">
-          <div class="btn-group mr-1" role="group">
-            <button id="save-button" class="btn btn-primary">
-              Salvar
-            </button>
-          </div>
           <div class="btn-group" role="group">
             <a href="{{ route('enterprises.index') }}" class="btn btn-secondary d-flex align-items-center">
               <ion-icon name="arrow-back-outline"></ion-icon>
               <span class="ms-1">Voltar</span>
             </a>
           </div>
-
+          <div class="btn-group mr-1" role="group">
+            <button id="save-button" class="btn btn-primary">
+              Salvar
+            </button>
+          </div>
         </div>
       </div>
       <h4>Dados cadastrais</h4>
