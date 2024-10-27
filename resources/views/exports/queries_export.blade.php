@@ -28,10 +28,10 @@
   <thead>
     <tr>
       <th class="text-center">ID</th>
-      <th class="text-center">CPF</th>
+      <th class="text-center">Parâmetro</th>
       <th class="text-center">Nome</th>
       <th class="text-center">UF</th>
-      <th class="text-center">Data solicitação</th>
+      <th class="text-center">Data da solicitação</th>
       <th class="text-center">Consultante</th>
       <th class="text-center">Status</th>
     </tr>
