@@ -239,6 +239,13 @@ footer p {
   color: #000;
 }
 
+/* Modal */
+
+.modal-content {
+  background-color: #fff;
+  color: #000;
+}
+
 /* Modo Escuro */
 @media (prefers-color-scheme: dark) {
     body {
@@ -290,6 +297,16 @@ footer p {
     background-color: #111827;
     border: #f30202 !important;
     color: #fff !important;
+    }
+
+    #event-create-container input:focus,
+    #event-create-container select:focus,
+    #event-create-container textarea:focus {
+      background-color: #1f2937 !important;
+      border-color: #9b2846; /* Azul claro para indicar foco */
+      color: #fff !important;
+      outline: none !important;
+      box-shadow: 0 0 0 2px #9b2846;
     }
 
     footer {
@@ -345,4 +362,55 @@ footer p {
         color: #ffffff !important;
         background-color: #1f2937 !important;
       }
+
+      /* Modal */
+
+      .modal-content {
+        background-color: #1f2937 !important;
+        color: #fff !important;
+      }
+
+      .modal-header {
+        border-bottom: 1px solid #1e2a38;
+      }
+
+      .modal-footer {
+        border-top: 1px solid #1e2a38;
+      }
+
+      .modal-footer button {
+        color: #fff;
+      }
+
+      .modal-footer button:hover {
+        color: #fff;
+      }
+
+      .modal-body {
+        background-color: #1f2937 !important;
+        color: #fff !important;
+      }
+
+      .modal-body input,
+      .modal-body select,
+      .modal-body textarea {
+        background-color: #111827;
+        border: 1px solid #2b1e38;
+        color: #fff !important;
+      }
+
+      .modal-body input:focus,
+      .modal-body select:focus,
+      .modal-body textarea:focus {
+        background-color: #1f2937 !important;
+        border-color: #9b2846; /* Azul claro para indicar foco */
+        color: #fff !important;
+        outline: none !important;
+        box-shadow: 0 0 0 2px #9b2846;
+      }
+
+      .modal-body label {
+        color: #e0e0e0 !important;
+      }
+
   }
