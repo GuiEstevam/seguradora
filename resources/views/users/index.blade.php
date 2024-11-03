@@ -4,12 +4,13 @@
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
-        <div class="btn-group mr-1" role="group">
-          <a href="{{ route('users.create') }}" class="btn btn-primary">
-            Criar
-          </a>
-        </div>
-
+        @role('master')
+          <div class="btn-group mr-1" role="group">
+            <a href="{{ route('users.create') }}" class="btn btn-primary">
+              Criar
+            </a>
+          </div>
+        @endrole
         <div class="btn-group mr-3" role="group">
           <button id="edit-button" class="btn btn-primary">
             Editar

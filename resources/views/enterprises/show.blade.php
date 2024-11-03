@@ -12,12 +12,14 @@
       @csrf
       @method('PUT')
       <div class="row mb-3">
-        <div class="col d-flex justify-content-start">
-          <button id="openPriceModal" data-id="{{ $enterprise->id }}" class="btn btn-primary d-flex align-items-center">
-            <ion-icon name="wallet"></ion-icon>
-            <span class="ms-1">Preços</span>
-          </button>
-        </div>
+        @role('master')
+          <div class="col d-flex justify-content-start">
+            <button id="openPriceModal" data-id="{{ $enterprise->id }}" class="btn btn-primary d-flex align-items-center">
+              <ion-icon name="wallet"></ion-icon>
+              <span class="ms-1">Preços</span>
+            </button>
+          </div>
+        @endrole
         <div class="col d-flex justify-content-end">
           <div class="btn-group" role="group">
             <a href="{{ route('enterprises.index') }}" class="btn btn-secondary d-flex align-items-center">

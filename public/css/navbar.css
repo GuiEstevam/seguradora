@@ -22,6 +22,7 @@ header {
 
 .navbar-brand .logo {
     height: 40px;
+    content: url('/img/logo.png');
 }
 
 .navbar-toggler {
@@ -105,4 +106,9 @@ header {
     .dropdown-item:hover {
       background-color: #2f3d52 !important;
     }
+    .navbar-brand .logo {
+        height: 40px;
+        content: url('/img/logo-dark.png');
+    }
   }
+

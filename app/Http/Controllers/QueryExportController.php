@@ -11,20 +11,39 @@ class QueryExportController extends Controller
 {
     public function export()
     {
-        $queries = Query::whereHas('aggregate')->get() ?? collect();
+        $queries = Query::with(['aggregate', 'autonomous', 'fleet', 'vehicle'])->get() ?? collect();
 
         $data = [];
 
         foreach ($queries as $query) {
             $rowData = [
                 'id' => $query->id,
-                'cpf' => $query->aggregate ? formatCpf($query->aggregate->cpf) : 'N/A',
-                'name' => $query->aggregate ? $query->aggregate->name : 'N/A',
-                'rgUf' => $query->aggregate ? $query->aggregate->rgUf : 'N/A',
-                'created_at' => $query->aggregate ? $query->aggregate->created_at->format('d/m/Y H:i') : 'N/A',
+                'cpf' => 'N/A',
+                'name' => 'N/A',
+                'rgUf' => 'N/A',
+                'type' => typeFormat($query->type),
+                'created_at' => $query->created_at->format('d/m/Y H:i'),
                 'user_name' => $query->user ? $query->user->name : 'N/A',
-                'status' => Status($query->status),
+                'status' => status($query->status),
             ];
+
+            if ($query->aggregate) {
+                $rowData['cpf'] = formatCpf($query->aggregate->cpf);
+                $rowData['name'] = $query->aggregate->name;
+                $rowData['rgUf'] = $query->aggregate->rgUf;
+            } elseif ($query->autonomous) {
+                $rowData['cpf'] = formatCpf($query->autonomous->cpf);
+                $rowData['name'] = $query->autonomous->name;
+                $rowData['rgUf'] = $query->autonomous->rgUf;
+            } elseif ($query->fleet) {
+                $rowData['cpf'] = $query->fleet->fleet_name;
+                $rowData['name'] = $query->fleet->fleet_manager;
+                $rowData['rgUf'] = $query->fleet->uf;
+            } elseif ($query->vehicle) {
+                $rowData['cpf'] = $query->vehicle->plate;
+                $rowData['name'] = $query->vehicle->owner_name;
+                $rowData['rgUf'] = $query->vehicle->uf;
+            }
 
             $data[] = $rowData;
         }

@@ -88,7 +88,7 @@
       @role('master')
         <hr>
         <h5>Permissões</h5>
-        <div class="form-group col-md-3">
+        <div class="form-group">
           <label>Selecione o Tipo de Permissão</label>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn" id="roles-toggle">
@@ -100,7 +100,7 @@
               Permissões Específicas
             </label>
           </div>
-          <div id="roles-section" class="form-group" style="display: none;">
+          <div id="roles-section" class="form-group col-md-3" style="display: none;">
             <label for="roles">Papéis (Grupos)</label>
             <select name="roles[]" id="roles" class="form-control">
               <option value="">Selecione um grupo</option>
@@ -111,7 +111,7 @@
               @endforeach
             </select>
           </div>
-          <div id="permissions-section" class="form-group" style="display: none;">
+          <div id="permissions-section" class="form-group col-md-3" style="display: none;">
             <label for="permissions">Permissões Específicas</label>
             @foreach ($permissions as $permission)
               <div class="form-check">

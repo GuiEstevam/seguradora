@@ -49,10 +49,10 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['auth', 'verified', 'role:master|admin']], function () {
     Route::prefix('enterprises')->group(function () {
         Route::get('/', [EnterpriseController::class, 'index'])->name('enterprises.index');
-        Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create');
-        Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store');
-        Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show')->middleware('CheckEnterprise');
-        Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update');
+        Route::get('/create', [EnterpriseController::class, 'create'])->name('enterprises.create')->middleware('role:master');
+        Route::post('/', [EnterpriseController::class, 'store'])->name('enterprises.store')->middleware('role:master');
+        Route::get('/show/{id}', [EnterpriseController::class, 'show'])->name('enterprises.show')->middleware('checkEnterprise');
+        Route::put('/update/{id}', [EnterpriseController::class, 'update'])->name('enterprises.update')->middleware('checkEnterprise');
     });
 });
 
@@ -65,6 +65,17 @@ Route::group(['middleware' => ['auth', 'verified', 'role:master|admin']], functi
         Route::put('/show/{id}', [AuthController::class, 'update'])->name('users.update');
     });
 });
+
+Route::group(['middleware' => ['auth', 'verified', 'role:master|admin']], function () {
+    Route::prefix('queries')->group(function () {
+        Route::get('/', [QueryController::class, 'index'])->name('queries.index');
+        Route::get('/show/{id}', [QueryController::class, 'show'])->name('queries.show');
+        Route::get('/create', [QueryController::class, 'create'])->name('queries.create');
+        Route::post('/', [QueryController::class, 'store'])->name('queries.store');
+        Route::put('/show/{id}', [QueryController::class, 'update'])->name('queries.update');
+    });
+});
+
 Route::middleware(['auth', 'verified'])->prefix('query_value')->group(function () {
     Route::get('/show/{id}', [QueryValueController::class, 'show'])->name('query_value.show');
     Route::get('/create', [QueryValueController::class, 'create'])->name('query_value.create');

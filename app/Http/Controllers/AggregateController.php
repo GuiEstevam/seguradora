@@ -9,10 +9,19 @@ use Illuminate\Http\Request;
 
 class AggregateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $aggregate = Query::whereHas('aggregate')->get() ?? collect();
-        return view('aggregate.index', ['queries' => $aggregate]);
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search');
+        $searchColumn = $request->input('search_column', 'name'); // Padrão para 'name'
+
+        $queries = Query::whereHas('aggregate', function ($query) use ($search, $searchColumn) {
+            if ($search) {
+                $query->where($searchColumn, 'like', "%{$search}%");
+            }
+        })->paginate($perPage);
+
+        return view('aggregate.index', compact('queries', 'search', 'searchColumn'));
     }
 
     public function create()

@@ -18,29 +18,37 @@
       </div>
     </div>
     <div class="row mb-3">
-      <div class="col d-flex justify-content-end">
-        <form method="GET" action="{{ route('aggregate.index') }}">
-          <div class="input-group col-md-12 mb-3">
-            <div class="input-group-prepend">
-              <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" id="searchColumnDropdown">Pesquisar por:</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" onclick="setSearchColumn('name')">Nome</a>
-                <a class="dropdown-item" href="#" onclick="setSearchColumn('cpf')">CPF</a>
-                <a class="dropdown-item" href="#" onclick="setSearchColumn('rgUf')">RG UF</a>
-                <a class="dropdown-item" href="#" onclick="setSearchColumn('vehiclePlate01')">Placa do Veículo</a>
-              </div>
-            </div>
-            <input type="hidden" name="search_column" id="search_column" value="{{ request('search_column', '') }}">
-            <input type="text" name="search" class="form-control" placeholder="Pesquisar..."
-              value="{{ request('search') }}">
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-primary">Pesquisar</button>
+      <form method="GET" action="{{ route('queries.index') }}">
+        <div class="input-group col-md-12 mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" id="searchColumnDropdown">Tipo</button>
+            <div class="dropdown-menu">
+              <h6 class="dropdown-header">Pesquisar por</h6>
+              <a class="dropdown-item" href="#" onclick="setSearchColumn('user')">Usuário</a>
+              <a class="dropdown-item" href="#" onclick="setSearchColumn('enterprise')">Empresa</a>
+              <a class="dropdown-item" href="#" onclick="setSearchColumn('aggregate')">Agregado</a>
+              <a class="dropdown-item" href="#" onclick="setSearchColumn('autonomous')">Autônomo</a>
             </div>
           </div>
-        </form>
+          <input type="hidden" name="search_column" id="search_column" value="{{ request('search_column', '') }}">
+          <input type="text" name="search" class="form-control" placeholder="Pesquisar..."
+            value="{{ request('search') }}">
+        </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label for="per_page">Registros por página:</label>
+        <select class="form-control mr-2" name="per_page" id="per_page" onchange="this.form.submit()">
+          <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
+          <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+          <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+          <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+          <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+        </select>
       </div>
     </div>
+    </form>
     @if ($queries->count())
       <div class="table-responsive">
         <table class="table">
@@ -82,24 +90,18 @@
           </tbody>
         </table>
       </div>
-      {{ $queries->appends(['per_page' => request('per_page'), 'search_column' => request('search_column'), 'search' => request('search')])->links('vendor.pagination.bootstrap-5') }}
+      {{ $queries->appends(['per_page' => request('per_page')])->links('vendor.pagination.bootstrap-5') }}
     @endif
-    <div class="row mb-3">
-      <div class="col d-flex justify-content-end">
-        <form method="GET" action="{{ route('aggregate.index') }}">
-          <label for="per_page">Registros por página:</label>
-          <select name="per_page" id="per_page" onchange="this.form.submit()">
-            <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
-            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
-            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
-            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
-            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
-          </select>
-        </form>
-      </div>
-    </div>
   </div>
 
+  <script>
+    function formatCpf($cpf) {
+      return substr($cpf, 0, 3).
+      '.'.substr($cpf, 3, 3).
+      '.'.substr($cpf, 6, 3).
+      '-'.substr($cpf, 9, 2);
+    }
+  </script>
   <script>
     function setSearchColumn(column) {
       document.getElementById('search_column').value = column;
@@ -115,34 +117,6 @@
           .innerText;
         document.getElementById('searchColumnDropdown').innerText = columnText;
       }
-    });
-
-    // Função para realizar a pesquisa via AJAX
-    function search() {
-      const searchColumn = document.getElementById('search_column').value;
-      const searchValue = document.querySelector('input[name="search"]').value;
-      const perPage = document.getElementById('per_page').value;
-
-      const url = new URL(window.location.href);
-      url.searchParams.set('search_column', searchColumn);
-      url.searchParams.set('search', searchValue);
-      url.searchParams.set('per_page', perPage);
-
-      fetch(url)
-        .then(response => response.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const newContent = doc.querySelector('#event-create-container').innerHTML;
-          document.querySelector('#event-create-container').innerHTML = newContent;
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    // Adicionar evento de submit ao formulário para usar AJAX
-    document.querySelector('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      search();
     });
   </script>
 @endsection

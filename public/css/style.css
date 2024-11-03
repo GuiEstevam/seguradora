@@ -246,6 +246,22 @@ footer p {
   color: #000;
 }
 
+.page-link {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.page-item.active .page-link {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.page-item .page-link:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
 /* Modo Escuro */
 @media (prefers-color-scheme: dark) {
     body {
@@ -403,7 +419,7 @@ footer p {
       .modal-body select:focus,
       .modal-body textarea:focus {
         background-color: #1f2937 !important;
-        border-color: #9b2846; /* Azul claro para indicar foco */
+        border-color: #9b2846;
         color: #fff !important;
         outline: none !important;
         box-shadow: 0 0 0 2px #9b2846;
@@ -412,5 +428,24 @@ footer p {
       .modal-body label {
         color: #e0e0e0 !important;
       }
+
+    .page-link {
+        color: #fff !important;
+        background-color: #111827 !important;
+        border-color: #111827 !important;
+    }
+
+    .page-item.active .page-link {
+        background-color: #1f2937;
+        border-color: #9b2846;
+        box-shadow: 0 0 0 1px #0056b3;
+    }
+
+    .page-item .page-link:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        color:#fff;
+        box-shadow: 0 0 0 2px #0056b3;
+    }
 
   }

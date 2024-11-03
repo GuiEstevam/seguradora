@@ -29,7 +29,7 @@
   <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-center">
     <div class="container">
       <a class="navbar-brand" href="/">
-        <img class="logo" src="/img/logo.jpg" alt="LOGO" />
+        <img class="logo" alt="LOGO" />
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
               Relatório
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/relatorio/recentes">Registros Recentes</a>
+              <a class="dropdown-item" href="{{ route('queries.index') }}">Registros Recentes</a>
               <a class="dropdown-item" href="#">Buscar Registros</a>
               <a class="dropdown-item" href="#">Relatório Excel</a>
             </div>
@@ -86,9 +86,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
-                @role('master')
-                  <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
-                @endrole
+                <a class="dropdown-item" href="{{ route('enterprises.index') }}">Empresas</a>
               </div>
             </li>
           @endif
