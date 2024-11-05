@@ -12,10 +12,19 @@ class FleetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $fleet = Query::whereHas('Fleet')->get() ?? collect();
-        return view('fleet.index', ['queries' => $fleet]);
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search');
+        $searchColumn = $request->input('search_column', 'name'); // Padrão para 'name'
+
+        $queries = Query::whereHas('Fleet', function ($query) use ($search, $searchColumn) {
+            if ($search) {
+                $query->where($searchColumn, 'like', "%{$search}%");
+            }
+        })->paginate($perPage);
+
+        return view('fleet.index', compact('queries', 'search', 'searchColumn'));
     }
 
     /**

@@ -68,7 +68,7 @@
               <a class="dropdown-item" href="#">Relatório Excel</a>
             </div>
           </li>
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Cadastro
@@ -77,7 +77,7 @@
               <a class="dropdown-item" href="#">Histórico de viagens</a>
               <a class="dropdown-item" href="#">Inclusão blacklist</a>
             </div>
-          </li>
+          </li> --}}
           @if (auth()->user()->hasAnyRole(['master', 'admin']))
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

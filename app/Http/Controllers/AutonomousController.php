@@ -12,10 +12,19 @@ class AutonomousController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $autonomous = Query::whereHas('Autonomous')->get() ?? collect();
-        return view('autonomous.index', ['queries' => $autonomous]);
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search');
+        $searchColumn = $request->input('search_column', 'name'); // Padrão para 'name'
+
+        $queries = Query::whereHas('autonomous', function ($query) use ($search, $searchColumn) {
+            if ($search) {
+                $query->where($searchColumn, 'like', "%{$search}%");
+            }
+        })->paginate($perPage);
+
+        return view('autonomous.index', compact('queries', 'search', 'searchColumn'));
     }
 
     /**

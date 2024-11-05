@@ -35,18 +35,29 @@ class AuthController extends Controller
         return back()->withErrors(['name' => 'Credenciais inválidas']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search');
+        $searchColumn = $request->input('search_column', 'name'); // Padrão para 'name'
 
-        if ($user->hasRole('master')) {
-            $users = User::all();
+        $query = User::query();
+
+        if (Auth::user()->hasRole('master')) {
+            // Usuário com papel 'master' pode ver todos os usuários
+            $query = User::query();
         } else {
-            $enterprise = Enterprise::findOrFail($user->enterprise_id);
-            $users = $enterprise->users;
+            // Usuário comum só pode ver usuários da mesma empresa
+            $query->where('enterprise_id', Auth::user()->enterprise_id);
         }
 
-        return view('users.index', compact('users'));
+        if ($search) {
+            $query->where($searchColumn, 'like', "%{$search}%");
+        }
+
+        $users = $query->paginate($perPage);
+
+        return view('users.index', compact('users', 'search', 'searchColumn'));
     }
 
     public function create()

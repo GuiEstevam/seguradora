@@ -1,93 +1,14 @@
-@extends('layouts.main')
-@section('title', 'Pesquisa - Frota')
-@section('content')
-  <div id="event-create-container" class="col-md-8 offset-md-2 border">
-    <div class="row mb-3">
-      <div class="col d-flex justify-content-start">
-        <a href="{{ route('export.queries') }}" class="btn btn-success mb-3"> <ion-icon name="library">
-          </ion-icon> Excel</a>
-      </div>
-      <div class="col d-flex justify-content-end">
-        <div class="btn-group mr-1" role="group">
-          <a href="{{ route('fleet.create') }}">
-            <button class="btn btn-primary">
-              Criar
-            </button>
-          </a>
-        </div>
-      </div>
-    </div>
-    @if ($queries)
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="text-center">ID</th>
-              <th class="text-center">Parâmetro</th>
-              <th class="text-center">Nome</th>
-              <th class="text-center">UF</th>
-              <th class="text-center">Data solicitação</th>
-              <th class="text-center">Consultante</th>
-              <th class="text-center">Status</th>
-              <th class="text-center"></th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($queries as $querie)
-              <tr class="selectable-row" data-id="{{ $querie->id }}"
-                data-edit-url="{{ route('enterprises.show', $querie->id) }}">
-                <td class="text-center">{{ $querie->id }}</td>
-                <td class="text-center">{{ formatCpf($querie->fleet->cpf) }}</td>
-                <td class="text-center">{{ $querie->fleet->name }}</td>
-                <td class="text-center">{{ $querie->fleet->rgUf }}</td>
-                <td class="text-center">{{ $querie->fleet->created_at->format('d/m/Y H:i') }}</td>
-                <td class="text-center">{{ $querie->user->name }}</td>
-                <td class="text-center">{!! statusBox($querie->status) !!}</td>
-                {{-- <td class="text-center">{{ 'R$ ' . number_format($querie->value, 2, ',', '.') }}</td> --}}
-                <td class="text-center">
-                  <a href="{{ route('fleet.show', $querie->id) }}">
-                    <ion-icon name="search-outline" class="status-icon"></ion-icon>
-                  </a>
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-    @endif
-  </div>
+@extends('layouts.search')
 
-  <script>
-    function formatCpf($cpf) {
-      return substr($cpf, 0, 3).
-      '.'.substr($cpf, 3, 3).
-      '.'.substr($cpf, 6, 3).
-      '-'.substr($cpf, 9, 2);
-    }
-
-    var selectedRow = null;
-
-    Array.from(document.getElementsByClassName('selectable-row')).forEach(function(row) {
-      row.addEventListener('click', function() {
-        // Desmarcar a linha anteriormente selecionada, se houver
-        if (selectedRow) {
-          selectedRow.classList.remove('selected');
-        }
-
-        // Marcar a linha clicada como selecionada
-        row.classList.add('selected');
-        selectedRow = row;
-      });
-    });
-
-    document.getElementById('edit-button').addEventListener('click', function() {
-      if (selectedRow) {
-        var editUrl = selectedRow.getAttribute('data-edit-url');
-
-        // Agora você tem a URL de edição da linha selecionada em editUrl
-        // Você pode redirecionar para essa URL para editar a empresa
-        window.location.href = editUrl;
-      }
-    });
-  </script>
-@endsection
+@php
+  $title = 'Pesquisa - Frota';
+  $createRoute = 'fleet.create';
+  $indexRoute = 'fleet.index';
+  $showRoute = 'fleet.show';
+  $searchColumns = [
+      'name' => 'Nome',
+      'cpf' => 'CPF',
+      'rgUf' => 'RG UF',
+      'vehiclePlate01' => 'Placa do Veículo',
+  ];
+@endphp

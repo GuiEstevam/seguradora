@@ -315,6 +315,16 @@ footer p {
     color: #fff !important;
     }
 
+    input::placeholder{
+        color:#fff !important;
+        opacity: 0.5;
+    }
+
+    .input-group .btn{
+        color: #dcdbdb;
+        border-color:#dcdbdb;
+    }
+
     #event-create-container input:focus,
     #event-create-container select:focus,
     #event-create-container textarea:focus {

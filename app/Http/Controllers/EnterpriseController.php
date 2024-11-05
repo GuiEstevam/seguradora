@@ -14,23 +14,29 @@ use Spatie\Permission\Models\Role;
 
 class EnterpriseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
-        $cnpjFormatter = app(CnpjFormatterService::class);
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search');
+        $searchColumn = $request->input('search_column', 'name'); // Padrão para 'name'
 
-        if ($user->hasRole('master')) {
-            $enterprises = Enterprise::all();
+        $query = Enterprise::query();
+
+        if (auth()->user()->hasRole('master')) {
+            // Usuário com papel 'master' pode ver todas as empresas
+            $query = Enterprise::query();
         } else {
-            $enterprise_id = $user->enterprise_id;
-            $enterprises = Enterprise::where('id', $enterprise_id)->get();
+            // Usuário comum só pode ver a própria empresa
+            $query->where('id', auth()->user()->enterprise_id);
         }
 
-        foreach ($enterprises as $enterprise) {
-            $enterprise->cnpj = $cnpjFormatter->formatarCnpj($enterprise->cnpj);
-        };
+        if ($search) {
+            $query->where($searchColumn, 'like', "%{$search}%");
+        }
 
-        return view('enterprises.index', compact('user', 'enterprises'));
+        $enterprises = $query->paginate($perPage);
+
+        return view('enterprises.index', compact('enterprises', 'search', 'searchColumn'));
     }
 
     public function create()

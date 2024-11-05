@@ -99,9 +99,9 @@ if (!function_exists('formatQueryRow')) {
             $name = $query->autonomous->name;
             $uf = $query->autonomous->rgUf;
         } elseif ($query->fleet) {
-            $cpf = $query->fleet->fleet_name;
-            $name = $query->fleet->fleet_manager;
-            $uf = $query->fleet->uf;
+            $cpf = formatCpf($query->fleet->cpf);
+            $name = $query->fleet->name;
+            $uf = $query->fleet->rgUf;
         } elseif ($query->vehicle) {
             $cpf = $query->vehicle->plate;
             $name = $query->vehicle->owner_name;

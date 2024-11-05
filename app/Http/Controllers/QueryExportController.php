@@ -32,13 +32,13 @@ class QueryExportController extends Controller
                 $rowData['name'] = $query->aggregate->name;
                 $rowData['rgUf'] = $query->aggregate->rgUf;
             } elseif ($query->autonomous) {
-                $rowData['cpf'] = formatCpf($query->autonomous->cpf);
+                $rowData['cpf'] =  formatCpf($query->autonomous->cpf);
                 $rowData['name'] = $query->autonomous->name;
                 $rowData['rgUf'] = $query->autonomous->rgUf;
             } elseif ($query->fleet) {
-                $rowData['cpf'] = $query->fleet->fleet_name;
-                $rowData['name'] = $query->fleet->fleet_manager;
-                $rowData['rgUf'] = $query->fleet->uf;
+                $rowData['cpf'] = formatCpf($query->fleet->cpf);
+                $rowData['name'] = $query->fleet->name;
+                $rowData['rgUf'] = $query->fleet->rgUf;
             } elseif ($query->vehicle) {
                 $rowData['cpf'] = $query->vehicle->plate;
                 $rowData['name'] = $query->vehicle->owner_name;
