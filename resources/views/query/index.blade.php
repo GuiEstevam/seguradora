@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Pesquisa - Agregado')
 @section('content')
-  <div id="event-create-container" class="col-md-8 offset-md-2 border">
+  <div id="search-create-container" class="col-md-8 offset-md-2 border">
     <div class="row mb-3">
       <div class="col d-flex justify-content-start">
         <a href="{{ route('export.queries') }}" class="btn btn-success mb-3"> <ion-icon name="library">
@@ -9,7 +9,7 @@
       </div>
       <div class="col d-flex justify-content-end">
         <div class="btn-group mr-1" role="group">
-          <a href="{{ route('aggregate.create') }}">
+          <a href="{{ route('aggregated.create') }}">
             <button class="btn btn-primary">
               Criar
             </button>
@@ -27,7 +27,7 @@
               <h6 class="dropdown-header">Pesquisar por</h6>
               <a class="dropdown-item" href="#" onclick="setSearchColumn('user')">Usuário</a>
               <a class="dropdown-item" href="#" onclick="setSearchColumn('enterprise')">Empresa</a>
-              <a class="dropdown-item" href="#" onclick="setSearchColumn('aggregate')">Agregado</a>
+              <a class="dropdown-item" href="#" onclick="setSearchColumn('aggregated')">Agregado</a>
               <a class="dropdown-item" href="#" onclick="setSearchColumn('autonomous')">Autônomo</a>
             </div>
           </div>
@@ -69,7 +69,7 @@
                 <td class="text-center">{{ $formattedQuery['user_name'] }}</td>
                 <td class="text-center">{!! statusBox($formattedQuery['status']) !!}</td>
                 <td class="text-center">
-                  <a href="{{ route('aggregate.show', $formattedQuery['id']) }}">
+                  <a href="{{ route('aggregated.show', $formattedQuery['id']) }}">
                     <ion-icon name="search-outline" class="status-icon"></ion-icon>
                   </a>
                 </td>

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Cadastramento de Empresas')
 @section('content')
-  <div id="event-create-container" class="col-md-8 offset-md-2">
+  <div id="search-create-container" class="col-md-8 offset-md-2">
     <div class="row mb-3">
       {{-- <div class="col d-flex justify-content-start">
         Cadastramento / Empresas

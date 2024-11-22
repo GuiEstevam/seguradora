@@ -6,7 +6,7 @@
       Renovação
     </div>
   </div>
-  <div id="event-create-container" class="col-md-8 offset-md-2">
+  <div id="search-create-container" class="col-md-8 offset-md-2">
 
     <!-- Tabs navs -->
     <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
@@ -39,7 +39,7 @@
     </div>
     <!-- Tabs content -->
   </div>
-  <div id="event-create-container" class="col-md-8 offset-md-2 mt-3">
+  <div id="search-create-container" class="col-md-8 offset-md-2 mt-3">
     <div class="row mt-3">
       <div class="col-md-4">
         <label for="image">Critério</label>

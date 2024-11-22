@@ -2,25 +2,34 @@
 
 namespace App\Exports;
 
-use App\Models\Query;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class QueriesExport implements FromView, ShouldAutoSize
+class QueriesExport implements FromCollection, WithHeadings
 {
-    use Exportable;
+    protected $data;
 
-    protected $queries;
-
-    public function __construct($queries)
+    public function __construct($data)
     {
-        $this->queries = $queries;
+        $this->data = $data;
     }
 
-    public function view(): View
+    public function collection()
     {
-        return view('exports.queries_export', ['queries' => $this->queries]);
+        return collect($this->data);
+    }
+
+    public function headings(): array
+    {
+        return [
+            'ID',
+            'CPF',
+            'Nome',
+            'UF',
+            'Tipo',
+            'Data de Solicitação',
+            'Consultante',
+            'Status',
+        ];
     }
 }

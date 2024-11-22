@@ -12,6 +12,7 @@ use App\Http\Controllers\QueryController;
 use App\Http\Controllers\QueryExportController;
 use App\Http\Controllers\QueryValueCont;
 use App\Http\Controllers\QueryValueController;
+use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\VehicleController;
 use App\Models\Fleet;
 use App\Models\QueryValue;
@@ -100,31 +101,18 @@ Route::middleware(['auth', 'verified'])->prefix('vehicle')->group(function () {
     Route::put('/show/{id}', [VehicleController::class, 'update'])->name('vehicle.update');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('aggregate')->group(function () {
-    Route::get('/', [AggregateController::class, 'index'])->name('aggregate.index');
-    Route::get('/show/{id}', [AggregateController::class, 'show'])->name('aggregate.show');
-    Route::get('/create', [AggregateController::class, 'create'])->name('aggregate.create');
-    Route::post('/', [AggregateController::class, 'store'])->name('aggregate.store');
-    Route::put('/show/{id}', [AggregateController::class, 'update'])->name('aggregate.update');
-});
 Route::get('export-queries', [QueryExportController::class, 'export'])->name('export.queries');
 
-
-Route::middleware(['auth', 'verified'])->prefix('autonomous')->group(function () {
-    Route::get('/', [AutonomousController::class, 'index'])->name('autonomous.index');
-    Route::get('/show/{id}', [AutonomousController::class, 'show'])->name('autonomous.show');
-    Route::get('/create', [AutonomousController::class, 'create'])->name('autonomous.create');
-    Route::post('/', [AutonomousController::class, 'store'])->name('autonomous.store');
-    Route::put('/show/{id}', [AutonomousController::class, 'update'])->name('autonomous.update');
+Route::middleware(['auth', 'verified'])->prefix('research')->group(function () {
+    Route::get('/', [ResearchController::class, 'index'])->name('research.index');
+    Route::get('/create', [ResearchController::class, 'create'])->name('research.create');
+    Route::post('/', [ResearchController::class, 'store'])->name('research.store');
+    Route::get('/show/{id}', [ResearchController::class, 'show'])->name('research.show');
+    Route::put('/show/{id}', [ResearchController::class, 'update'])->name('research.update');
+    Route::delete('/show/{id}', [ResearchController::class, 'destroy'])->name('research.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('fleet')->group(function () {
-    Route::get('/', [FleetController::class, 'index'])->name('fleet.index');
-    Route::get('/show/{id}', [FleetController::class, 'show'])->name('fleet.show');
-    Route::get('/create', [FleetController::class, 'create'])->name('fleet.create');
-    Route::post('/', [FleetController::class, 'store'])->name('fleet.store');
-    Route::put('/show/{id}', [FleetController::class, 'update'])->name('fleet.update');
-});
+
 
 Route::post('/webservice/addRegister', [DminerController::class, 'addRegister']);
 

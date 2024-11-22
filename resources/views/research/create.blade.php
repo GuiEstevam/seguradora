@@ -1,9 +1,17 @@
 @extends('layouts.main')
-@section('title', 'Pesquisa - Agregado')
+@section('title', 'Criar Pesquisa Unificada')
 @section('content')
   <div id="event-create-container" class="col-md-8 offset-md-2 border">
-    <form action="{{ route('autonomous.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('research.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
+      <div class="form-group">
+        <label for="type">Tipo de Pesquisa:</label>
+        <select name="type" id="type" class="form-control">
+          <option value="aggregated">Agregado</option>
+          <option value="autonomous">Autônomo</option>
+          <option value="fleet">Frota</option>
+        </select>
+      </div>
       <div class="row mt-3">
         <div class="col-md-4">
           <label class="form-label" for="cpf">CPF</label>
@@ -15,11 +23,6 @@
             </div>
           </div>
         </div>
-        {{-- <div class="col-md-5 mt-4">
-          <div class="form-group">
-            <button class="btn btn-primary" type="button">Realizar consulta</button>
-          </div>
-        </div> --}}
       </div>
       <div class="row mt-2">
         <div class="col-md-4">
@@ -29,12 +32,12 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label class="form-label" for="birthDate"> Data </label>
+          <label class="form-label" for="birthDate"> Data de nascimento </label>
           <input type="date" name="birthDate" class="form-control form-control-lg" value="{{ date('Y-m-d') }}"
             required />
         </div>
         <div class="col-md-4">
-          <label class="form-label" for="image">Nome da mãe</label>
+          <label class="form-label" for="motherName">Nome da mãe</label>
           <input type="text" name="motherName" class="form-control form-control-lg">
         </div>
       </div>
@@ -48,7 +51,6 @@
         <div class="form-group col-md-2">
           <label class="form-label" class="form-label" for="rgUf">UF</label>
           @isset($ufs)
-            <!-- Se a variável $ufs estiver definida, faça algo com ela -->
             <select name="rgUf" id="rgUf" class="form-control form-control-lg">
               <option value="">Selecione</option>
               @foreach ($ufs as $uf)
@@ -69,56 +71,37 @@
       <div class="row">
         <div class="form-group col-md-4">
           <label for="cnhRegisterNumber" class="form-label">CNH</label>
-          <input type="text" name="cnhRegisterNumber" id="cnh" class="form-control form-control-lg">
+          <input type="text" name="cnhRegisterNumber" class="form-control form-control-lg">
         </div>
         <div class="form-group col-md-2">
           <label class="form-label" class="form-label" for="cnhUf">UF</label>
           @isset($ufs)
-            <!-- Se a variável $ufs estiver definida, faça algo com ela -->
             <select name="cnhUf" id="cnhUf" class="form-control form-control-lg">
               <option value="">Selecione</option>
               @foreach ($ufs as $uf)
-                <option value="{{ $uf }}" {{ old('rgUf') == $uf ? 'selected' : '' }}>{{ $uf }}
+                <option value="{{ $uf }}" {{ old('cnhUf') == $uf ? 'selected' : '' }}>{{ $uf }}
                 </option>
               @endforeach
             </select>
           @endisset
         </div>
         <div class="form-group col-md-4">
-          <label for="cnhSecurityNumber" class="form-label" id="codigo-seguranca-cnh">Código de segurança</label>
+          <label for="cnhSecurityNumber" class="form-label">Código de segurança</label>
           <input name="cnhSecurityNumber" type="text" class="form-control form-control-lg">
         </div>
       </div>
       <hr>
-      {{-- <h6>Dados de contato </h6> --}}
-      {{-- <div class="row">
-            <div class="col-md-3">
-            <label>Telefone</label>
-            <input type="text" class="form-control">
-            </div>
-            <div class="col-md-3">
-            <label>Celular</label>
-            <input type="text" class="form-control">
-            </div>
-            <div class="col-md-3">
-            <label>E-mail</label>
-            <input type="text" class="form-control">
-            </div>
-        </div> --}}
       <div class="row mt-3">
         <div class="col-md-3">
           <input type="button" class="btn btn-info" id="adicionar-veiculo" value="Adicionar veículo 0/4">
         </div>
-        {{-- <div class="col-md-3">
-          <input type="button" class="btn btn-secondary" value="Adicionar proprietário">
-        </div> --}}
       </div>
       <div id="veiculos-container" class="row mt-3">
 
       </div>
       <div class="form-group mt-2">
         <input type="submit" class="btn btn-primary" value="Enviar">
-        <input type="submit" class="btn btn-light border" value="Limpar">
+        <input type="reset" class="btn btn-light border" value="Limpar">
       </div>
     </form>
   </div>
@@ -148,7 +131,7 @@
                     </div>
                     <div class="col-md-2">
                     <label class="form-label">UF</label>
-                    <input type="text" name="vehicleUf${i}" class="form-control form-control-lg">
+                    <input type="text" name="vehicleUf0${i}" class="form-control form-control-lg">
                     </div>
                 </div>
                 <hr>
@@ -156,7 +139,7 @@
                 <div class="row mt-3">
                     <div class="col-md-4 mt-1">
                     <label class="form-label">CPF</label>
-                    <input type="text" name="vehicleOwnerDocument0${i}" class="form-control form-control-lg">
+                    <input type="text" name="vehicleOwnerDocument0${i}" class="form-control form-control-lg" id="cpf">
                     </div>
                     <div class="col-md-4 mt-1">
                     <label class="form-label">Número RNTRC</label>
@@ -209,36 +192,6 @@
         var rg = $('#rg').val();
         var rgSemPontuacao = removePontuacaoRG(rg);
         $('#rg').val(rgSemPontuacao);
-      });
-    });
-
-    function removePontuacaoCNH(cnh) {
-      return cnh.replace(/[^\d]+/g, '');
-    }
-
-    $(document).ready(function() {
-      $('#cnh').mask('00000000000');
-
-      // Manipula o envio do formulário
-      $('form').submit(function() {
-        var cnh = $('#cnh').val();
-        var cnhSemPontuacao = removePontuacaoCNH(cnh);
-        $('#cnh').val(cnhSemPontuacao);
-      });
-    });
-    // Função para remover a pontuação do código de segurança da CNH
-    function removePontuacaoCodigoSeguranca(codigo) {
-      return codigo.replace(/[^\d]+/g, '');
-    }
-
-    $(document).ready(function() {
-      $('#codigo-seguranca-cnh').mask('000000000');
-
-      // Manipula o envio do formulário
-      $('form').submit(function() {
-        var codigo = $('#codigo-seguranca-cnh').val();
-        var codigoSemPontuacao = removePontuacaoCodigoSeguranca(codigo);
-        $('#codigo-seguranca-cnh').val(codigoSemPontuacao);
       });
     });
   </script>

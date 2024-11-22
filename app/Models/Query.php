@@ -20,17 +20,9 @@ class Query extends Model
     {
         return $this->hasOne(DriverLicense::class);
     }
-    public function aggregate()
+    public function research()
     {
-        return $this->hasOne(Aggregate::class);
-    }
-    public function autonomous()
-    {
-        return $this->hasOne(Autonomous::class);
-    }
-    public function fleet()
-    {
-        return $this->hasOne(Fleet::class);
+        return $this->hasOne(Research::class);
     }
     public function vehicle()
     {

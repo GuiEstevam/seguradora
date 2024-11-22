@@ -6,7 +6,7 @@
       Renovação
     </div>
   </div>
-  <div id="event-create-container" class="col-md-8 offset-md-2">
+  <div id="search-create-container" class="col-md-8 offset-md-2">
     <div class="row">
       <div id="renew" class="col-md-12">
         <h5>CONSULTAS DISPONÍVEIS</h5>
@@ -17,7 +17,7 @@
     <form action="/projetos" method="POST" enctype="multipart/form-data">
       @csrf
   </div>
-  <div id="event-create-container" class="col-md-8 offset-md-2 mt-3">
+  <div id="search-create-container" class="col-md-8 offset-md-2 mt-3">
     <div class="row mt-3">
       <div class="col-md-4">
         <label for="image">Critério</label>

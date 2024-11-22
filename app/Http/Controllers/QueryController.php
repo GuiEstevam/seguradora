@@ -16,7 +16,7 @@ class QueryController extends Controller
         $search = $request->input('search');
         $searchColumn = $request->input('search_column'); // Padrão para 'user'
 
-        $queries = Query::with(['enterprise', 'aggregate', 'autonomous', 'fleet'])
+        $queries = Query::with(['enterprise', 'aggregated', 'autonomous', 'fleet'])
             ->when($search, function ($query, $search) use ($searchColumn) {
                 return $query->whereHas($searchColumn, function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%");

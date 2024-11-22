@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', $enterprise->name)
 @section('content')
-  <div id="event-create-container" class="col-md-8 offset-md-2 border">
+  <div id="search-create-container" class="col-md-8 offset-md-2 border">
     {{-- <div class="row mb-3">
       <div class="col d-flex justify-content-start">
         Cadastramento / Empresas / Visualização
@@ -193,6 +193,11 @@
                 <label class="form-label" for="autonomous_validity">Validade (dias)</label>
                 <input type="text" id="autonomous_validity" name="autonomous_validity"
                   class="form-control form-control-lg" value="{{ $prices ? $prices->autonomous_validity : '' }}">
+                <div class="form-check mt-2">
+                  <input type="checkbox" class="form-check-input" id="autonomous_recurring"
+                    name="autonomous_recurring" {{ $prices->autonomous_recurring ? 'checked' : '' }}>
+                  <label class="form-check-label" for="autonomous_recurring">Renovação</label>
+                </div>
               </div>
             </div>
             <div class="row mt-3 text-center">
@@ -214,10 +219,15 @@
                 <label class="form-label" for="aggregated_validity">Validade (dias)</label>
                 <input type="text" id="aggregated_validity" name="aggregated_validity"
                   class="form-control form-control-lg" value="{{ $prices ? $prices->aggregated_validity : '' }}">
+                <div class="form-check mt-2">
+                  <input type="checkbox" class="form-check-input" id="aggregated_recurring"
+                    name="aggregated_recurring" {{ $prices->aggregated_recurring ? 'checked' : '' }}>
+                  <label class="form-check-label" for="aggregated_recurring">Renovação</label>
+                </div>
               </div>
             </div>
             <div class="row mt-3 text-center">
-              <h6>Valor Frota</h6>
+              <h5>Valor Frota</h5>
             </div>
             <div class="row">
               <div class="form-group col-md-4 text-center">
@@ -234,6 +244,11 @@
                 <label class="form-label" for="fleet_validity">Validade (dias)</label>
                 <input type="text" id="fleet_validity" name="fleet_validity" class="form-control form-control-lg"
                   value="{{ $prices ? $prices->fleet_validity : '' }}">
+                <div class="form-check mt-2">
+                  <input type="checkbox" class="form-check-input" id="fleet_recurring" name="fleet_recurring"
+                    {{ $prices->fleet_recurring ? 'checked' : '' }}>
+                  <label class="form-check-label" for="fleet_recurring">Renovação</label>
+                </div>
               </div>
             </div>
             <div class="row mt-3">

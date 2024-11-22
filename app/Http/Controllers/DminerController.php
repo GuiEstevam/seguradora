@@ -8,40 +8,29 @@ use Illuminate\Support\Facades\Log;
 
 class DminerController extends Controller
 {
-    public function addRegister(Request $request)
+    public function handleCallback(Request $request)
     {
-        // Verificar cabeçalhos de autenticação
-        $cnpj = $request->header('CNPJ');
-        $user = $request->header('USER');
-        $password = $request->header('PASSWORD');
-
-        if (!$cnpj || !$user || !$password) {
-            return Response::json(['message' => 'ERRO - Cabeçalhos de autenticação ausentes.'], 401);
+        // Verifica se o token de autorização está presente e é válido
+        $authorization = $request->header('authorization');
+        if ($authorization !== 'token') {
+            return response()->json(['message' => 'ERRO - Tentativa de acesso não autorizada, por favor verifique o token de autorização.'], 403);
         }
 
-        // Validação dos cabeçalhos (exemplo simples, ajuste conforme necessário)
-        if ($cnpj !== 'seu_cnpj' || $user !== 'seu_usuario' || $password !== 'sua_senha') {
-            return Response::json(['message' => 'ERRO - Autenticação falhou.'], 403);
-        }
-
-        // Processar o JSON recebido
-        $json = $request->getContent();
         try {
-            $data = json_decode($json, true);
+            // Cria um novo objeto baseado nos dados recebidos pelo JSON
+            $data = $request->json()->all();
+            $serializedResponse = ResultUnifiedSerializer::fromArray($data);
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \Exception('JSON em formato incorreto');
+            // Processa os dados recebidos
+            if (!empty($serializedResponse->resultsDVeiculos)) {
+                Log::info("ANTT Response: " . $serializedResponse->resultsDVeiculos[0]->anttResponse);
             }
 
-            // Processar os dados conforme necessário
-            // Exemplo: Logar os dados recebidos
-            Log::info('Dados recebidos: ' . print_r($data, true));
-
-            // Retornar confirmação de recebimento dos dados
-            return Response::json(['message' => 'Solicitação de análise registrada com sucesso'], 200);
+            // Confirmação do recebimento dos dados
+            return response()->json(['message' => 'Análise recebida com sucesso.']);
         } catch (\Exception $e) {
-            // Retornar erro se o JSON estiver incorreto
-            return Response::json(['message' => 'ERRO - JSON em formato incorreto, por favor verifique o arquivo de envio.'], 400);
+            // Caso não seja possível construir a classe porque o json recebido apresenta erro
+            return response()->json(['message' => 'ERRO - JSON em formato incorreto, por favor verifique o arquivo de envio.'], 400);
         }
     }
 }

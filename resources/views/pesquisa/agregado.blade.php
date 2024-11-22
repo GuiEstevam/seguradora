@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Pesquisa - Agregado')
 @section('content')
-  <div id="event-create-container" class="col-md-8 offset-md-2 border">
+  <div id="search-create-container" class="col-md-8 offset-md-2 border">
     <form action="/projetos" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">

@@ -9,45 +9,40 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class QueryExportController extends Controller
 {
-    public function export()
+    public function export(Request $request)
     {
-        $queries = Query::with(['aggregate', 'autonomous', 'fleet', 'vehicle'])->get() ?? collect();
+        $type = $request->input('type');
+        $search = $request->input('search');
+        $searchColumn = $request->input('search_column', 'name');
 
-        $data = [];
+        // Buscar todos os dados do modelo Query com as relações necessárias e aplicar filtros
+        $queries = Query::with(['research', 'user'])
+            ->whereHas('research', function ($query) use ($type, $search, $searchColumn) {
+                if ($type) {
+                    $query->where('type', $type);
+                }
+                if ($search) {
+                    $query->where($searchColumn, 'like', "%{$search}%");
+                }
+            })
+            ->get();
 
-        foreach ($queries as $query) {
-            $rowData = [
+        // Preparar os dados para exportação
+        $data = $queries->map(function ($query) {
+            $research = $query->research;
+            return [
                 'id' => $query->id,
-                'cpf' => 'N/A',
-                'name' => 'N/A',
-                'rgUf' => 'N/A',
-                'type' => typeFormat($query->type),
+                'cpf' => $research ? formatCpf($research->cpf) : 'N/A',
+                'name' => $research ? $research->name : 'N/A',
+                'rgUf' => $research ? $research->rgUf : 'N/A',
+                'type' => $research ? typeFormat($research->type) : 'N/A',
                 'created_at' => $query->created_at->format('d/m/Y H:i'),
                 'user_name' => $query->user ? $query->user->name : 'N/A',
-                'status' => status($query->status),
+                'status' => translateStatus($query->status),
             ];
+        });
 
-            if ($query->aggregate) {
-                $rowData['cpf'] = formatCpf($query->aggregate->cpf);
-                $rowData['name'] = $query->aggregate->name;
-                $rowData['rgUf'] = $query->aggregate->rgUf;
-            } elseif ($query->autonomous) {
-                $rowData['cpf'] =  formatCpf($query->autonomous->cpf);
-                $rowData['name'] = $query->autonomous->name;
-                $rowData['rgUf'] = $query->autonomous->rgUf;
-            } elseif ($query->fleet) {
-                $rowData['cpf'] = formatCpf($query->fleet->cpf);
-                $rowData['name'] = $query->fleet->name;
-                $rowData['rgUf'] = $query->fleet->rgUf;
-            } elseif ($query->vehicle) {
-                $rowData['cpf'] = $query->vehicle->plate;
-                $rowData['name'] = $query->vehicle->owner_name;
-                $rowData['rgUf'] = $query->vehicle->uf;
-            }
-
-            $data[] = $rowData;
-        }
-
-        return Excel::download(new QueriesExport($data), 'queries.xlsx');
+        // Retornar o download do arquivo Excel
+        return Excel::download(new QueriesExport($data), 'researches.xlsx');
     }
 }

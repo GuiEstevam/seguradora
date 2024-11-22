@@ -43,9 +43,7 @@
               Pesquisa
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{ route('autonomous.index') }}">Autônomo</a>
-              <a class="dropdown-item" href="{{ route('aggregate.index') }}">Agregado</a>
-              <a class="dropdown-item" href="{{ route('fleet.index') }}">Frota</a>
+              <a class="dropdown-item" href="{{ route('research.index') }}">Pesquisa Unificada</a>
               <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Individual</a>
               <a class="dropdown-item" href="{{ route('vehicle.index') }}">Veículo</a>
               <a class="dropdown-item" href="{{ route('driverLicense.index') }}">Empresa</a>

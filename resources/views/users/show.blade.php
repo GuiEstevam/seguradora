@@ -12,7 +12,7 @@
       {{ session('error') }}
     </div>
   @endif
-  <div id="event-create-container" class="col-md-8 offset-md-2">
+  <div id="search-create-container" class="col-md-8 offset-md-2">
     <form action="{{ route('users.update', ['id' => $user->id]) }}" method="POST">
       @csrf
       @method('PUT')
