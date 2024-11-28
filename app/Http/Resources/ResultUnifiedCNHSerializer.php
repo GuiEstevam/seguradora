@@ -39,8 +39,8 @@ class ResultUnifiedCNHSerializer extends JsonResource
             'statusCNHImage' => $this->statusCNHImage,
             'statusMessageCNHImage' => $this->statusMessageCNHImage,
             'base64CNHImage' => $this->base64CNHImage,
-            'infractions' => isset($this->infractions) ? new InfractionDetailSerializer($this->infractions) : null,
-            'suspensions' => isset($this->suspensions) ? new SuspensionDetailSerializer($this->suspensions) : null,
+            'infractions' => isset($this->infractions) ? InfractionDetailSerializer::collection($this->infractions) : [],
+            'suspensions' => isset($this->suspensions) ? SuspensionDetailSerializer::collection($this->suspensions) : [],
             'anttResult' => isset($this->anttResult) ? new AnttResponseSerializer($this->anttResult) : null,
         ];
     }
@@ -78,8 +78,12 @@ class ResultUnifiedCNHSerializer extends JsonResource
             'statusCNHImage' => $data['statusCNHImage'] ?? null,
             'statusMessageCNHImage' => $data['statusMessageCNHImage'] ?? null,
             'base64CNHImage' => $data['base64CNHImage'] ?? null,
-            'infractions' => isset($data['infractions']) ? InfractionDetailSerializer::fromArray($data['infractions']) : null,
-            'suspensions' => isset($data['suspensions']) ? SuspensionDetailSerializer::fromArray($data['suspensions']) : null,
+            'infractions' => isset($data['infractions']) ? array_map(function ($infraction) {
+                return InfractionSerializer::fromArray($infraction);
+            }, $data['infractions']) : [],
+            'suspensions' => isset($data['suspensions']) ? array_map(function ($suspension) {
+                return SuspensionSerializer::fromArray($suspension);
+            }, $data['suspensions']) : [],
             'anttResult' => isset($data['anttResult']) ? AnttResponseSerializer::fromArray($data['anttResult']) : null,
         ]);
     }

@@ -135,44 +135,40 @@ class ResultUnifiedSerializerTest extends TestCase
                 "statusCNHImage": "Valid",
                 "statusMessageCNHImage": "Valid",
                 "base64CNHImage": "base64string",
-                "infractions": {
-                    "infractions": [
-                        {
-                            "vehiclePlate": "ABC1234",
-                            "authorBody": "Author 1",
-                            "autoInfractionNumber": "123456",
-                            "infractionCode": "I1",
-                            "infractionDate": "2023-01-01",
-                            "infractionHour": "12:00",
-                            "registerInfractionDate": "2023-01-01",
-                            "registerInfractionHour": "12:00",
-                            "infractionPoints": "3",
-                            "infractionSituation": "Active",
-                            "infractionCodeType": "Type 1",
-                            "infractionArticle": "Article 1",
-                            "infractionDescription": "Description 1",
-                            "infractionPlace": "Place 1",
-                            "infractionObservation": "Observation 1",
-                            "infractionTypeAuthor": "Author 1",
-                            "authorPresentation": "Presentation 1",
-                            "infractionCounty": "County 1",
-                            "infractionSerie": "Serie 1",
-                            "infractionAppealDeadlineDate": "2023-01-31"
-                        }
-                    ]
-                },
-                "suspensions": {
-                    "suspensions": [
-                        {
-                            "suspensionReason": "Reason 1",
-                            "suspesionProcess": "Process 1",
-                            "suspensionDate": "2023-01-01",
-                            "suspensionDeadlineDate": "2023-01-31",
-                            "suspensionSituation": "Active",
-                            "suspensionSituationRecicle": "Recicle 1"
-                        }
-                    ]
-                },
+                "infractions": [
+                    {
+                        "vehiclePlate": "ABC1234",
+                        "authorBody": "Author 1",
+                        "autoInfractionNumber": "123456",
+                        "infractionCode": "I1",
+                        "infractionDate": "2023-01-01",
+                        "infractionHour": "12:00",
+                        "registerInfractionDate": "2023-01-01",
+                        "registerInfractionHour": "12:00",
+                        "infractionPoints": "3",
+                        "infractionSituation": "Active",
+                        "infractionCodeType": "Type 1",
+                        "infractionArticle": "Article 1",
+                        "infractionDescription": "Description 1",
+                        "infractionPlace": "Place 1",
+                        "infractionObservation": "Observation 1",
+                        "infractionTypeAuthor": "Author 1",
+                        "authorPresentation": "Presentation 1",
+                        "infractionCounty": "County 1",
+                        "infractionSerie": "Serie 1",
+                        "infractionAppealDeadlineDate": "2023-01-31"
+                    }
+                ],
+                "suspensions": [
+                    {
+                        "suspensionReason": "Reason 1",
+                        "suspesionProcess": "Process 1",
+                        "suspensionDate": "2023-01-01",
+                        "suspensionDeadlineDate": "2023-01-31",
+                        "suspensionSituation": "Active",
+                        "suspensionSituationRecicle": "Recicle 1"
+                    }
+                ],
                 "anttResult": {
                     "resultFound": true,
                     "transporterName": "Transporter 1",

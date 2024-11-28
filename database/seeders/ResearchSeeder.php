@@ -16,7 +16,7 @@ class ResearchSeeder extends Seeder
     public function run()
     {
         // Criar pesquisas do tipo 'aggregated'
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $query = Query::create([
                 'type' => 'Aggregate',
                 'status' => 'pending',
@@ -86,7 +86,7 @@ class ResearchSeeder extends Seeder
         }
 
         // Criar pesquisas do tipo 'autonomous'
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $query = Query::create([
                 'type' => 'Autonomous',
                 'status' => 'pending',
@@ -156,7 +156,7 @@ class ResearchSeeder extends Seeder
         }
 
         // Criar pesquisas do tipo 'fleet'
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $query = Query::create([
                 'type' => 'Fleet',
                 'status' => 'pending',

@@ -4,18 +4,15 @@
   <div id="search-create-container" class="col-md-8 offset-md-2">
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
-        <div class="btn-group" role="group">
-          <a href="{{ route('research.index') }}" class="btn btn-secondary d-flex align-items-center">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-            <span class="ms-1">Voltar</span>
-          </a>
-        </div>
+        <a href="{{ route('research.index') }}" class="btn btn-primary d-flex align-items-center">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          <span class="ms-1">Voltar</span>
+        </a>
       </div>
     </div>
-    <div id="search-show-container" class="col-md-12">
-      <h4>Dados cadastrais</h4>
-      <hr>
-      <div class="row mt-2">
+    <h5>Dados cadastrais</h5>
+    <div id="search-show-container" class="col-md-12 mb-3">
+      <div class="row">
         <div class="form-group col-md-4">
           <label class="form-label" for="name">Nome</label>
           <div>{{ $research->name }}</div>
@@ -48,23 +45,23 @@
         </div>
       </div>
     </div>
-    <hr>
     <h4>Dados da CNH</h4>
-    <div class="row mt-2">
-      <div class="form-group col-md-3">
-        <label class="form-label" for="cnhRegisterNumber">CNH Número de Registro:</label>
-        <div>{{ $research->cnhRegisterNumber }}</div>
-      </div>
-      <div class="form-group col-md-3">
-        <label class="form-label" for="cnhSecurityNumber">CNH Número de Segurança:</label>
-        <div>{{ $research->cnhSecurityNumber }}</div>
-      </div>
-      <div class="form-group col-md-2">
-        <label class="form-label" for="cnhUf">CNH UF:</label>
-        <div>{{ $research->cnhUf }}</div>
+    <div id="search-show-container" class="col-md-12">
+      <div class="row mt-2">
+        <div class="form-group col-md-3">
+          <label class="form-label" for="cnhRegisterNumber">CNH Número de Registro:</label>
+          <div>{{ $research->cnhRegisterNumber }}</div>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="form-label" for="cnhSecurityNumber">CNH Número de Segurança:</label>
+          <div>{{ $research->cnhSecurityNumber }}</div>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="form-label" for="cnhUf">CNH UF:</label>
+          <div>{{ $research->cnhUf }}</div>
+        </div>
       </div>
     </div>
-    <hr>
     @for ($i = 1; $i <= 4; $i++)
       @php
         $vehiclePlate = "vehiclePlate0$i";
@@ -80,42 +77,43 @@
               $research->$vehicleUf ||
               $research->$vehicleOwnerDocument ||
               $research->$vehicleRntrcNumber)
-        <h4 class="mt-3">Veículo {{ $i }}</h4>
-        <div class="row mt-2">
-          <div class="form-group col-md-2">
-            <label class="form-label" for="{{ $vehiclePlate }}">Placa</label>
-            <div>{{ $research->$vehiclePlate }}</div>
-          </div>
-          <div class="form-group col-md-3">
-            <label class="form-label" for="{{ $vehicleRenavam }}">Renavam</label>
-            <div>{{ $research->$vehicleRenavam }}</div>
-          </div>
-          <div class="form-group col-md-2">
-            <label class="form-label" for="{{ $vehicleUf }}">UF</label>
-            <div>{{ $research->$vehicleUf }}</div>
-          </div>
-          <div class="form-group col-md-5">
-            <label class="form-label" for="{{ $vehicleOwnerDocument }}">Documento do Proprietário</label>
-            <div>{{ $research->$vehicleOwnerDocument }}</div>
+        <div id="search-show-container" class="col-md-12">
+          <h4 class="mt-1">Veículo {{ $i }}</h4>
+          <div class="row mt-2">
+            <div class="form-group col-md-2">
+              <label class="form-label" for="{{ $vehiclePlate }}">Placa</label>
+              <div>{{ $research->$vehiclePlate }}</div>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="form-label" for="{{ $vehicleRenavam }}">Renavam</label>
+              <div>{{ $research->$vehicleRenavam }}</div>
+            </div>
+            <div class="form-group col-md-1">
+              <label class="form-label" for="{{ $vehicleUf }}">UF</label>
+              <div>{{ $research->$vehicleUf }}</div>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="form-label" for="{{ $vehicleOwnerDocument }}">Documento do Proprietário</label>
+              <div>{{ $research->$vehicleOwnerDocument }}</div>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="form-label" for="{{ $vehicleRntrcNumber }}">RNTRC Número</label>
+              <div>{{ $research->$vehicleRntrcNumber }}</div>
+            </div>
           </div>
         </div>
-        <div class="row mt-2">
-          <div class="form-group col-md-2">
-            <label class="form-label" for="{{ $vehicleRntrcNumber }}">RNTRC Número</label>
-            <div>{{ $research->$vehicleRntrcNumber }}</div>
-          </div>
-        </div>
-        <hr>
       @endif
     @endfor
-    <div class="row mt-2 text-center">
-      <div class="col-md-6">
-        <label for="created_at">Criado em</label>
-        <div>{{ \Carbon\Carbon::parse($research->created_at)->format('d/m/Y H:i') }}</div>
-      </div>
-      <div class="col-md-6">
-        <label for="updated_at">Atualizado em</label>
-        <div>{{ \Carbon\Carbon::parse($research->updated_at)->format('d/m/Y H:i') }}</div>
+    <div id="search-footer-container" class="col-md-12">
+      <div class="row mt-3 text-center">
+        <div class="col-md-6">
+          <label for="created_at">Criado em</label>
+          <div>{{ \Carbon\Carbon::parse($research->created_at)->format('d/m/Y H:i') }}</div>
+        </div>
+        <div class="col-md-6">
+          <label for="updated_at">Atualizado em</label>
+          <div>{{ \Carbon\Carbon::parse($research->updated_at)->format('d/m/Y H:i') }}</div>
+        </div>
       </div>
     </div>
   </div>

@@ -195,7 +195,7 @@
                   class="form-control form-control-lg" value="{{ $prices ? $prices->autonomous_validity : '' }}">
                 <div class="form-check mt-2">
                   <input type="checkbox" class="form-check-input" id="autonomous_recurring"
-                    name="autonomous_recurring" {{ $prices->autonomous_recurring ? 'checked' : '' }}>
+                    name="autonomous_recurring" {{ isset($prices) && $prices->autonomous_recurring ? 'checked' : '' }}>
                   <label class="form-check-label" for="autonomous_recurring">Renovação</label>
                 </div>
               </div>
@@ -221,7 +221,7 @@
                   class="form-control form-control-lg" value="{{ $prices ? $prices->aggregated_validity : '' }}">
                 <div class="form-check mt-2">
                   <input type="checkbox" class="form-check-input" id="aggregated_recurring"
-                    name="aggregated_recurring" {{ $prices->aggregated_recurring ? 'checked' : '' }}>
+                    name="aggregated_recurring" {{ isset($prices) && $prices->aggregated_recurring ? 'checked' : '' }}>
                   <label class="form-check-label" for="aggregated_recurring">Renovação</label>
                 </div>
               </div>
@@ -246,7 +246,7 @@
                   value="{{ $prices ? $prices->fleet_validity : '' }}">
                 <div class="form-check mt-2">
                   <input type="checkbox" class="form-check-input" id="fleet_recurring" name="fleet_recurring"
-                    {{ $prices->fleet_recurring ? 'checked' : '' }}>
+                    {{ isset($prices) && $prices->fleet_recurring ? 'checked' : '' }}>
                   <label class="form-check-label" for="fleet_recurring">Renovação</label>
                 </div>
               </div>

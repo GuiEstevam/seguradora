@@ -9,18 +9,18 @@ class DataValidationSerializer extends JsonResource
     public function toArray($request)
     {
         return [
-            'cpf' => $this->resource['cpf'],
-            'birthDate' => $this->resource['birthDate'],
-            'name' => $this->resource['name'],
-            'rg' => $this->resource['rg'],
-            'mother' => $this->resource['mother'],
-            'deathFlag' => $this->resource['deathFlag'],
+            'cpf' => $this->cpf,
+            'birthDate' => $this->birthDate,
+            'name' => $this->name,
+            'rg' => $this->rg,
+            'mother' => $this->mother,
+            'deathFlag' => $this->deathFlag,
         ];
     }
 
     public static function fromArray(array $data)
     {
-        return new static([
+        return new static((object) [
             'cpf' => $data['cpf'] ?? null,
             'birthDate' => $data['birthDate'] ?? null,
             'name' => $data['name'] ?? null,

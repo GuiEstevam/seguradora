@@ -9,13 +9,13 @@ class RenajudRestrictionDetailSerializer extends JsonResource
     public function toArray($request)
     {
         return [
-            'restrictions' => RenajudRestrictionSerializer::collection($this->restrictions),
+            'restrictions' => isset($this->restrictions) ? RenajudRestrictionSerializer::collection($this->restrictions) : [],
         ];
     }
 
     public static function fromArray(array $data)
     {
-        return new static([
+        return new static((object) [
             'restrictions' => array_map(function ($restriction) {
                 return RenajudRestrictionSerializer::fromArray($restriction);
             }, $data['restrictions'] ?? []),

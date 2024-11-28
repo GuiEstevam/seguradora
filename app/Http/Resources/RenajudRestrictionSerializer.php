@@ -25,7 +25,7 @@ class RenajudRestrictionSerializer extends JsonResource
 
     public static function fromArray(array $data)
     {
-        return new static([
+        return new static((object) [
             'restriction' => $data['restriction'] ?? null,
             'observation' => $data['observation'] ?? null,
             'tribunal' => $data['tribunal'] ?? null,

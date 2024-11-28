@@ -9,24 +9,24 @@ class ProcessDetailSerializer extends JsonResource
     public function toArray($request)
     {
         return [
-            'number' => $this->resource['number'],
-            'uf' => $this->resource['uf'],
-            'date' => $this->resource['date'],
-            'area' => $this->resource['area'],
-            'classDescription' => $this->resource['classDescription'],
-            'situation' => $this->resource['situation'],
-            'districtProcess' => $this->resource['districtProcess'],
-            'court' => $this->resource['court'],
-            'parts' => PartProcessDetailSerializer::collection($this->resource['parts']),
-            'subjects' => $this->resource['subjects'],
-            'policeDistrictData' => PoliceDistrictDataSerializer::collection($this->resource['policeDistrictData']),
-            'articles' => ArticleSerializer::collection($this->resource['articles']),
+            'number' => $this->number,
+            'uf' => $this->uf,
+            'date' => $this->date,
+            'area' => $this->area,
+            'classDescription' => $this->classDescription,
+            'situation' => $this->situation,
+            'districtProcess' => $this->districtProcess,
+            'court' => $this->court,
+            'parts' => PartProcessDetailSerializer::collection($this->parts),
+            'subjects' => $this->subjects,
+            'policeDistrictData' => PoliceDistrictDataSerializer::collection($this->policeDistrictData),
+            'articles' => ArticleSerializer::collection($this->articles),
         ];
     }
 
     public static function fromArray(array $data)
     {
-        return new static([
+        return new static((object) [
             'number' => $data['number'] ?? null,
             'uf' => $data['uf'] ?? null,
             'date' => $data['date'] ?? null,

@@ -170,6 +170,14 @@
     border-radius: var(--search-create-container-border-radius);
   }
 
+  #search-footer-container{
+    margin-top: 1em;
+    padding-bottom: 1em;
+    border: 1px solid var(--dark-search-create-container-border-color);
+    box-shadow: var(--search-create-container-box-shadow);
+    border-radius: var(--search-create-container-border-radius);
+  }
+
   /* Footer */
   footer {
     text-align: center;
@@ -351,6 +359,15 @@
         box-shadow: var(--dark-search-create-container-box-shadow);
         border-radius: 0.25rem;
       }
+
+      #search-footer-container{
+        margin-top: 1em;
+        padding-bottom: 1em;
+        border: 1px solid var(--dark-search-create-container-border-color);
+        box-shadow: var(--dark-search-create-container-box-shadow);
+        border-radius: 0.25rem;
+    }
+
 
     input::placeholder {
       color: #fff !important;

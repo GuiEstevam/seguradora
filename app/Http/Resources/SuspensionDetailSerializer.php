@@ -9,7 +9,7 @@ class SuspensionDetailSerializer extends JsonResource
     public function toArray($request)
     {
         return [
-            'suspensions' => SuspensionSerializer::collection($this->suspensions),
+            'suspensions' => isset($this->suspensions) ? SuspensionSerializer::collection($this->suspensions) : [],
         ];
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Pesquisa Unificada')
+@section('title', 'Pesquisa unificada')
 
 @section('content')
   <div id="search-create-container" class="col-md-8 offset-md-2 border">
@@ -11,7 +11,7 @@
           <input type="hidden" name="search" value="{{ request('search') }}">
           <input type="hidden" name="search_column" value="{{ request('search_column') }}">
           <button type="submit" class="btn btn-success mb-3">
-            <ion-icon name="library"></ion-icon> Excel
+            <ion-icon name="library"></ion-icon> <span class="ms-1">Excel</span>
           </button>
         </form>
       </div>
