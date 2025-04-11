@@ -66,16 +66,6 @@
               <a class="dropdown-item" href="#">Relatório Excel</a>
             </div>
           </li>
-          {{-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Cadastro
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Histórico de viagens</a>
-              <a class="dropdown-item" href="#">Inclusão blacklist</a>
-            </div>
-          </li> --}}
           @if (auth()->user()->hasAnyRole(['master', 'admin']))
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -101,11 +91,7 @@
               <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">Perfil</a>
               <form action="/logout" method="POST">
                 @csrf
-                <a class="dropdown-item" href="/logout"
-                  onclick="event.preventDefault();
-                            this.closest('form').submit();">
-                  Sair
-                </a>
+                <button type="submit" class="dropdown-item">Sair</button>
               </form>
             </div>
           </li>
@@ -179,23 +165,6 @@
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
-{{-- <script>
-  $.fn.select2.defaults.set("theme", "bootstrap5");
-  $(document).ready(function() {
-    $('#client_id').select2();
-  });
-
-  $(document).ready(function() {
-    $('#classification_id').select2();
-  });
-
-  $(document).ready(function() {
-    $('#searchType').select2();
-  });
-  $(document).ready(function() {
-    $('#searchData').select2();
-  });
-</script> --}}
 
 <script>
   $(document).ready(function() {

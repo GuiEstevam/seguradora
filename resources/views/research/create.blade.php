@@ -1,12 +1,12 @@
 @extends('layouts.main')
 @section('title', 'Criar Pesquisa Unificada')
 @section('content')
-  <div id="event-create-container" class="col-md-8 offset-md-2 border">
+  <div id="search-create-container" class="col-md-8 offset-md-2 border">
     <form action="{{ route('research.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
-      <div class="form-group">
+      <div class="form-group col-md-12">
         <label for="type">Tipo de Pesquisa:</label>
-        <select name="type" id="type" class="form-control">
+        <select name="type" id="type" class="form-control form-control-lg">
           <option value="aggregated">Agregado</option>
           <option value="autonomous">Autônomo</option>
           <option value="fleet">Frota</option>
@@ -23,8 +23,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row mt-2">
         <div class="col-md-4">
           <label class="form-label" for="name">Nome</label>
           <div class="input-group">
@@ -36,6 +34,8 @@
           <input type="date" name="birthDate" class="form-control form-control-lg" value="{{ date('Y-m-d') }}"
             required />
         </div>
+      </div>
+      <div class="row mt-2">
         <div class="col-md-4">
           <label class="form-label" for="motherName">Nome da mãe</label>
           <input type="text" name="motherName" class="form-control form-control-lg">
