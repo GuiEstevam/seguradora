@@ -35,4 +35,8 @@ class QueryValue extends Model
     {
         return $this->belongsTo(Enterprise::class);
     }
+    public function queries()
+    {
+        return $this->hasMany(Query::class);
+    }
 }

@@ -96,8 +96,9 @@
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="/perfil">{{ Auth::user()->enterprise->name }}</a>
-              <a class="dropdown-item" href="/perfil">Perfil</a>
+              <a class="dropdown-item"
+                href="{{ route('enterprises.show', Auth::user()->enterprise->id) }}">{{ Auth::user()->enterprise->name }}</a>
+              <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">Perfil</a>
               <form action="/logout" method="POST">
                 @csrf
                 <a class="dropdown-item" href="/logout"

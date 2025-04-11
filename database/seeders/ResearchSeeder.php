@@ -18,7 +18,7 @@ class ResearchSeeder extends Seeder
         // Criar pesquisas do tipo 'aggregated'
         for ($i = 1; $i <= 2; $i++) {
             $query = Query::create([
-                'type' => 'Aggregate',
+                'type' => 'aggregated',
                 'status' => 'pending',
                 'enterprise_id' => 1, // Substitua pelo ID da empresa apropriada
                 'user_id' => 1, // Substitua pelo ID do usuário apropriado
@@ -88,7 +88,7 @@ class ResearchSeeder extends Seeder
         // Criar pesquisas do tipo 'autonomous'
         for ($i = 1; $i <= 2; $i++) {
             $query = Query::create([
-                'type' => 'Autonomous',
+                'type' => 'autonomous',
                 'status' => 'pending',
                 'enterprise_id' => 1, // Substitua pelo ID da empresa apropriada
                 'user_id' => 1, // Substitua pelo ID do usuário apropriado
@@ -158,7 +158,7 @@ class ResearchSeeder extends Seeder
         // Criar pesquisas do tipo 'fleet'
         for ($i = 1; $i <= 2; $i++) {
             $query = Query::create([
-                'type' => 'Fleet',
+                'type' => 'fleet',
                 'status' => 'pending',
                 'enterprise_id' => 1, // Substitua pelo ID da empresa apropriada
                 'user_id' => 1, // Substitua pelo ID do usuário apropriado

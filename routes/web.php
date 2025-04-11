@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\AggregateController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AutonomousController;
+use App\Http\Controllers\autonomousController;
 use App\Http\Controllers\DminerController;
 use App\Http\Controllers\DriverLicenseController;
 use App\Http\Controllers\EnterpriseController;
-use App\Http\Controllers\FleetController;
+use App\Http\Controllers\fleetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\QueryExportController;
@@ -14,7 +14,7 @@ use App\Http\Controllers\QueryValueCont;
 use App\Http\Controllers\QueryValueController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\VehicleController;
-use App\Models\Fleet;
+use App\Models\fleet;
 use App\Models\QueryValue;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Route;
