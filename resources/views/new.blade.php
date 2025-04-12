@@ -1,5 +1,7 @@
 @extends('layouts.main')
-@section('title', 'Avisos')
+@section('title', 'Mudanças')
+
+Oi
 @section('content')
 
 @endsection

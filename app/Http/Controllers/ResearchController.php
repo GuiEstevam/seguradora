@@ -19,25 +19,29 @@ class ResearchController extends Controller
 
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 10); // Padrão para 10
+        $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
-        $searchColumn = $request->input('search_column', 'name'); // Padrão para 'name'
-        $type = $request->input('type'); // Tipo de pesquisa (opcional)
+        $searchColumn = $request->input('search_column', 'name');
+        $type = $request->input('type');
 
-        $queries = Query::whereHas('research', function ($query) use ($search, $searchColumn, $type) {
-            if ($type) {
-                $query->where('type', $type);
-            }
-            if ($search) {
-                $query->where($searchColumn, 'like', "%{$search}%");
-            }
-        })->paginate($perPage);
+        // Consultar Queries com base no relacionamento com Research
+        $queries = Query::with('research')
+            ->whereHas('research', function ($query) use ($search, $searchColumn, $type) {
+                if ($type) {
+                    $query->where('type', $type);
+                }
+                if ($search) {
+                    $query->where("driver_data->$searchColumn", 'like', "%{$search}%")
+                        ->orWhere("vehicle_data->$searchColumn", 'like', "%{$search}%");
+                }
+            })
+            ->paginate($perPage);
 
+        // Colunas disponíveis para pesquisa
         $searchColumns = [
-            'name' => 'Nome',
             'cpf' => 'CPF',
-            'rgNumber' => 'RG',
-            'vehiclePlate01' => 'Placa do Veículo 1',
+            'name' => 'Nome',
+            'plate' => 'Placa',
         ];
 
         return view('research.index', compact('queries', 'search', 'searchColumn', 'type', 'searchColumns'));
@@ -52,7 +56,7 @@ class ResearchController extends Controller
     {
         $this->researchService->createResearch($request);
 
-        return redirect()->route('research.index')->with('success', 'Consulta criada com sucesso!');
+        return redirect()->route('research.index')->with('success', 'Pesquisa criada com sucesso!');
     }
 
     public function show($id)
@@ -61,20 +65,5 @@ class ResearchController extends Controller
         $research = $query->research;
 
         return view('research.show', compact('query', 'research'));
-    }
-
-    public function edit(Research $research)
-    {
-        //
-    }
-
-    public function update(Request $request, Research $research)
-    {
-        //
-    }
-
-    public function destroy(Research $research)
-    {
-        //
     }
 }

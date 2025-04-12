@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('queries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enterprise_id')->constrained();
-            $table->string('type');
+            $table->string('type'); // Tipo da pesquisa (individual_driver, individual_vehicle, unified)
+            $table->decimal('value', 10, 2)->nullable(); // Valor da pesquisa
             $table->string('status')->default('pending');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

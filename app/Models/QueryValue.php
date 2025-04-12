@@ -7,36 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class QueryValue extends Model
 {
-    protected $filliable = [
-        'driverLicense',
-        'veichile',
-        'face',
-        'process',
-        'description',
-        'status',
-        'deactivated_at',
-        'start_date',
-        'end_date',
-    ];
-
     use HasFactory;
 
-    protected $casts = [
-        'deactivated_at' => 'datetime',
+    protected $fillable = [
+        'enterprise_id',
+        'individual_driver_price',
+        'individual_vehicle_price',
+        'unified_price',
+        'validity_days',
+        'individual_driver_recurring',
+        'individual_vehicle_recurring',
+        'unified_recurring',
+        'description',
+        'status',
     ];
 
-    protected $dates = ['date'];
-
-    protected $guarded = [];
-
-    public $timestamps = true;
-
+    /**
+     * Relacionamento com Enterprise (se necessário).
+     */
     public function enterprise()
     {
         return $this->belongsTo(Enterprise::class);
-    }
-    public function queries()
-    {
-        return $this->hasMany(Query::class);
     }
 }

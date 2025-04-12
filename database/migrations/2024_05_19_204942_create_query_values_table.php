@@ -14,15 +14,24 @@ return new class extends Migration
         Schema::create('query_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enterprise_id')->constrained();
-            $table->decimal('driverLicense');
-            $table->decimal('veichile');
-            $table->decimal('face');
-            $table->decimal('process');
+
+            // Preços para pesquisas individuais
+            $table->decimal('individual_driver_price', 10, 2)->nullable();
+            $table->decimal('individual_vehicle_price', 10, 2)->nullable();
+
+            // Preços para pesquisas unificadas
+            $table->decimal('unified_price', 10, 2)->nullable();
+
+            // Validade das pesquisas
+            $table->integer('validity_days')->nullable();
+
+            // Campos de recorrência
+            $table->boolean('individual_driver_recurring')->default(true);
+            $table->boolean('individual_vehicle_recurring')->default(true);
+            $table->boolean('unified_recurring')->default(true);
+
             $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->timestamp('deactivated_at')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

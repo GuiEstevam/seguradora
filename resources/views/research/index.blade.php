@@ -74,16 +74,23 @@
             @foreach ($queries as $query)
               @php
                 $research = $query->research;
+                $driverData = $research->driver_data ?? [];
+                $vehicleData = $research->vehicle_data ?? [];
               @endphp
               <tr class="selectable-row" data-id="{{ $query->id }}"
                 data-edit-url="{{ route('enterprises.show', $query->id) }}">
                 <td class="text-center">{{ $query->id }}</td>
                 <td class="text-center">{{ $research ? typeFormat($research->type) : 'N/A' }}</td>
-                <td class="text-center">{{ $research ? formatCpf($research->cpf) : 'N/A' }}</td>
-                <td class="text-center">{{ $research ? $research->name : 'N/A' }}</td>
-                <td class="text-center">{{ $research ? $research->rgUf : 'N/A' }}</td>
+                <td class="text-center">
+                  {{ $driverData['cpf'] ?? ($vehicleData['plate'] ?? 'N/A') }}
+                </td>
+                <td class="text-center">
+                  {{ $driverData['name'] ?? 'N/A' }}
+                </td>
+                <td class="text-center">
+                  {{ $driverData['rgUf'] ?? ($vehicleData['uf'] ?? 'N/A') }}
+                </td>
                 <td class="text-center">{{ $query->created_at->format('d/m/Y H:i') }}</td>
-                <td class="text-center">{{ $query->user->name }}</td>
                 <td class="text-center">{!! statusBox($query->status) !!}</td>
                 <td class="text-center">
                   <a href="{{ route('research.show', $query->id) }}">

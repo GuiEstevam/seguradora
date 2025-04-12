@@ -3,226 +3,113 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Research;
-use App\Models\Query;
+use Illuminate\Support\Facades\DB;
 
 class ResearchSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        // Criar pesquisas do tipo 'aggregated'
-        for ($i = 1; $i <= 2; $i++) {
-            $query = Query::create([
-                'type' => 'aggregated',
-                'status' => 'pending',
-                'enterprise_id' => 1, // Substitua pelo ID da empresa apropriada
-                'user_id' => 1, // Substitua pelo ID do usuário apropriado
-                'value' => 100.00,
-            ]);
+        // Criar registros na tabela queries
+        $queryIds = [];
+        $queryIds[] = DB::table('queries')->insertGetId([
+            'enterprise_id' => 1,
+            'type' => 'individual_driver',
+            'value' => 50.00,
+            'status' => 'completed',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-            Research::create([
-                'type' => 'aggregated',
-                'flagProduct' => '1',
-                'codCCD' => '0',
-                'codCCT' => '0',
-                'codCCV' => '0',
-                'codCCN' => '0',
-                'codPrecification' => '1',
-                'flagSpecialAnalysis' => '0',
-                'cpf' => '12345678901',
-                'name' => 'Nome Agregado ' . $i,
-                'motherName' => 'Mãe Agregado ' . $i,
-                'birthDate' => '1990-01-01',
-                'rgNumber' => '1234567',
-                'rgUf' => 'SP',
-                'cnhRegisterNumber' => '1234567890',
-                'cnhSecurityNumber' => '1234567890',
-                'cnhUf' => 'SP',
-                'cnhBase64Document' => null,
-                'personFlagAntt' => '0',
-                'vehiclePlate01' => 'ABC1231',
-                'vehicleRenavam01' => '1234567890',
-                'vehicleUf01' => 'SP',
-                'vehicleOwnerDocument01' => '1234567890',
-                'vehiclePossesionDocument01' => '1234567890',
-                'vehicleBase64Document01' => null,
-                'vehicleRntrcNumber01' => '1234567890',
-                'vehicleFlagAntt01' => '0',
-                'dProcessOnVehicle01' => '0',
-                'vehiclePlate02' => 'ABC1232',
-                'vehicleRenavam02' => '1234567890',
-                'vehicleUf02' => 'SP',
-                'vehicleOwnerDocument02' => '1234567890',
-                'vehiclePossesionDocument02' => '1234567890',
-                'vehicleBase64Document02' => null,
-                'vehicleRntrcNumber02' => '1234567890',
-                'vehicleFlagAntt02' => '0',
-                'dProcessOnVehicle02' => '0',
-                'vehiclePlate03' => 'ABC1233',
-                'vehicleRenavam03' => '1234567890',
-                'vehicleUf03' => 'SP',
-                'vehicleOwnerDocument03' => '1234567890',
-                'vehiclePossesionDocument03' => '1234567890',
-                'vehicleBase64Document03' => null,
-                'vehicleRntrcNumber03' => '1234567890',
-                'vehicleFlagAntt03' => '0',
-                'dProcessOnVehicle03' => '0',
-                'vehiclePlate04' => 'ABC1234',
-                'vehicleRenavam04' => '1234567890',
-                'vehicleUf04' => 'SP',
-                'vehicleOwnerDocument04' => '1234567890',
-                'vehiclePossesionDocument04' => '1234567890',
-                'vehicleBase64Document04' => null,
-                'vehicleRntrcNumber04' => '1234567890',
-                'vehicleFlagAntt04' => '0',
-                'dProcessOnVehicle04' => '0',
-                'query_id' => $query->id,
-            ]);
-        }
+        $queryIds[] = DB::table('queries')->insertGetId([
+            'enterprise_id' => 1,
+            'type' => 'individual_vehicle',
+            'value' => 75.00,
+            'status' => 'completed',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-        // Criar pesquisas do tipo 'autonomous'
-        for ($i = 1; $i <= 2; $i++) {
-            $query = Query::create([
-                'type' => 'autonomous',
-                'status' => 'pending',
-                'enterprise_id' => 1, // Substitua pelo ID da empresa apropriada
-                'user_id' => 1, // Substitua pelo ID do usuário apropriado
-                'value' => 100.00,
-            ]);
+        $queryIds[] = DB::table('queries')->insertGetId([
+            'enterprise_id' => 1,
+            'type' => 'unified',
+            'value' => 100.00,
+            'status' => 'pending',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-            Research::create([
-                'type' => 'autonomous',
-                'flagProduct' => '1',
-                'codCCD' => '0',
-                'codCCT' => '0',
-                'codCCV' => '0',
-                'codCCN' => '0',
-                'codPrecification' => '1',
-                'flagSpecialAnalysis' => '0',
-                'cpf' => '12345678901',
-                'name' => 'Nome Autônomo ' . $i,
-                'motherName' => 'Mãe Autônomo ' . $i,
-                'birthDate' => '1990-01-01',
-                'rgNumber' => '1234567',
-                'rgUf' => 'SP',
-                'cnhRegisterNumber' => '1234567890',
-                'cnhSecurityNumber' => '1234567890',
-                'cnhUf' => 'SP',
-                'cnhBase64Document' => null,
-                'personFlagAntt' => '0',
-                'vehiclePlate01' => 'DEF4561',
-                'vehicleRenavam01' => '1234567890',
-                'vehicleUf01' => 'SP',
-                'vehicleOwnerDocument01' => '1234567890',
-                'vehiclePossesionDocument01' => '1234567890',
-                'vehicleBase64Document01' => null,
-                'vehicleRntrcNumber01' => '1234567890',
-                'vehicleFlagAntt01' => '0',
-                'dProcessOnVehicle01' => '0',
-                'vehiclePlate02' => 'DEF4562',
-                'vehicleRenavam02' => '1234567890',
-                'vehicleUf02' => 'SP',
-                'vehicleOwnerDocument02' => '1234567890',
-                'vehiclePossesionDocument02' => '1234567890',
-                'vehicleBase64Document02' => null,
-                'vehicleRntrcNumber02' => '1234567890',
-                'vehicleFlagAntt02' => '0',
-                'dProcessOnVehicle02' => '0',
-                'vehiclePlate03' => 'DEF4563',
-                'vehicleRenavam03' => '1234567890',
-                'vehicleUf03' => 'SP',
-                'vehicleOwnerDocument03' => '1234567890',
-                'vehiclePossesionDocument03' => '1234567890',
-                'vehicleBase64Document03' => null,
-                'vehicleRntrcNumber03' => '1234567890',
-                'vehicleFlagAntt03' => '0',
-                'dProcessOnVehicle03' => '0',
-                'vehiclePlate04' => 'DEF4564',
-                'vehicleRenavam04' => '1234567890',
-                'vehicleUf04' => 'SP',
-                'vehicleOwnerDocument04' => '1234567890',
-                'vehiclePossesionDocument04' => '1234567890',
-                'vehicleBase64Document04' => null,
-                'vehicleRntrcNumber04' => '1234567890',
-                'vehicleFlagAntt04' => '0',
-                'dProcessOnVehicle04' => '0',
-                'query_id' => $query->id,
-            ]);
-        }
-
-        // Criar pesquisas do tipo 'fleet'
-        for ($i = 1; $i <= 2; $i++) {
-            $query = Query::create([
-                'type' => 'fleet',
-                'status' => 'pending',
-                'enterprise_id' => 1, // Substitua pelo ID da empresa apropriada
-                'user_id' => 1, // Substitua pelo ID do usuário apropriado
-                'value' => 100.00,
-            ]);
-
-            Research::create([
-                'type' => 'fleet',
-                'flagProduct' => '1',
-                'codCCD' => '0',
-                'codCCT' => '0',
-                'codCCV' => '0',
-                'codCCN' => '0',
-                'codPrecification' => '1',
-                'flagSpecialAnalysis' => '0',
-                'cpf' => '12345678901',
-                'name' => 'Nome Frota ' . $i,
-                'motherName' => 'Mãe Frota ' . $i,
-                'birthDate' => '1990-01-01',
-                'rgNumber' => '1234567',
-                'rgUf' => 'SP',
-                'cnhRegisterNumber' => '1234567890',
-                'cnhSecurityNumber' => '1234567890',
-                'cnhUf' => 'SP',
-                'cnhBase64Document' => null,
-                'personFlagAntt' => '0',
-                'vehiclePlate01' => 'GHI7891',
-                'vehicleRenavam01' => '1234567890',
-                'vehicleUf01' => 'SP',
-                'vehicleOwnerDocument01' => '1234567890',
-                'vehiclePossesionDocument01' => '1234567890',
-                'vehicleBase64Document01' => null,
-                'vehicleRntrcNumber01' => '1234567890',
-                'vehicleFlagAntt01' => '0',
-                'dProcessOnVehicle01' => '0',
-                'vehiclePlate02' => 'GHI7892',
-                'vehicleRenavam02' => '1234567890',
-                'vehicleUf02' => 'SP',
-                'vehicleOwnerDocument02' => '1234567890',
-                'vehiclePossesionDocument02' => '1234567890',
-                'vehicleBase64Document02' => null,
-                'vehicleRntrcNumber02' => '1234567890',
-                'vehicleFlagAntt02' => '0',
-                'dProcessOnVehicle02' => '0',
-                'vehiclePlate03' => 'GHI7893',
-                'vehicleRenavam03' => '1234567890',
-                'vehicleUf03' => 'SP',
-                'vehicleOwnerDocument03' => '1234567890',
-                'vehiclePossesionDocument03' => '1234567890',
-                'vehicleBase64Document03' => null,
-                'vehicleRntrcNumber03' => '1234567890',
-                'vehicleFlagAntt03' => '0',
-                'dProcessOnVehicle03' => '0',
-                'vehiclePlate04' => 'GHI7894',
-                'vehicleRenavam04' => '1234567890',
-                'vehicleUf04' => 'SP',
-                'vehicleOwnerDocument04' => '1234567890',
-                'vehiclePossesionDocument04' => '1234567890',
-                'vehicleBase64Document04' => null,
-                'vehicleRntrcNumber04' => '1234567890',
-                'vehicleFlagAntt04' => '0',
-                'dProcessOnVehicle04' => '0',
-                'query_id' => $query->id,
-            ]);
-        }
+        // Criar registros na tabela researches
+        DB::table('researches')->insert([
+            [
+                'type' => 'individual_driver',
+                'driver_data' => json_encode([
+                    'cpf' => '12345678901',
+                    'name' => 'João Silva',
+                    'birthDate' => '1990-01-01',
+                    'rgNumber' => '12345678',
+                    'rgUf' => 'SP',
+                    'cnhRegisterNumber' => '987654321',
+                    'cnhSecurityNumber' => '123456',
+                    'cnhUf' => 'SP',
+                    'infractions' => [
+                        ['code' => '001', 'date' => '2025-01-01', 'points' => 5, 'description' => 'Excesso de velocidade'],
+                        ['code' => '002', 'date' => '2025-02-15', 'points' => 3, 'description' => 'Avanço de sinal vermelho'],
+                    ],
+                    'suspensions' => [
+                        ['reason' => 'Excesso de pontos', 'start_date' => '2025-03-01', 'end_date' => '2025-06-01'],
+                    ],
+                ]),
+                'vehicle_data' => null,
+                'query_id' => $queryIds[0], // Associar ao primeiro registro em queries
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'individual_vehicle',
+                'driver_data' => null,
+                'vehicle_data' => json_encode([
+                    'plate' => 'ABC1234',
+                    'renavam' => '987654321',
+                    'uf' => 'RJ',
+                    'restrictions' => [
+                        ['type' => 'Renajud', 'start_date' => '2025-01-01', 'status' => 'Ativa'],
+                        ['type' => 'Alienação', 'start_date' => '2024-12-01', 'status' => 'Resolvida'],
+                    ],
+                ]),
+                'query_id' => $queryIds[1], // Associar ao segundo registro em queries
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'unified',
+                'driver_data' => json_encode([
+                    'cpf' => '98765432100',
+                    'name' => 'Maria Oliveira',
+                    'birthDate' => '1985-05-15',
+                    'rgNumber' => '87654321',
+                    'rgUf' => 'MG',
+                    'cnhRegisterNumber' => '123456789',
+                    'cnhSecurityNumber' => '654321',
+                    'cnhUf' => 'MG',
+                    'infractions' => [
+                        ['code' => '003', 'date' => '2025-04-10', 'points' => 7, 'description' => 'Dirigir sob efeito de álcool'],
+                    ],
+                    'suspensions' => [
+                        ['reason' => 'Dirigir embriagado', 'start_date' => '2025-05-01', 'end_date' => '2025-10-01'],
+                    ],
+                ]),
+                'vehicle_data' => json_encode([
+                    'plate' => 'XYZ9876',
+                    'renavam' => '123456789',
+                    'uf' => 'SP',
+                    'restrictions' => [
+                        ['type' => 'Renajud', 'start_date' => '2025-02-01', 'status' => 'Ativa'],
+                    ],
+                ]),
+                'query_id' => $queryIds[2], // Associar ao terceiro registro em queries
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }
