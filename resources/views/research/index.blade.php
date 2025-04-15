@@ -3,7 +3,7 @@
 @section('title', 'Pesquisa unificada')
 
 @section('content')
-  <div id="search-create-container" class="col-md-8 offset-md-2 border">
+  <div id="search-create-container" class="col-md-12 border">
     <div class="row mb-3">
       <div class="col d-flex justify-content-start">
         <form method="GET" action="{{ route('export.queries') }}">
@@ -55,69 +55,32 @@
       </form>
     </div>
     @if ($queries->count())
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="text-center">ID</th>
-              <th class="text-center">Tipo</th>
-              <th class="text-center">Parâmetro</th>
-              <th class="text-center">Nome</th>
-              <th class="text-center">UF</th>
-              <th class="text-center">Data solicitação</th>
-              <th class="text-center">Consultante</th>
-              <th class="text-center">Status</th>
-              <th class="text-center"></th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($queries as $query)
-              @php
-                $research = $query->research;
-                $driverData = $research->driver_data ?? [];
-                $vehicleData = $research->vehicle_data ?? [];
-              @endphp
-              <tr class="selectable-row" data-id="{{ $query->id }}"
-                data-edit-url="{{ route('enterprises.show', $query->id) }}">
-                <td class="text-center">{{ $query->id }}</td>
-                <td class="text-center">{{ $research ? typeFormat($research->type) : 'N/A' }}</td>
-                <td class="text-center">
-                  {{ $driverData['cpf'] ?? ($vehicleData['plate'] ?? 'N/A') }}
-                </td>
-                <td class="text-center">
-                  {{ $driverData['name'] ?? 'N/A' }}
-                </td>
-                <td class="text-center">
-                  {{ $driverData['rgUf'] ?? ($vehicleData['uf'] ?? 'N/A') }}
-                </td>
-                <td class="text-center">{{ $query->created_at->format('d/m/Y H:i') }}</td>
-                <td class="text-center">{!! statusBox($query->status) !!}</td>
-                <td class="text-center">
-                  <a href="{{ route('research.show', $query->id) }}">
-                    <ion-icon name="search-outline" class="status-icon"></ion-icon>
-                  </a>
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+      <div id="cards-container" class="row">
+        @foreach ($queries as $query)
+          @php
+            $research = $query->research;
+            $driverData = $research->driver_data ?? [];
+            $vehicleData = $research->vehicle_data ?? [];
+          @endphp
+          <div class="card col-md-3 mb-3">
+            <div class="card-body">
+              <h5 class="card-title">ID: {{ $query->id }}</h5>
+              <p><strong>Subtipo:</strong>
+                {{ $research->subtype ? typeFormat($research->type, $research->subtype) : 'N/A' }}</p>
+              <p><strong>Parâmetro:</strong> {{ $driverData['cpf'] ?? ($vehicleData['plate'] ?? 'N/A') }}</p>
+              <p><strong>Nome:</strong> {{ $driverData['name'] ?? 'N/A' }}</p>
+              <p><strong>UF:</strong> {{ $driverData['rgUf'] ?? ($vehicleData['uf'] ?? 'N/A') }}</p>
+              <p><strong>Data:</strong> {{ $query->created_at->format('d/m/Y H:i') }}</p>
+              <p><strong>Status:</strong> {!! statusBox($query->status) !!}</p>
+              <a href="{{ route('research.show', $query->id) }}" class="btn btn-primary">
+                <ion-icon name="search-outline" class="status-icon"></ion-icon> Ver Detalhes
+              </a>
+            </div>
+          </div>
+        @endforeach
       </div>
       {{ $queries->appends(['per_page' => request('per_page', 10), 'search_column' => request('search_column'), 'search' => request('search'), 'type' => request('type')])->links('vendor.pagination.bootstrap-5') }}
     @endif
-    <div class="row mb-3">
-      <div class="col d-flex justify-content-end">
-        <form method="GET" action="{{ route('research.index') }}">
-          <label for="per_page">Registros por página:</label>
-          <select name="per_page" id="per_page" onchange="this.form.submit()">
-            <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
-            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
-            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
-            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
-            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
-          </select>
-        </form>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -127,7 +90,6 @@
       document.getElementById('searchColumnDropdown').innerText = columnText;
     }
 
-    // Definir o texto do botão dropdown com base no valor atual do campo oculto
     document.addEventListener('DOMContentLoaded', function() {
       const currentColumn = document.getElementById('search_column').value;
       if (currentColumn) {
@@ -135,34 +97,6 @@
           .innerText;
         document.getElementById('searchColumnDropdown').innerText = columnText;
       }
-    });
-
-    // Função para realizar a pesquisa via AJAX
-    function search() {
-      const searchColumn = document.getElementById('search_column').value;
-      const searchValue = document.querySelector('input[name="search"]').value;
-      const perPage = document.getElementById('per_page').value;
-
-      const url = new URL(window.location.href);
-      url.searchParams.set('search_column', searchColumn);
-      url.searchParams.set('search', searchValue);
-      url.searchParams.set('per_page', perPage);
-
-      fetch(url)
-        .then(response => response.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const newContent = doc.querySelector('#search-create-container').innerHTML;
-          document.querySelector('#search-create-container').innerHTML = newContent;
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    // Adicionar evento de submit ao formulário para usar AJAX
-    document.querySelector('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      search();
     });
   </script>
 @endsection

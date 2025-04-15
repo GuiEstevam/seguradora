@@ -12,6 +12,7 @@ class Query extends Model
     protected $fillable = [
         'enterprise_id',
         'type',
+        'subtype',
         'value',
         'status',
     ];

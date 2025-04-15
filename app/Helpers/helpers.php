@@ -71,16 +71,26 @@ function formatRg($rg)
 }
 
 if (!function_exists('typeFormat')) {
-    function typeFormat($type)
+    function typeFormat($type, $subtype = null)
     {
         $typeMap = [
+            'individual' => 'Individual',
+            'unified' => 'Unificada',
+        ];
+
+        $subtypeMap = [
+            'driver' => 'Motorista',
+            'vehicle' => 'Veículo',
             'aggregated' => 'Agregado',
             'autonomous' => 'Autônomo',
             'fleet' => 'Frota',
-            'vehicle' => 'Veículo',
-            'individual' => 'driverLicense',
         ];
 
-        return $typeMap[$type] ?? $type;
+        $formattedType = $typeMap[$type] ?? $type;
+        if ($subtype) {
+            $formattedType .= ' (' . ($subtypeMap[$subtype] ?? $subtype) . ')';
+        }
+
+        return $formattedType;
     }
 }

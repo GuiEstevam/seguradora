@@ -13,6 +13,7 @@ class Research extends Model
 
     protected $fillable = [
         'type',
+        'subtype',
         'driver_data',
         'vehicle_data',
         'query_id',

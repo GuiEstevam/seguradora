@@ -13,18 +13,20 @@ class ResearchSeeder extends Seeder
         $queryIds = [];
         $queryIds[] = DB::table('queries')->insertGetId([
             'enterprise_id' => 1,
-            'type' => 'individual_driver',
+            'type' => 'individual',
+            'subtype' => 'driver', // Subtipo adicionado
             'value' => 50.00,
-            'status' => 'completed',
+            'status' => 'approved',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         $queryIds[] = DB::table('queries')->insertGetId([
             'enterprise_id' => 1,
-            'type' => 'individual_vehicle',
+            'type' => 'individual',
+            'subtype' => 'vehicle', // Subtipo adicionado
             'value' => 75.00,
-            'status' => 'completed',
+            'status' => 'pending',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -32,7 +34,28 @@ class ResearchSeeder extends Seeder
         $queryIds[] = DB::table('queries')->insertGetId([
             'enterprise_id' => 1,
             'type' => 'unified',
+            'subtype' => 'aggregated', // Subtipo adicionado
             'value' => 100.00,
+            'status' => 'denied',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $queryIds[] = DB::table('queries')->insertGetId([
+            'enterprise_id' => 1,
+            'type' => 'unified',
+            'subtype' => 'autonomous', // Subtipo adicionado
+            'value' => 120.00,
+            'status' => 'approved',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $queryIds[] = DB::table('queries')->insertGetId([
+            'enterprise_id' => 1,
+            'type' => 'unified',
+            'subtype' => 'fleet', // Subtipo adicionado
+            'value' => 150.00,
             'status' => 'pending',
             'created_at' => now(),
             'updated_at' => now(),
@@ -41,72 +64,75 @@ class ResearchSeeder extends Seeder
         // Criar registros na tabela researches
         DB::table('researches')->insert([
             [
-                'type' => 'individual_driver',
+                'type' => 'individual',
+                'subtype' => 'driver',
                 'driver_data' => json_encode([
                     'cpf' => '12345678901',
                     'name' => 'João Silva',
                     'birthDate' => '1990-01-01',
-                    'rgNumber' => '12345678',
-                    'rgUf' => 'SP',
-                    'cnhRegisterNumber' => '987654321',
-                    'cnhSecurityNumber' => '123456',
-                    'cnhUf' => 'SP',
-                    'infractions' => [
-                        ['code' => '001', 'date' => '2025-01-01', 'points' => 5, 'description' => 'Excesso de velocidade'],
-                        ['code' => '002', 'date' => '2025-02-15', 'points' => 3, 'description' => 'Avanço de sinal vermelho'],
-                    ],
-                    'suspensions' => [
-                        ['reason' => 'Excesso de pontos', 'start_date' => '2025-03-01', 'end_date' => '2025-06-01'],
-                    ],
                 ]),
                 'vehicle_data' => null,
-                'query_id' => $queryIds[0], // Associar ao primeiro registro em queries
+                'query_id' => $queryIds[0],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'type' => 'individual_vehicle',
+                'type' => 'individual',
+                'subtype' => 'vehicle',
                 'driver_data' => null,
                 'vehicle_data' => json_encode([
                     'plate' => 'ABC1234',
                     'renavam' => '987654321',
-                    'uf' => 'RJ',
-                    'restrictions' => [
-                        ['type' => 'Renajud', 'start_date' => '2025-01-01', 'status' => 'Ativa'],
-                        ['type' => 'Alienação', 'start_date' => '2024-12-01', 'status' => 'Resolvida'],
-                    ],
                 ]),
-                'query_id' => $queryIds[1], // Associar ao segundo registro em queries
+                'query_id' => $queryIds[1],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'type' => 'unified',
+                'subtype' => 'aggregated',
                 'driver_data' => json_encode([
                     'cpf' => '98765432100',
                     'name' => 'Maria Oliveira',
                     'birthDate' => '1985-05-15',
-                    'rgNumber' => '87654321',
-                    'rgUf' => 'MG',
-                    'cnhRegisterNumber' => '123456789',
-                    'cnhSecurityNumber' => '654321',
-                    'cnhUf' => 'MG',
-                    'infractions' => [
-                        ['code' => '003', 'date' => '2025-04-10', 'points' => 7, 'description' => 'Dirigir sob efeito de álcool'],
-                    ],
-                    'suspensions' => [
-                        ['reason' => 'Dirigir embriagado', 'start_date' => '2025-05-01', 'end_date' => '2025-10-01'],
-                    ],
                 ]),
                 'vehicle_data' => json_encode([
                     'plate' => 'XYZ9876',
                     'renavam' => '123456789',
-                    'uf' => 'SP',
-                    'restrictions' => [
-                        ['type' => 'Renajud', 'start_date' => '2025-02-01', 'status' => 'Ativa'],
-                    ],
                 ]),
-                'query_id' => $queryIds[2], // Associar ao terceiro registro em queries
+                'query_id' => $queryIds[2],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'unified',
+                'subtype' => 'autonomous',
+                'driver_data' => json_encode([
+                    'cpf' => '45678912300',
+                    'name' => 'Carlos Souza',
+                    'birthDate' => '1980-03-10',
+                ]),
+                'vehicle_data' => json_encode([
+                    'plate' => 'DEF5678',
+                    'renavam' => '654321987',
+                ]),
+                'query_id' => $queryIds[3],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'unified',
+                'subtype' => 'fleet',
+                'driver_data' => json_encode([
+                    'cpf' => '78912345600',
+                    'name' => 'Ana Paula',
+                    'birthDate' => '1995-07-20',
+                ]),
+                'vehicle_data' => json_encode([
+                    'plate' => 'GHI3456',
+                    'renavam' => '321654987',
+                ]),
+                'query_id' => $queryIds[4],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

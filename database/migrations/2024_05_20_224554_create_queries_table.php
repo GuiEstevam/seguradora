@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('enterprise_id')->constrained();
             $table->string('type'); // Tipo da pesquisa (individual_driver, individual_vehicle, unified)
+            $table->string('subtype')->nullable(); // Subtipo da pesquisa (driver, vehicle)
             $table->decimal('value', 10, 2)->nullable(); // Valor da pesquisa
             $table->string('status')->default('pending');
             $table->timestamps();
