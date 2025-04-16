@@ -62,20 +62,23 @@
             $driverData = $research->driver_data ?? [];
             $vehicleData = $research->vehicle_data ?? [];
           @endphp
-          <div class="card col-md-3 mb-3">
-            <div class="card-body">
-              <h5 class="card-title">ID: {{ $query->id }}</h5>
-              <p><strong>Subtipo:</strong>
-                {{ $research->subtype ? typeFormat($research->type, $research->subtype) : 'N/A' }}</p>
-              <p><strong>Parâmetro:</strong> {{ $driverData['cpf'] ?? ($vehicleData['plate'] ?? 'N/A') }}</p>
-              <p><strong>Nome:</strong> {{ $driverData['name'] ?? 'N/A' }}</p>
-              <p><strong>UF:</strong> {{ $driverData['rgUf'] ?? ($vehicleData['uf'] ?? 'N/A') }}</p>
-              <p><strong>Data:</strong> {{ $query->created_at->format('d/m/Y H:i') }}</p>
-              <p><strong>Status:</strong> {!! statusBox($query->status) !!}</p>
-              <a href="{{ route('research.show', $query->id) }}" class="btn btn-primary">
-                <ion-icon name="search-outline" class="status-icon"></ion-icon> Ver Detalhes
-              </a>
-            </div>
+          <div class="col-md-3 col-lg-3 mb-3">
+            <a href="{{ route('research.show', $query->id) }}" class="card-link">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">ID: {{ $query->id }}</h5>
+                  <p><strong>Tipo:</strong>
+                    {{ $research->subtype ? typeFormat($research->type, $research->subtype) : 'N/A' }}</p>
+                  <p><strong>Parâmetro:</strong> {{ $driverData['cpf'] ?? ($vehicleData['plate'] ?? 'N/A') }}</p>
+                  <p><strong>Nome:</strong> {{ $driverData['name'] ?? 'N/A' }}</p>
+                  <p><strong>UF:</strong> {{ $driverData['rgUf'] ?? ($vehicleData['uf'] ?? 'N/A') }}</p>
+                  <p><strong>Data:</strong> {{ $query->created_at->format('d/m/Y H:i') }}</p>
+                </div>
+                <div class="card-footer status-footer {{ strtolower($query->status) }}">
+                  {!! statusBox($query->status) !!}
+                </div>
+              </div>
+            </a>
           </div>
         @endforeach
       </div>

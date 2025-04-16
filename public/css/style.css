@@ -243,7 +243,7 @@ footer p {
 }
 
 /* Status Box */
-.status-box {
+/* .status-box {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -276,7 +276,7 @@ footer p {
     font-size: 2em;
     font-weight: bold;
     color: #000;
-}
+} */
 
 /* Modal */
 .modal-content {
@@ -300,55 +300,103 @@ footer p {
     border-color: #0056b3;
 }
 
+/* Ajuste para o contêiner dos cards */
 #cards-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+    gap: 0rem; /* Espaçamento entre os cards */
+    justify-content: flex-start; /* Alinha os cards à esquerda */
+    padding: 0rem; /* Espaçamento interno do contêiner */
 }
 
+/* Ajuste para o link do card ocupar toda a área */
+.card-link {
+    display: block; /* Garante que o link seja tratado como um bloco */
+    text-decoration: none; /* Remove sublinhado do link */
+    color: inherit; /* Herda a cor do texto do card */
+}
+
+/* Cards com tamanho fixo */
 .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui o conteúdo verticalmente */
+    width: 100%; /* Garante que o card ocupe toda a largura da coluna */
+    height: 350px; /* Altura fixa */
     background-color: var(--search-create-container-bg-color);
     border: 1px solid var(--primary-border-color);
     border-radius: var(--search-create-container-border-radius);
     box-shadow: var(--search-create-container-box-shadow);
-    padding: 1rem;
-    width: 100%;
-    max-width: 300px;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden; /* Garante que o conteúdo não ultrapasse o card */
 }
 
+/* Efeito de hover */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
-}
-
+/* Truncar texto longo */
+.card-title,
 .card p {
-    margin: 0.2rem 0;
-    font-size: 0.9rem;
-    color: var(--primary-color-hover);
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden; /* Esconde o texto que ultrapassa o limite */
+    text-overflow: ellipsis; /* Adiciona "..." ao final do texto longo */
+    width: 100%; /* Garante que o truncamento funcione */
+    text-align: left; /* Centraliza o texto */
 }
 
+/* Botão dentro do card */
 .card .btn {
-    margin-top: 1rem;
+    margin-top: auto; /* Empurra o botão para o final do card */
     font-size: 0.9rem;
     background-color: var(--info-color);
     border: 1px solid var(--info-border-color);
     color: #fff;
+    width: 100%; /* Faz o botão ocupar toda a largura do card */
+    text-align: center;
 }
 
 .card .btn:hover {
     background-color: var(--info-color-hover);
     border-color: var(--info-border-color-hover);
+}
+
+/* Footer do card para status */
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    width: 100%;
+    border-top: 1px solid var(--primary-border-color);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
+
+/* Estilos específicos para cada status */
+.card-footer.approved {
+    background-color: #c8e6c9;
+    color: #388e3c; /* Verde para aprovado */
+}
+
+.card-footer.pending {
+    background-color: #ffecb3;
+    color: #8d6e63;
+}
+
+.card-footer.denied {
+    background-color: #ffcdd2;
+    color: #d32f2f;
+}
+
+/* Ajuste para o ícone no footer */
+.card-footer ion-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
 }
 
 /* Modo Escuro */
@@ -604,5 +652,30 @@ footer p {
     #cards-container .card .btn:hover {
         background-color: var(--dark-info-hover-bg-color);
         border-color: var(--dark-info-hover-border-color);
+    }
+
+    .card-footer {
+        background-color: var(--dark-search-create-container-bg-color);
+        border-top: 1px solid var(--dark-search-create-container-border-color);
+        color: var(--dark-primary-color);
+    }
+
+    .card-footer.approved {
+        background-color: var(--dark-status-box-approved-bg-color);
+        color: var(--dark-status-box-approved-text-color); /* Verde claro */
+    }
+
+    .card-footer.pending {
+        background-color: var(--dark-status-box-pending-bg-color);
+        color: var(--dark-status-box-pending-text-color); /* Amarelo claro */
+    }
+
+    .card-footer.denied {
+        background-color: var(--dark-status-box-denied-bg-color);
+        color: var(--dark-status-box-denied-text-color); /* Vermelho claro */
+    }
+
+    .card-footer ion-icon {
+        color: var(--dark-status-icon-color);
     }
 }
